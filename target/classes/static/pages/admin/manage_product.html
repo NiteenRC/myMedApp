@@ -1,0 +1,30 @@
+
+<div>
+	<button type="button" data-ng-click="openProductModal()"
+		class="btn-info">Add Product</button>
+</div>
+<br>
+<div>
+	<table class="table table-bordered table-striped">
+		<thead>
+			<tr>
+				<th>Product Image</th>
+				<th>Product Name</th>
+				<th>Product Desc</th>
+				<th>Price</th>
+				<th>Action</th>
+			</tr>
+		</thead>
+		<tr data-ng-repeat="item in products">
+			<td><img data-ng-src="data:image/png;base64,{{item.image}}"
+				style="width: 50px; height: 50px;"></td>
+			<td>{{item.productName}}</td>
+			<td>{{tem.category.categoryName}}</td>
+			<td>{{item.price}}</td>
+			<td><button data-ng-click="removeProduct(item.productID)">X</button></td>
+		</tr>
+	</table>
+	<p align="center" data-ng-show="products.length==0">--No Data--</p>
+</div>
+
+<button onclick="window.location.href='#home'">Back to Home</button>
