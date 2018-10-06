@@ -148,7 +148,7 @@ public class ProductController {
 	}
 
 	@RequestMapping(value = PRODUCTS, method = RequestMethod.GET)
-	public ResponseEntity<List<Category>> getProductsForAllCategories() {
-		return new ResponseEntity<>(categoryRepo.findAll(), HttpStatus.OK);
+	public ResponseEntity<List<Product>> getProductsForAllCategories() {
+		return new ResponseEntity<>(productRepo.findAll(), HttpStatus.OK);
 	}
 }

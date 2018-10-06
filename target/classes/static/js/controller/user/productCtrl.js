@@ -6,17 +6,16 @@ function productController($scope, $uibModal, sharedService,$location) {
 	'use strict';
 
 	var productUrl = "/product/";
+	var productsUrl = "/products/";
 	var productByNameUrl = "/product/byName/";
 	var PRODUCT_BY_CATEGORY_ID = "/product/category/"
 
-	$scope.products =	sharedService.get('products');
+	$scope.products = fetchAllProducts();
 	$scope.getCategoryID=sharedService.get('categoryID');
 
 	$scope.searchByProductName = searchByProductName;
-	$scope.selectProduct = selectProduct;
 	$scope.getProductsBySorting = getProductsBySorting;
-	$scope.calculateRating = calculateRating;
-	
+
 	$scope.sortDirection="MR";
 
 	$scope.productSort = [ {
@@ -60,17 +59,16 @@ function productController($scope, $uibModal, sharedService,$location) {
 				});
 	}
 
-	function selectProduct(productID) {
-		sharedService.getMethod(productUrl + productID).then(
-				function(response) {
-					$location.path('/productSelected');
-					sharedService.store('productItem', response.data);
-				}, function(error) {
-					$scope.errorMessage = 'Error while getting: ' + error;
-					$scope.successMessage = '';
-				});
-	}
-	
+	function fetchAllProducts(){
+    		sharedService.getAllMethod(productsUrl).then(
+    				function(response) {
+    					$scope.products = response.data;
+    				}, function(error) {
+    					$scope.errorMessage = 'Some thing went wrong' + error;
+    					$scope.successMessage = '';
+    				});
+    	}
+
 	function getProductsBySorting(sortDirection) {
 		$scope.sortDirection=sortDirection;
 		
@@ -78,20 +76,5 @@ function productController($scope, $uibModal, sharedService,$location) {
 			 return fetchProductsByCategoryID(); 
 		 }
 		 fetchProductsByCategoryIDAndProductName();
-	}
-
-	function calculateRating(rating) {
-		var newVal = 0;
-		angular.forEach(rating, function(oldVal) {
-			if (sharedService.isDefinedOrNotNull(oldVal.star)) {
-				newVal = newVal + parseInt(oldVal.star);
-			}
-		});
-		if(newVal===0 || rating.lenth==0){
-			return 0;
-		}	
-		else{
-		return Math.round(((newVal / rating.length)*100)/100)
-		}
 	}
 }

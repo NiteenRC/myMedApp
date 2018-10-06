@@ -8,15 +8,9 @@ angular.module('myCart').config(function($routeProvider) {
 	}).when('/forgetPassword', {
 		templateUrl : 'pages/user/forgetPassword.html',
 		controller : 'forgetPasswordController'
-	}).when('/category', {
-		templateUrl : 'pages/user/category.html',
-		controller : 'categoryController'
 	}).when('/productList', {
 		templateUrl : 'pages/user/productList.html',
 		controller : 'productController'
-	}).when('/productSelected', {
-		templateUrl : 'pages/user/productSelected.html',
-		controller : 'productSelectController'
 	}).when('/cart', {
 		templateUrl : 'pages/user/cart.html',
 		controller : 'cartController'
