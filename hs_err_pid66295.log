@@ -1,0 +1,896 @@
+#
+# There is insufficient memory for the Java Runtime Environment to continue.
+# Native memory allocation (mmap) failed to map 98041856 bytes for committing reserved memory.
+# Possible reasons:
+#   The system is out of physical RAM or swap space
+#   In 32 bit mode, the process size limit was hit
+# Possible solutions:
+#   Reduce memory load on the system
+#   Increase physical memory or swap space
+#   Check if swap backing store is full
+#   Use 64 bit Java on a 64 bit OS
+#   Decrease Java heap size (-Xmx/-Xms)
+#   Decrease number of Java threads
+#   Decrease Java thread stack sizes (-Xss)
+#   Set larger code cache with -XX:ReservedCodeCacheSize=
+# This output file may be truncated or incomplete.
+#
+#  Out of Memory Error (os_linux.cpp:2627), pid=66295, tid=0x00007fc837fff700
+#
+# JRE version: Java(TM) SE Runtime Environment (8.0_121-b13) (build 1.8.0_121-b13)
+# Java VM: Java HotSpot(TM) 64-Bit Server VM (25.121-b13 mixed mode linux-amd64 compressed oops)
+# Failed to write core dump. Core dumps have been disabled. To enable core dumping, try "ulimit -c unlimited" before starting Java again
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x00007fc870086000):  VMThread [stack: 0x00007fc837eff000,0x00007fc838000000] [id=66311]
+
+Stack: [0x00007fc837eff000,0x00007fc838000000],  sp=0x00007fc837ffdfa0,  free space=1019k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+V  [libjvm.so+0xac703a]  VMError::report_and_die()+0x2ba
+V  [libjvm.so+0x4fc7eb]  report_vm_out_of_memory(char const*, int, unsigned long, VMErrorType, char const*)+0x8b
+V  [libjvm.so+0x923c43]  os::Linux::commit_memory_impl(char*, unsigned long, bool)+0x103
+V  [libjvm.so+0x924199]  os::pd_commit_memory(char*, unsigned long, unsigned long, bool)+0x29
+V  [libjvm.so+0x91e4aa]  os::commit_memory(char*, unsigned long, unsigned long, bool)+0x2a
+V  [libjvm.so+0x992f03]  PSVirtualSpace::expand_by(unsigned long)+0x53
+V  [libjvm.so+0x994308]  PSYoungGen::resize_generation(unsigned long, unsigned long)+0xf8
+V  [libjvm.so+0x993462]  PSYoungGen::resize(unsigned long, unsigned long)+0x22
+V  [libjvm.so+0x99073b]  PSScavenge::invoke_no_policy()+0xf3b
+V  [libjvm.so+0x990ec1]  PSScavenge::invoke()+0x41
+V  [libjvm.so+0x947c10]  ParallelScavengeHeap::failed_mem_allocate(unsigned long)+0x70
+V  [libjvm.so+0xac8a57]  VM_ParallelGCFailedAllocation::doit()+0x97
+V  [libjvm.so+0xad0535]  VM_Operation::evaluate()+0x55
+V  [libjvm.so+0xace90a]  VMThread::evaluate_operation(VM_Operation*)+0xba
+V  [libjvm.so+0xacec8e]  VMThread::loop()+0x1ce
+V  [libjvm.so+0xacf100]  VMThread::run()+0x70
+V  [libjvm.so+0x926268]  java_start(Thread*)+0x108
+
+VM_Operation (0x00007fc8784f8160): ParallelGCFailedAllocation, mode: safepoint, requested by thread 0x00007fc870010000
+
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+  0x00007fc8706d0000 JavaThread "ReaderThread" [_thread_in_native, id=66321, stack(0x00007fc8367ee000,0x00007fc8368ef000)]
+  0x00007fc8700d0800 JavaThread "Service Thread" daemon [_thread_blocked, id=66319, stack(0x00007fc83741f000,0x00007fc837520000)]
+  0x00007fc8700cd800 JavaThread "C1 CompilerThread3" daemon [_thread_blocked, id=66318, stack(0x00007fc837520000,0x00007fc837621000)]
+  0x00007fc8700cb000 JavaThread "C2 CompilerThread2" daemon [_thread_blocked, id=66317, stack(0x00007fc837621000,0x00007fc837722000)]
+  0x00007fc8700c9800 JavaThread "C2 CompilerThread1" daemon [_thread_blocked, id=66316, stack(0x00007fc837722000,0x00007fc837823000)]
+  0x00007fc8700c6800 JavaThread "C2 CompilerThread0" daemon [_thread_blocked, id=66315, stack(0x00007fc837823000,0x00007fc837924000)]
+  0x00007fc8700c5000 JavaThread "Signal Dispatcher" daemon [_thread_blocked, id=66314, stack(0x00007fc837924000,0x00007fc837a25000)]
+  0x00007fc870092000 JavaThread "Finalizer" daemon [_thread_blocked, id=66313, stack(0x00007fc837cfd000,0x00007fc837dfe000)]
+  0x00007fc87008d800 JavaThread "Reference Handler" daemon [_thread_blocked, id=66312, stack(0x00007fc837dfe000,0x00007fc837eff000)]
+  0x00007fc870010000 JavaThread "main" [_thread_blocked, id=66302, stack(0x00007fc8783fb000,0x00007fc8784fc000)]
+
+Other Threads:
+=>0x00007fc870086000 VMThread [stack: 0x00007fc837eff000,0x00007fc838000000] [id=66311]
+  0x00007fc8700d3800 WatcherThread [stack: 0x00007fc83731e000,0x00007fc83741f000] [id=66320]
+
+VM state:at safepoint (normal execution)
+
+VM Mutex/Monitor currently owned by a thread:  ([mutex/lock_event])
+[0x00007fc87000c430] Threads_lock - owner thread: 0x00007fc870086000
+[0x00007fc87000c930] Heap_lock - owner thread: 0x00007fc870010000
+
+Heap:
+ PSYoungGen      total 108544K, used 5888K [0x000000077ee00000, 0x0000000786000000, 0x00000007c0000000)
+  eden space 100352K, 0% used [0x000000077ee00000,0x000000077ee00000,0x0000000785000000)
+  from space 8192K, 71% used [0x0000000785000000,0x00000007855c0258,0x0000000785800000)
+  to   space 8192K, 0% used [0x0000000785800000,0x0000000785800000,0x0000000786000000)
+ ParOldGen       total 69632K, used 10329K [0x00000006fca00000, 0x0000000700e00000, 0x000000077ee00000)
+  object space 69632K, 14% used [0x00000006fca00000,0x00000006fd4166a0,0x0000000700e00000)
+ Metaspace       used 26083K, capacity 26390K, committed 26752K, reserved 1073152K
+  class space    used 3267K, capacity 3342K, committed 3456K, reserved 1048576K
+
+Card table byte_map: [0x00007fc874b7f000,0x00007fc87519b000] byte_map_base: 0x00007fc87139a000
+
+Marking Bits: (ParMarkBitMap*) 0x00007fc8778c5c80
+ Begin Bits: [0x00007fc85ad4f000, 0x00007fc85de27000)
+ End Bits:   [0x00007fc85de27000, 0x00007fc860eff000)
+
+Polling page: 0x00007fc878516000
+
+CodeCache: size=245760Kb used=9628Kb max_used=9671Kb free=236131Kb
+ bounds [0x00007fc861000000, 0x00007fc861980000, 0x00007fc870000000]
+ total_blobs=3015 nmethods=2627 adapters=301
+ compilation: enabled
+
+Compilation events (10 events):
+Event: 71.150 Thread 0x00007fc8700c9800 nmethod 2639 0x00007fc861952850 code [0x00007fc861952b20, 0x00007fc861954738]
+Event: 71.158 Thread 0x00007fc8700c6800 nmethod 2645 0x00007fc86192e810 code [0x00007fc86192e960, 0x00007fc86192ea98]
+Event: 71.158 Thread 0x00007fc8700c9800 2647       4       java.lang.StringBuilder::length (5 bytes)
+Event: 71.162 Thread 0x00007fc8700c6800 2646       4       java.util.ArrayList$SubList$1::hasNext (20 bytes)
+Event: 84.625 Thread 0x00007fc8700cd800 2649       3       java.util.ArrayList::rangeCheckForAdd (26 bytes)
+Event: 87.214 Thread 0x00007fc8700c9800 nmethod 2647 0x00007fc861821490 code [0x00007fc8618215e0, 0x00007fc861821638]
+Event: 94.644 Thread 0x00007fc8700c6800 nmethod 2646 0x00007fc861946950 code [0x00007fc861946aa0, 0x00007fc861946b38]
+Event: 95.054 Thread 0x00007fc8700cb000 nmethod 2634 0x00007fc8619619d0 code [0x00007fc861962840, 0x00007fc86196d218]
+Event: 101.325 Thread 0x00007fc8700cd800 nmethod 2649 0x00007fc86192f450 code [0x00007fc86192f660, 0x00007fc861930178]
+Event: 101.368 Thread 0x00007fc8700cd800 2650  s    3       java.io.BufferedInputStream::available (35 bytes)
+
+GC Heap History (10 events):
+Event: 1.373 GC heap after
+Heap after GC invocations=1 (full 0):
+ PSYoungGen      total 58368K, used 5378K [0x000000077ee00000, 0x0000000782f00000, 0x00000007c0000000)
+  eden space 50176K, 0% used [0x000000077ee00000,0x000000077ee00000,0x0000000781f00000)
+  from space 8192K, 65% used [0x0000000781f00000,0x0000000782440830,0x0000000782700000)
+  to   space 8192K, 0% used [0x0000000782700000,0x0000000782700000,0x0000000782f00000)
+ ParOldGen       total 134144K, used 8K [0x00000006fca00000, 0x0000000704d00000, 0x000000077ee00000)
+  object space 134144K, 0% used [0x00000006fca00000,0x00000006fca02000,0x0000000704d00000)
+ Metaspace       used 9491K, capacity 9550K, committed 9728K, reserved 1058816K
+  class space    used 1141K, capacity 1175K, committed 1280K, reserved 1048576K
+}
+Event: 1.984 GC heap before
+{Heap before GC invocations=2 (full 0):
+ PSYoungGen      total 58368K, used 55554K [0x000000077ee00000, 0x0000000782f00000, 0x00000007c0000000)
+  eden space 50176K, 100% used [0x000000077ee00000,0x0000000781f00000,0x0000000781f00000)
+  from space 8192K, 65% used [0x0000000781f00000,0x0000000782440830,0x0000000782700000)
+  to   space 8192K, 0% used [0x0000000782700000,0x0000000782700000,0x0000000782f00000)
+ ParOldGen       total 134144K, used 8K [0x00000006fca00000, 0x0000000704d00000, 0x000000077ee00000)
+  object space 134144K, 0% used [0x00000006fca00000,0x00000006fca02000,0x0000000704d00000)
+ Metaspace       used 14385K, capacity 14516K, committed 14592K, reserved 1062912K
+  class space    used 1734K, capacity 1784K, committed 1792K, reserved 1048576K
+Event: 2.079 GC heap after
+Heap after GC invocations=2 (full 0):
+ PSYoungGen      total 58368K, used 7655K [0x000000077ee00000, 0x0000000786000000, 0x00000007c0000000)
+  eden space 50176K, 0% used [0x000000077ee00000,0x000000077ee00000,0x0000000781f00000)
+  from space 8192K, 93% used [0x0000000782700000,0x0000000782e79f50,0x0000000782f00000)
+  to   space 8192K, 0% used [0x0000000781f00000,0x0000000781f00000,0x0000000782700000)
+ ParOldGen       total 134144K, used 16K [0x00000006fca00000, 0x0000000704d00000, 0x000000077ee00000)
+  object space 134144K, 0% used [0x00000006fca00000,0x00000006fca04000,0x0000000704d00000)
+ Metaspace       used 14385K, capacity 14516K, committed 14592K, reserved 1062912K
+  class space    used 1734K, capacity 1784K, committed 1792K, reserved 1048576K
+}
+Event: 2.703 GC heap before
+{Heap before GC invocations=3 (full 0):
+ PSYoungGen      total 58368K, used 57831K [0x000000077ee00000, 0x0000000786000000, 0x00000007c0000000)
+  eden space 50176K, 100% used [0x000000077ee00000,0x0000000781f00000,0x0000000781f00000)
+  from space 8192K, 93% used [0x0000000782700000,0x0000000782e79f50,0x0000000782f00000)
+  to   space 8192K, 0% used [0x0000000781f00000,0x0000000781f00000,0x0000000782700000)
+ ParOldGen       total 134144K, used 16K [0x00000006fca00000, 0x0000000704d00000, 0x000000077ee00000)
+  object space 134144K, 0% used [0x00000006fca00000,0x00000006fca04000,0x0000000704d00000)
+ Metaspace       used 19080K, capacity 19260K, committed 19456K, reserved 1067008K
+  class space    used 2396K, capacity 2436K, committed 2560K, reserved 1048576K
+Event: 2.724 GC heap after
+Heap after GC invocations=3 (full 0):
+ PSYoungGen      total 58368K, used 8184K [0x000000077ee00000, 0x0000000786000000, 0x00000007c0000000)
+  eden space 50176K, 0% used [0x000000077ee00000,0x000000077ee00000,0x0000000781f00000)
+  from space 8192K, 99% used [0x0000000781f00000,0x00000007826fe068,0x0000000782700000)
+  to   space 8192K, 0% used [0x0000000785800000,0x0000000785800000,0x0000000786000000)
+ ParOldGen       total 134144K, used 2108K [0x00000006fca00000, 0x0000000704d00000, 0x000000077ee00000)
+  object space 134144K, 1% used [0x00000006fca00000,0x00000006fcc0f370,0x0000000704d00000)
+ Metaspace       used 19080K, capacity 19260K, committed 19456K, reserved 1067008K
+  class space    used 2396K, capacity 2436K, committed 2560K, reserved 1048576K
+}
+Event: 3.079 GC heap before
+{Heap before GC invocations=4 (full 0):
+ PSYoungGen      total 58368K, used 52371K [0x000000077ee00000, 0x0000000786000000, 0x00000007c0000000)
+  eden space 50176K, 88% used [0x000000077ee00000,0x0000000781926d58,0x0000000781f00000)
+  from space 8192K, 99% used [0x0000000781f00000,0x00000007826fe068,0x0000000782700000)
+  to   space 8192K, 0% used [0x0000000785800000,0x0000000785800000,0x0000000786000000)
+ ParOldGen       total 134144K, used 2108K [0x00000006fca00000, 0x0000000704d00000, 0x000000077ee00000)
+  object space 134144K, 1% used [0x00000006fca00000,0x00000006fcc0f370,0x0000000704d00000)
+ Metaspace       used 21059K, capacity 21232K, committed 21296K, reserved 1069056K
+  class space    used 2628K, capacity 2674K, committed 2688K, reserved 1048576K
+Event: 3.163 GC heap after
+Heap after GC invocations=4 (full 0):
+ PSYoungGen      total 108544K, used 8189K [0x000000077ee00000, 0x0000000786000000, 0x00000007c0000000)
+  eden space 100352K, 0% used [0x000000077ee00000,0x000000077ee00000,0x0000000785000000)
+  from space 8192K, 99% used [0x0000000785800000,0x0000000785fff740,0x0000000786000000)
+  to   space 8192K, 0% used [0x0000000785000000,0x0000000785000000,0x0000000785800000)
+ ParOldGen       total 134144K, used 4477K [0x00000006fca00000, 0x0000000704d00000, 0x000000077ee00000)
+  object space 134144K, 3% used [0x00000006fca00000,0x00000006fce5f6e0,0x0000000704d00000)
+ Metaspace       used 21059K, capacity 21232K, committed 21296K, reserved 1069056K
+  class space    used 2628K, capacity 2674K, committed 2688K, reserved 1048576K
+}
+Event: 3.165 GC heap before
+{Heap before GC invocations=5 (full 1):
+ PSYoungGen      total 108544K, used 8189K [0x000000077ee00000, 0x0000000786000000, 0x00000007c0000000)
+  eden space 100352K, 0% used [0x000000077ee00000,0x000000077ee00000,0x0000000785000000)
+  from space 8192K, 99% used [0x0000000785800000,0x0000000785fff740,0x0000000786000000)
+  to   space 8192K, 0% used [0x0000000785000000,0x0000000785000000,0x0000000785800000)
+ ParOldGen       total 134144K, used 4477K [0x00000006fca00000, 0x0000000704d00000, 0x000000077ee00000)
+  object space 134144K, 3% used [0x00000006fca00000,0x00000006fce5f6e0,0x0000000704d00000)
+ Metaspace       used 21059K, capacity 21232K, committed 21296K, reserved 1069056K
+  class space    used 2628K, capacity 2674K, committed 2688K, reserved 1048576K
+Event: 3.200 GC heap after
+Heap after GC invocations=5 (full 1):
+ PSYoungGen      total 108544K, used 0K [0x000000077ee00000, 0x0000000786000000, 0x00000007c0000000)
+  eden space 100352K, 0% used [0x000000077ee00000,0x000000077ee00000,0x0000000785000000)
+  from space 8192K, 0% used [0x0000000785800000,0x0000000785800000,0x0000000786000000)
+  to   space 8192K, 0% used [0x0000000785000000,0x0000000785000000,0x0000000785800000)
+ ParOldGen       total 69632K, used 10321K [0x00000006fca00000, 0x0000000700e00000, 0x000000077ee00000)
+  object space 69632K, 14% used [0x00000006fca00000,0x00000006fd4146a0,0x0000000700e00000)
+ Metaspace       used 21059K, capacity 21232K, committed 21296K, reserved 1069056K
+  class space    used 2628K, capacity 2674K, committed 2688K, reserved 1048576K
+}
+Event: 101.576 GC heap before
+{Heap before GC invocations=6 (full 1):
+ PSYoungGen      total 108544K, used 100352K [0x000000077ee00000, 0x0000000786000000, 0x00000007c0000000)
+  eden space 100352K, 100% used [0x000000077ee00000,0x0000000785000000,0x0000000785000000)
+  from space 8192K, 0% used [0x0000000785800000,0x0000000785800000,0x0000000786000000)
+  to   space 8192K, 0% used [0x0000000785000000,0x0000000785000000,0x0000000785800000)
+ ParOldGen       total 69632K, used 10321K [0x00000006fca00000, 0x0000000700e00000, 0x000000077ee00000)
+  object space 69632K, 14% used [0x00000006fca00000,0x00000006fd4146a0,0x0000000700e00000)
+ Metaspace       used 26083K, capacity 26390K, committed 26752K, reserved 1073152K
+  class space    used 3267K, capacity 3342K, committed 3456K, reserved 1048576K
+
+Deoptimization events (10 events):
+Event: 3.535 Thread 0x00007fc870010000 Uncommon trap: reason=class_check action=maybe_recompile pc=0x00007fc86141ba80 method=java.util.concurrent.ConcurrentHashMap.putVal(Ljava/lang/Object;Ljava/lang/Object;Z)Ljava/lang/Object; @ 192
+Event: 3.564 Thread 0x00007fc870010000 Uncommon trap: reason=predicate action=maybe_recompile pc=0x00007fc8618186d8 method=java.util.AbstractCollection.toArray([Ljava/lang/Object;)[Ljava/lang/Object; @ 49
+Event: 3.565 Thread 0x00007fc870010000 Uncommon trap: reason=unstable_if action=reinterpret pc=0x00007fc8616f7b10 method=org.springframework.util.ReflectionUtils$2.doWith(Ljava/lang/reflect/Method;)V @ 131
+Event: 3.587 Thread 0x00007fc870010000 Uncommon trap: reason=array_check action=maybe_recompile pc=0x00007fc86182111c method=java.util.AbstractCollection.toArray([Ljava/lang/Object;)[Ljava/lang/Object; @ 119
+Event: 3.587 Thread 0x00007fc870010000 Uncommon trap: reason=array_check action=maybe_recompile pc=0x00007fc86182111c method=java.util.AbstractCollection.toArray([Ljava/lang/Object;)[Ljava/lang/Object; @ 119
+Event: 3.592 Thread 0x00007fc870010000 Uncommon trap: reason=array_check action=maybe_recompile pc=0x00007fc86182111c method=java.util.AbstractCollection.toArray([Ljava/lang/Object;)[Ljava/lang/Object; @ 119
+Event: 3.593 Thread 0x00007fc870010000 Uncommon trap: reason=array_check action=maybe_recompile pc=0x00007fc86182111c method=java.util.AbstractCollection.toArray([Ljava/lang/Object;)[Ljava/lang/Object; @ 119
+Event: 3.880 Thread 0x00007fc870010000 Uncommon trap: reason=unstable_if action=reinterpret pc=0x00007fc8613df9e8 method=java.lang.ThreadLocal$ThreadLocalMap.getEntry(Ljava/lang/ThreadLocal;)Ljava/lang/ThreadLocal$ThreadLocalMap$Entry; @ 29
+Event: 3.901 Thread 0x00007fc870010000 Uncommon trap: reason=unstable_if action=reinterpret pc=0x00007fc8616d7174 method=org.springframework.util.ConcurrentReferenceHashMap$Segment.clear()V @ 4
+Event: 10.139 Thread 0x00007fc870010000 Uncommon trap: reason=unstable_if action=reinterpret pc=0x00007fc8617f4fbc method=org.springframework.asm.Type.getArgumentTypes(Ljava/lang/String;)[Lorg/springframework/asm/Type; @ 58
+
+Internal exceptions (10 events):
+Event: 4.113 Thread 0x00007fc870010000 Exception <a 'java/lang/ClassNotFoundException': org/springframework/beans/factory/support/BeanDefinitionRegistryPostProcessorCustomizer> (0x00000007833c3a40) thrown at [/HUDSON3/workspace/8-2-build-linux-amd64/jdk8u121/8372/hotspot/src/share/vm/classfile
+Event: 4.114 Thread 0x00007fc870010000 Exception <a 'java/lang/ClassNotFoundException': org/springframework/core/PriorityOrderedCustomizer> (0x00000007833e4be0) thrown at [/HUDSON3/workspace/8-2-build-linux-amd64/jdk8u121/8372/hotspot/src/share/vm/classfile/systemDictionary.cpp, line 210]
+Event: 4.114 Thread 0x00007fc870010000 Exception <a 'java/lang/ClassNotFoundException': org/springframework/context/ResourceLoaderAwareCustomizer> (0x0000000783408148) thrown at [/HUDSON3/workspace/8-2-build-linux-amd64/jdk8u121/8372/hotspot/src/share/vm/classfile/systemDictionary.cpp, line 21
+Event: 4.116 Thread 0x00007fc870010000 Exception <a 'java/lang/ClassNotFoundException': org/springframework/beans/factory/BeanClassLoaderAwareCustomizer> (0x0000000783625880) thrown at [/HUDSON3/workspace/8-2-build-linux-amd64/jdk8u121/8372/hotspot/src/share/vm/classfile/systemDictionary.cpp, 
+Event: 4.117 Thread 0x00007fc870010000 Exception <a 'java/lang/ClassNotFoundException': org/springframework/context/EnvironmentAwareCustomizer> (0x0000000783648e20) thrown at [/HUDSON3/workspace/8-2-build-linux-amd64/jdk8u121/8372/hotspot/src/share/vm/classfile/systemDictionary.cpp, line 210]
+Event: 49.253 Thread 0x00007fc870010000 Exception <a 'java/lang/ClassNotFoundException': java/lang/ObjectCustomizer> (0x0000000784e7af00) thrown at [/HUDSON3/workspace/8-2-build-linux-amd64/jdk8u121/8372/hotspot/src/share/vm/classfile/systemDictionary.cpp, line 210]
+Event: 54.787 Thread 0x00007fc870010000 Exception <a 'java/lang/ClassNotFoundException': org/springframework/boot/autoconfigure/web/ResourcePropertiesCustomizer> (0x0000000784ea8870) thrown at [/HUDSON3/workspace/8-2-build-linux-amd64/jdk8u121/8372/hotspot/src/share/vm/classfile/systemDictionar
+Event: 72.594 Thread 0x00007fc870010000 Exception <a 'java/lang/ClassNotFoundException': org/springframework/context/ResourceLoaderAwareCustomizer> (0x0000000784edbd18) thrown at [/HUDSON3/workspace/8-2-build-linux-amd64/jdk8u121/8372/hotspot/src/share/vm/classfile/systemDictionary.cpp, line 21
+Event: 94.510 Thread 0x00007fc870010000 Exception <a 'java/security/PrivilegedActionException'> (0x0000000784efda40) thrown at [/HUDSON3/workspace/8-2-build-linux-amd64/jdk8u121/8372/hotspot/src/share/vm/prims/jvm.cpp, line 1390]
+Event: 94.607 Thread 0x00007fc870010000 Exception <a 'java/security/PrivilegedActionException'> (0x0000000784efde38) thrown at [/HUDSON3/workspace/8-2-build-linux-amd64/jdk8u121/8372/hotspot/src/share/vm/prims/jvm.cpp, line 1390]
+
+Events (10 events):
+Event: 67.243 loading class org/springframework/context/ResourceLoaderAwareCustomizer done
+Event: 71.099 loading class org/springframework/context/ResourceLoaderAwareCustomizer
+Event: 71.106 loading class org/springframework/context/ResourceLoaderAwareCustomizer done
+Event: 71.558 loading class org/springframework/context/ResourceLoaderAwareCustomizer
+Event: 71.736 loading class org/springframework/context/ResourceLoaderAwareCustomizer done
+Event: 89.041 loading class org/webjars/WebJarAssetLocator
+Event: 89.550 loading class org/webjars/WebJarAssetLocator done
+Event: 94.124 loading class org/webjars$WebJarAssetLocator
+Event: 94.147 loading class org/webjars$WebJarAssetLocator done
+Event: 101.540 Executing VM operation: ParallelGCFailedAllocation
+
+
+Dynamic libraries:
+00400000-00401000 r-xp 00000000 08:01 928645                             /home/niteen/App/jdk1.8.0_121/bin/java
+00600000-00601000 rw-p 00000000 08:01 928645                             /home/niteen/App/jdk1.8.0_121/bin/java
+00705000-00726000 rw-p 00000000 00:00 0                                  [heap]
+6fca00000-700e00000 rw-p 00000000 00:00 0 
+700e00000-77ee00000 ---p 00000000 00:00 0 
+77ee00000-786000000 rw-p 00000000 00:00 0 
+78bd80000-7c0000000 ---p 00000000 00:00 0 
+7c0000000-7c0360000 rw-p 00000000 00:00 0 
+7c0360000-800000000 ---p 00000000 00:00 0 
+7fc800000000-7fc800238000 rw-p 00000000 00:00 0 
+7fc800238000-7fc804000000 ---p 00000000 00:00 0 
+7fc808000000-7fc808021000 rw-p 00000000 00:00 0 
+7fc808021000-7fc80c000000 ---p 00000000 00:00 0 
+7fc80c000000-7fc80c021000 rw-p 00000000 00:00 0 
+7fc80c021000-7fc810000000 ---p 00000000 00:00 0 
+7fc810000000-7fc810a6b000 rw-p 00000000 00:00 0 
+7fc810a6b000-7fc814000000 ---p 00000000 00:00 0 
+7fc814000000-7fc814021000 rw-p 00000000 00:00 0 
+7fc814021000-7fc818000000 ---p 00000000 00:00 0 
+7fc818000000-7fc818782000 rw-p 00000000 00:00 0 
+7fc818782000-7fc81c000000 ---p 00000000 00:00 0 
+7fc81c000000-7fc81dd27000 rw-p 00000000 00:00 0 
+7fc81dd27000-7fc820000000 ---p 00000000 00:00 0 
+7fc820000000-7fc820021000 rw-p 00000000 00:00 0 
+7fc820021000-7fc824000000 ---p 00000000 00:00 0 
+7fc824000000-7fc825364000 rw-p 00000000 00:00 0 
+7fc825364000-7fc828000000 ---p 00000000 00:00 0 
+7fc828000000-7fc828021000 rw-p 00000000 00:00 0 
+7fc828021000-7fc82c000000 ---p 00000000 00:00 0 
+7fc82c000000-7fc82c021000 rw-p 00000000 00:00 0 
+7fc82c021000-7fc830000000 ---p 00000000 00:00 0 
+7fc830000000-7fc83028e000 rw-p 00000000 00:00 0 
+7fc83028e000-7fc834000000 ---p 00000000 00:00 0 
+7fc835237000-7fc8352f7000 rw-p 00000000 00:00 0 
+7fc8352f7000-7fc835437000 ---p 00000000 00:00 0 
+7fc835437000-7fc835637000 rw-p 00000000 00:00 0 
+7fc835637000-7fc8356cc000 r--s 01109000 08:01 14047                      /home/niteen/App/jdk1.8.0_121/jre/lib/ext/jfxrt.jar
+7fc8356cc000-7fc8358cc000 rw-p 00000000 00:00 0 
+7fc8358cc000-7fc8358dd000 r-xp 00000000 08:01 928710                     /home/niteen/App/jdk1.8.0_121/jre/lib/amd64/libnio.so
+7fc8358dd000-7fc835adc000 ---p 00011000 08:01 928710                     /home/niteen/App/jdk1.8.0_121/jre/lib/amd64/libnio.so
+7fc835adc000-7fc835add000 rw-p 00010000 08:01 928710                     /home/niteen/App/jdk1.8.0_121/jre/lib/amd64/libnio.so
+7fc835add000-7fc835cdd000 rw-p 00000000 00:00 0 
+7fc835cdd000-7fc835edd000 rw-p 00000000 00:00 0 
+7fc835edd000-7fc835ee0000 ---p 00000000 00:00 0 
+7fc835ee0000-7fc835fde000 rw-p 00000000 00:00 0 
+7fc835fde000-7fc835fe7000 r-xp 00000000 08:01 928721                     /home/niteen/App/jdk1.8.0_121/jre/lib/amd64/libmanagement.so
+7fc835fe7000-7fc8361e6000 ---p 00009000 08:01 928721                     /home/niteen/App/jdk1.8.0_121/jre/lib/amd64/libmanagement.so
+7fc8361e6000-7fc8361e7000 rw-p 00008000 08:01 928721                     /home/niteen/App/jdk1.8.0_121/jre/lib/amd64/libmanagement.so
+7fc8361e7000-7fc8363e7000 rw-p 00000000 00:00 0 
+7fc8363e7000-7fc8365e7000 rw-p 00000000 00:00 0 
+7fc8365e7000-7fc8367e7000 rw-p 00000000 00:00 0 
+7fc8367e7000-7fc8367ea000 r--s 0001a000 08:01 928794                     /home/niteen/App/jdk1.8.0_121/jre/lib/jce.jar
+7fc8367ea000-7fc8367ee000 r--s 0009a000 08:01 928671                     /home/niteen/App/jdk1.8.0_121/jre/lib/jsse.jar
+7fc8367ee000-7fc8367f1000 ---p 00000000 00:00 0 
+7fc8367f1000-7fc836bf0000 rw-p 00000000 00:00 0 
+7fc836bf0000-7fc836c06000 r-xp 00000000 08:01 928685                     /home/niteen/App/jdk1.8.0_121/jre/lib/amd64/libnet.so
+7fc836c06000-7fc836e06000 ---p 00016000 08:01 928685                     /home/niteen/App/jdk1.8.0_121/jre/lib/amd64/libnet.so
+7fc836e06000-7fc836e07000 rw-p 00016000 08:01 928685                     /home/niteen/App/jdk1.8.0_121/jre/lib/amd64/libnet.so
+7fc836e07000-7fc836e09000 r--s 0000e000 08:01 281520                     /home/niteen/.m2/repository/javax/activation/activation/1.1/activation-1.1.jar
+7fc836e09000-7fc836e12000 r--s 0008b000 08:01 298746                     /home/niteen/.m2/repository/com/sun/mail/javax.mail/1.5.5/javax.mail-1.5.5.jar
+7fc836e12000-7fc836e17000 r--s 00029000 08:01 293493                     /home/niteen/.m2/repository/org/springframework/spring-context-support/4.3.2.RELEASE/spring-context-support-4.3.2.RELEASE.jar
+7fc836e17000-7fc836e30000 r--s 000fc000 08:01 293118                     /home/niteen/.m2/repository/org/springframework/spring-context/4.3.2.RELEASE/spring-context-4.3.2.RELEASE.jar
+7fc836e30000-7fc836e31000 r--s 00000000 08:01 293500                     /home/niteen/.m2/repository/org/springframework/boot/spring-boot-starter-mail/1.4.0.RELEASE/spring-boot-starter-mail-1.4.0.RELEASE.jar
+7fc836e31000-7fc836e38000 r--s 000a5000 08:01 311992                     /home/niteen/.m2/repository/mysql/mysql-connector-java/5.1.6/mysql-connector-java-5.1.6.jar
+7fc836e38000-7fc836e46000 r--s 0015f000 08:01 291473                     /home/niteen/.m2/repository/org/hsqldb/hsqldb/2.3.3/hsqldb-2.3.3.jar
+7fc836e46000-7fc836e48000 r--s 0000e000 08:01 292507                     /home/niteen/.m2/repository/com/fasterxml/classmate/1.3.1/classmate-1.3.1.jar
+7fc836e48000-7fc836e4a000 r--s 00009000 08:01 291468                     /home/niteen/.m2/repository/com/mangofactory/swagger/swagger-models/0.8.5/swagger-models-0.8.5.jar
+7fc836e4a000-7fc836e74000 r--s 001e9000 08:01 281341                     /home/niteen/.m2/repository/com/google/guava/guava/15.0/guava-15.0.jar
+7fc836e74000-7fc836e7b000 r--s 0003e000 08:01 291465                     /home/niteen/.m2/repository/cglib/cglib/2.2/cglib-2.2.jar
+7fc836e7b000-7fc836e7c000 r--s 00009000 08:01 291438                     /home/niteen/.m2/repository/org/json4s/json4s-jackson_2.10/3.2.5/json4s-jackson_2.10-3.2.5.jar
+7fc836e7c000-7fc836e9d000 rw-p 00000000 00:00 0 
+7fc836e9d000-7fc836f90000 r--s 00c8c000 08:01 291459                     /home/niteen/.m2/repository/org/scala-lang/scala-compiler/2.10.0/scala-compiler-2.10.0.jar
+7fc836f90000-7fc836fa3000 r--s 000be000 08:01 291461                     /home/niteen/.m2/repository/org/scala-lang/scalap/2.10.0/scalap-2.10.0.jar
+7fc836fa3000-7fc836fa6000 r--s 00013000 08:01 291447                     /home/niteen/.m2/repository/org/json4s/json4s-ast_2.10/3.2.5/json4s-ast_2.10-3.2.5.jar
+7fc836fa6000-7fc836fb0000 r--s 00084000 08:01 291457                     /home/niteen/.m2/repository/org/json4s/json4s-core_2.10/3.2.5/json4s-core_2.10-3.2.5.jar
+7fc836fb0000-7fc836fb2000 r--s 0000f000 08:01 291455                     /home/niteen/.m2/repository/org/json4s/json4s-native_2.10/3.2.5/json4s-native_2.10-3.2.5.jar
+7fc836fb2000-7fc836fb4000 r--s 00008000 08:01 291453                     /home/niteen/.m2/repository/org/joda/joda-convert/1.2/joda-convert-1.2.jar
+7fc836fb4000-7fc836fc5000 r--s 00089000 08:01 293498                     /home/niteen/.m2/repository/joda-time/joda-time/2.9.4/joda-time-2.9.4.jar
+7fc836fc5000-7fc836fc8000 r--s 00010000 08:01 291449                     /home/niteen/.m2/repository/org/json4s/json4s-ext_2.10/3.2.5/json4s-ext_2.10-3.2.5.jar
+7fc836fc8000-7fc836fc9000 r--s 00001000 08:01 291446                     /home/niteen/.m2/repository/com/wordnik/swagger-annotations/1.3.5/swagger-annotations-1.3.5.jar
+7fc836fc9000-7fc836fcb000 r--s 00007000 08:01 293491                     /home/niteen/.m2/repository/com/fasterxml/jackson/module/jackson-module-jaxb-annotations/2.8.1/jackson-module-jaxb-annotations-2.8.1.jar
+7fc836fcb000-7fc836fcd000 r--s 00006000 08:01 293497                     /home/niteen/.m2/repository/com/fasterxml/jackson/jaxrs/jackson-jaxrs-base/2.8.1/jackson-jaxrs-base-2.8.1.jar
+7fc836fcd000-7fc836fce000 r--s 00003000 08:01 293489                     /home/niteen/.m2/repository/com/fasterxml/jackson/jaxrs/jackson-jaxrs-json-provider/2.8.1/jackson-jaxrs-json-provider-2.8.1.jar
+7fc836fce000-7fc836fd1000 r--s 0000a000 08:01 291434                     /home/niteen/.m2/repository/com/fasterxml/jackson/module/jackson-module-jsonSchema/2.1.0/jackson-module-jsonSchema-2.1.0.jar
+7fc836fd1000-7fc837004000 r--s 002ce000 08:01 291437                     /home/niteen/.m2/repository/org/scala-lang/scala-reflect/2.10.0/scala-reflect-2.10.0.jar
+7fc837004000-7fc837006000 r--s 00006000 08:01 271850                     /home/niteen/.m2/repository/com/thoughtworks/paranamer/paranamer/2.3/paranamer-2.3.jar
+7fc837006000-7fc837077000 r--s 00658000 08:01 291433                     /home/niteen/.m2/repository/org/scala-lang/scala-library/2.10.0/scala-library-2.10.0.jar
+7fc837077000-7fc837093000 r--s 000e9000 08:01 291401                     /home/niteen/.m2/repository/com/fasterxml/jackson/module/jackson-module-scala_2.10/2.1.5/jackson-module-scala_2.10-2.1.5.jar
+7fc837093000-7fc837097000 r--s 0003c000 08:01 291431                     /home/niteen/.m2/repository/commons-lang/commons-lang/2.4/commons-lang-2.4.jar
+7fc837097000-7fc8370a9000 r--s 00093000 08:01 291427                     /home/niteen/.m2/repository/com/wordnik/swagger-core_2.10/1.3.5/swagger-core_2.10-1.3.5.jar
+7fc8370a9000-7fc8370ad000 r--s 00017000 08:01 291425                     /home/niteen/.m2/repository/com/mangofactory/swagger-springmvc/0.8.5/swagger-springmvc-0.8.5.jar
+7fc8370ad000-7fc8370af000 r--s 00003000 08:01 293487                     /home/niteen/.m2/repository/com/jayway/jsonpath/json-path-assert/2.2.0/json-path-assert-2.2.0.jar
+7fc8370af000-7fc8370b1000 r--s 00009000 08:01 291813                     /home/niteen/.m2/repository/org/slf4j/slf4j-api/1.7.21/slf4j-api-1.7.21.jar
+7fc8370b1000-7fc8370b3000 r--s 0000c000 08:01 291417                     /home/niteen/.m2/repository/net/minidev/json-smart/1.2/json-smart-1.2.jar
+7fc8370b3000-7fc8370b6000 r--s 00015000 08:01 291415                     /home/niteen/.m2/repository/com/jayway/jsonpath/json-path/0.9.1/json-path-0.9.1.jar
+7fc8370b6000-7fc8370ba000 r--s 00041000 08:01 292912                     /home/niteen/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.8.1/jackson-core-2.8.1.jar
+7fc8370ba000-7fc8370bd000 r--s 0000b000 08:01 292903                     /home/niteen/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.8.1/jackson-annotations-2.8.1.jar
+7fc8370bd000-7fc8370cf000 r--s 0011b000 08:01 292880                     /home/niteen/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.8.1/jackson-databind-2.8.1.jar
+7fc8370cf000-7fc8370dd000 r--s 00083000 08:01 293088                     /home/niteen/.m2/repository/org/springframework/spring-test/4.3.2.RELEASE/spring-test-4.3.2.RELEASE.jar
+7fc8370dd000-7fc8370f4000 r--s 000f9000 08:01 293086                     /home/niteen/.m2/repository/org/springframework/spring-core/4.3.2.RELEASE/spring-core-4.3.2.RELEASE.jar
+7fc8370f4000-7fc8370f5000 r--s 0000f000 08:01 281211                     /home/niteen/.m2/repository/org/json/json/20140107/json-20140107.jar
+7fc8370f5000-7fc8370f6000 r--s 00006000 08:01 292001                     /home/niteen/.m2/repository/org/skyscreamer/jsonassert/1.3.0/jsonassert-1.3.0.jar
+7fc8370f6000-7fc8370f7000 r--s 0000c000 08:01 281643                     /home/niteen/.m2/repository/org/hamcrest/hamcrest-library/1.3/hamcrest-library-1.3.jar
+7fc8370f7000-7fc8370f9000 r--s 00009000 08:01 271485                     /home/niteen/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar
+7fc8370f9000-7fc8370fb000 r--s 00009000 08:01 271514                     /home/niteen/.m2/repository/org/objenesis/objenesis/2.1/objenesis-2.1.jar
+7fc8370fb000-7fc837117000 r--s 00103000 08:01 291397                     /home/niteen/.m2/repository/org/mockito/mockito-core/1.10.19/mockito-core-1.10.19.jar
+7fc837117000-7fc83712a000 r--s 000d2000 08:01 291995                     /home/niteen/.m2/repository/org/assertj/assertj-core/2.5.0/assertj-core-2.5.0.jar
+7fc83712a000-7fc837132000 r--s 00045000 08:01 281280                     /home/niteen/.m2/repository/junit/junit/4.12/junit-4.12.jar
+7fc837132000-7fc837136000 r--s 00013000 08:01 293076                     /home/niteen/.m2/repository/org/springframework/boot/spring-boot-test-autoconfigure/1.4.0.RELEASE/spring-boot-test-autoconfigure-1.4.0.RELEASE.jar
+7fc837136000-7fc83713b000 r--s 0001e000 08:01 293030                     /home/niteen/.m2/repository/org/springframework/boot/spring-boot-test/1.4.0.RELEASE/spring-boot-test-1.4.0.RELEASE.jar
+7fc83713b000-7fc83713c000 r--s 00000000 08:01 293026                     /home/niteen/.m2/repository/org/springframework/boot/spring-boot-starter-test/1.4.0.RELEASE/spring-boot-starter-test-1.4.0.RELEASE.jar
+7fc83713c000-7fc83714a000 r--s 0018e000 08:01 291392                     /home/niteen/.m2/repository/com/h2database/h2/1.4.181/h2-1.4.181.jar
+7fc83714a000-7fc83714d000 r--s 0000c000 08:01 292444                     /home/niteen/.m2/repository/org/springframework/spring-aspects/4.3.2.RELEASE/spring-aspects-4.3.2.RELEASE.jar
+7fc83714d000-7fc83714f000 r--s 00003000 08:01 281203                     /home/niteen/.m2/repository/org/slf4j/jcl-over-slf4j/1.7.21/jcl-over-slf4j-1.7.21.jar
+7fc83714f000-7fc837157000 r--s 0003a000 08:01 292440                     /home/niteen/.m2/repository/org/springframework/spring-tx/4.3.2.RELEASE/spring-tx-4.3.2.RELEASE.jar
+7fc837157000-7fc837161000 r--s 0006b000 08:01 292438                     /home/niteen/.m2/repository/org/springframework/spring-orm/4.3.2.RELEASE/spring-orm-4.3.2.RELEASE.jar
+7fc837161000-7fc837172000 r--s 00098000 08:01 292436                     /home/niteen/.m2/repository/org/springframework/data/spring-data-commons/1.12.2.RELEASE/spring-data-commons-1.12.2.RELEASE.jar
+7fc837172000-7fc837179000 r--s 0003d000 08:01 292434                     /home/niteen/.m2/repository/org/springframework/data/spring-data-jpa/1.10.2.RELEASE/spring-data-jpa-1.10.2.RELEASE.jar
+7fc837179000-7fc83717b000 r--s 00006000 08:01 289377                     /home/niteen/.m2/repository/javax/transaction/javax.transaction-api/1.2/javax.transaction-api-1.2.jar
+7fc83717b000-7fc837188000 r--s 00088000 08:01 292431                     /home/niteen/.m2/repository/org/hibernate/hibernate-entitymanager/5.0.9.Final/hibernate-entitymanager-5.0.9.Final.jar
+7fc837188000-7fc83718b000 r--s 00010000 08:01 289371                     /home/niteen/.m2/repository/org/hibernate/common/hibernate-commons-annotations/5.0.1.Final/hibernate-commons-annotations-5.0.1.Final.jar
+7fc83718b000-7fc837194000 r--s 0002d000 08:01 281413                     /home/niteen/.m2/repository/xml-apis/xml-apis/1.4.01/xml-apis-1.4.01.jar
+7fc837194000-7fc837199000 r--s 00048000 08:01 281410                     /home/niteen/.m2/repository/dom4j/dom4j/1.6.1/dom4j-1.6.1.jar
+7fc837199000-7fc83719c000 r--s 0002b000 08:01 289366                     /home/niteen/.m2/repository/org/jboss/jandex/2.0.0.Final/jandex-2.0.0.Final.jar
+7fc83719c000-7fc8371a1000 r--s 00068000 08:01 271732                     /home/niteen/.m2/repository/antlr/antlr/2.7.7/antlr-2.7.7.jar
+7fc8371a1000-7fc8371ab000 r--s 000ae000 08:01 289358                     /home/niteen/.m2/repository/org/javassist/javassist/3.20.0-GA/javassist-3.20.0-GA.jar
+7fc8371ab000-7fc8371b0000 r--s 00017000 08:01 289353                     /home/niteen/.m2/repository/org/hibernate/javax/persistence/hibernate-jpa-2.1-api/1.0.0.Final/hibernate-jpa-2.1-api-1.0.0.Final.jar
+7fc8371b0000-7fc83721a000 r--s 004ed000 08:01 292429                     /home/niteen/.m2/repository/org/hibernate/hibernate-core/5.0.9.Final/hibernate-core-5.0.9.Final.jar
+7fc83721a000-7fc837224000 r--s 0005f000 08:01 292427                     /home/niteen/.m2/repository/org/springframework/spring-jdbc/4.3.2.RELEASE/spring-jdbc-4.3.2.RELEASE.jar
+7fc837224000-7fc837225000 r--s 00009000 08:01 292425                     /home/niteen/.m2/repository/org/apache/tomcat/tomcat-juli/8.5.4/tomcat-juli-8.5.4.jar
+7fc837225000-7fc837228000 r--s 0001f000 08:01 292421                     /home/niteen/.m2/repository/org/apache/tomcat/tomcat-jdbc/8.5.4/tomcat-jdbc-8.5.4.jar
+7fc837228000-7fc837229000 r--s 00000000 08:01 292419                     /home/niteen/.m2/repository/org/springframework/boot/spring-boot-starter-jdbc/1.4.0.RELEASE/spring-boot-starter-jdbc-1.4.0.RELEASE.jar
+7fc837229000-7fc837242000 r--s 001af000 08:01 289297                     /home/niteen/.m2/repository/org/aspectj/aspectjweaver/1.8.9/aspectjweaver-1.8.9.jar
+7fc837242000-7fc837243000 r--s 00000000 08:01 292417                     /home/niteen/.m2/repository/org/springframework/boot/spring-boot-starter-aop/1.4.0.RELEASE/spring-boot-starter-aop-1.4.0.RELEASE.jar
+7fc837243000-7fc837244000 r--s 00000000 08:01 292415                     /home/niteen/.m2/repository/org/springframework/boot/spring-boot-starter-data-jpa/1.4.0.RELEASE/spring-boot-starter-data-jpa-1.4.0.RELEASE.jar
+7fc837244000-7fc83724e000 r--s 0004e000 08:01 292933                     /home/niteen/.m2/repository/org/springframework/security/spring-security-web/4.1.1.RELEASE/spring-security-web-4.1.1.RELEASE.jar
+7fc83724e000-7fc837259000 r--s 00051000 08:01 293123                     /home/niteen/.m2/repository/org/springframework/security/spring-security-core/4.1.1.RELEASE/spring-security-core-4.1.1.RELEASE.jar
+7fc837259000-7fc837262000 r--s 0007a000 08:01 293104                     /home/niteen/.m2/repository/org/springframework/security/spring-security-config/4.1.1.RELEASE/spring-security-config-4.1.1.RELEASE.jar
+7fc837262000-7fc83726b000 r--s 00054000 08:01 293095                     /home/niteen/.m2/repository/org/springframework/spring-aop/4.3.2.RELEASE/spring-aop-4.3.2.RELEASE.jar
+7fc83726b000-7fc83726c000 r--s 00000000 08:01 293092                     /home/niteen/.m2/repository/org/springframework/boot/spring-boot-starter-security/1.4.0.RELEASE/spring-boot-starter-security-1.4.0.RELEASE.jar
+7fc83726c000-7fc837271000 r--s 0003c000 08:01 292950                     /home/niteen/.m2/repository/org/springframework/spring-expression/4.3.2.RELEASE/spring-expression-4.3.2.RELEASE.jar
+7fc837271000-7fc837283000 r--s 000ce000 08:01 292934                     /home/niteen/.m2/repository/org/springframework/spring-webmvc/4.3.2.RELEASE/spring-webmvc-4.3.2.RELEASE.jar
+7fc837283000-7fc837290000 r--s 000ac000 08:01 293115                     /home/niteen/.m2/repository/org/springframework/spring-beans/4.3.2.RELEASE/spring-beans-4.3.2.RELEASE.jar
+7fc837290000-7fc8372a2000 r--s 000b5000 08:01 292930                     /home/niteen/.m2/repository/org/springframework/spring-web/4.3.2.RELEASE/spring-web-4.3.2.RELEASE.jar
+7fc8372a2000-7fc8372a4000 r--s 0000f000 08:01 289249                     /home/niteen/.m2/repository/org/jboss/logging/jboss-logging/3.3.0.Final/jboss-logging-3.3.0.Final.jar
+7fc8372a4000-7fc8372a8000 r--s 0000c000 08:01 271654                     /home/niteen/.m2/repository/javax/validation/validation-api/1.1.0.Final/validation-api-1.1.0.Final.jar
+7fc8372a8000-7fc8372b8000 r--s 0009c000 08:01 289246                     /home/niteen/.m2/repository/org/hibernate/hibernate-validator/5.2.4.Final/hibernate-validator-5.2.4.Final.jar
+7fc8372b8000-7fc8372bd000 r--s 00036000 08:01 292496                     /home/niteen/.m2/repository/org/apache/tomcat/embed/tomcat-embed-websocket/8.5.4/tomcat-embed-websocket-8.5.4.jar
+7fc8372bd000-7fc8372c2000 r--s 00036000 08:01 292466                     /home/niteen/.m2/repository/org/apache/tomcat/embed/tomcat-embed-el/8.5.4/tomcat-embed-el-8.5.4.jar
+7fc8372c2000-7fc8372eb000 r--s 002af000 08:01 292452                     /home/niteen/.m2/repository/org/apache/tomcat/embed/tomcat-embed-core/8.5.4/tomcat-embed-core-8.5.4.jar
+7fc8372eb000-7fc8372ec000 r--s 00000000 08:01 292449                     /home/niteen/.m2/repository/org/springframework/boot/spring-boot-starter-tomcat/1.4.0.RELEASE/spring-boot-starter-tomcat-1.4.0.RELEASE.jar
+7fc8372ec000-7fc837309000 r--s 000c7000 08:01 292407                     /home/niteen/.m2/repository/org/springframework/boot/spring-boot-autoconfigure/1.4.0.RELEASE/spring-boot-autoconfigure-1.4.0.RELEASE.jar
+7fc837309000-7fc837318000 r--s 0008f000 08:01 292384                     /home/niteen/.m2/repository/org/springframework/boot/spring-boot/1.4.0.RELEASE/spring-boot-1.4.0.RELEASE.jar
+7fc837318000-7fc83731e000 r--s 0002c000 08:01 293490                     /home/niteen/.m2/repository/org/springframework/boot/spring-boot-devtools/1.4.0.RELEASE/spring-boot-devtools-1.4.0.RELEASE.jar
+7fc83731e000-7fc83731f000 ---p 00000000 00:00 0 
+7fc83731f000-7fc83741f000 rw-p 00000000 00:00 0 
+7fc83741f000-7fc837422000 ---p 00000000 00:00 0 
+7fc837422000-7fc837520000 rw-p 00000000 00:00 0 
+7fc837520000-7fc837523000 ---p 00000000 00:00 0 
+7fc837523000-7fc837621000 rw-p 00000000 00:00 0 
+7fc837621000-7fc837624000 ---p 00000000 00:00 0 
+7fc837624000-7fc837722000 rw-p 00000000 00:00 0 
+7fc837722000-7fc837725000 ---p 00000000 00:00 0 
+7fc837725000-7fc837823000 rw-p 00000000 00:00 0 
+7fc837823000-7fc837826000 ---p 00000000 00:00 0 
+7fc837826000-7fc837924000 rw-p 00000000 00:00 0 
+7fc837924000-7fc837927000 ---p 00000000 00:00 0 
+7fc837927000-7fc837a25000 rw-p 00000000 00:00 0 
+7fc837a25000-7fc837cfd000 r--p 00000000 08:01 1169061                    /usr/lib/locale/locale-archive
+7fc837cfd000-7fc837d00000 ---p 00000000 00:00 0 
+7fc837d00000-7fc837dfe000 rw-p 00000000 00:00 0 
+7fc837dfe000-7fc837e01000 ---p 00000000 00:00 0 
+7fc837e01000-7fc837eff000 rw-p 00000000 00:00 0 
+7fc837eff000-7fc837f00000 ---p 00000000 00:00 0 
+7fc837f00000-7fc838000000 rw-p 00000000 00:00 0 
+7fc838000000-7fc838021000 rw-p 00000000 00:00 0 
+7fc838021000-7fc83c000000 ---p 00000000 00:00 0 
+7fc83c000000-7fc83c021000 rw-p 00000000 00:00 0 
+7fc83c021000-7fc840000000 ---p 00000000 00:00 0 
+7fc840000000-7fc840021000 rw-p 00000000 00:00 0 
+7fc840021000-7fc844000000 ---p 00000000 00:00 0 
+7fc844000000-7fc844021000 rw-p 00000000 00:00 0 
+7fc844021000-7fc848000000 ---p 00000000 00:00 0 
+7fc848000000-7fc848021000 rw-p 00000000 00:00 0 
+7fc848021000-7fc84c000000 ---p 00000000 00:00 0 
+7fc84c000000-7fc84c021000 rw-p 00000000 00:00 0 
+7fc84c021000-7fc850000000 ---p 00000000 00:00 0 
+7fc850000000-7fc850021000 rw-p 00000000 00:00 0 
+7fc850021000-7fc854000000 ---p 00000000 00:00 0 
+7fc854000000-7fc854021000 rw-p 00000000 00:00 0 
+7fc854021000-7fc858000000 ---p 00000000 00:00 0 
+7fc858000000-7fc858001000 r--s 00000000 08:01 292447                     /home/niteen/.m2/repository/org/springframework/boot/spring-boot-starter-web/1.4.0.RELEASE/spring-boot-starter-web-1.4.0.RELEASE.jar
+7fc85804e000-7fc858051000 r--s 0001a000 08:01 293485                     /home/niteen/.m2/repository/nz/net/ultraq/thymeleaf/thymeleaf-layout-dialect/1.4.0/thymeleaf-layout-dialect-1.4.0.jar
+7fc858051000-7fc858054000 r--s 00020000 08:01 291288                     /home/niteen/.m2/repository/org/unbescape/unbescape/1.1.0.RELEASE/unbescape-1.1.0.RELEASE.jar
+7fc858054000-7fc858057000 r--s 00035000 08:01 291286                     /home/niteen/.m2/repository/ognl/ognl/3.0.8/ognl-3.0.8.jar
+7fc85805f000-7fc858064000 r--s 002f9000 08:01 928672                     /home/niteen/App/jdk1.8.0_121/jre/lib/charsets.jar
+7fc858064000-7fc858067000 r--s 00034000 08:01 293472                     /home/niteen/.m2/repository/org/thymeleaf/thymeleaf-spring4/2.1.5.RELEASE/thymeleaf-spring4-2.1.5.RELEASE.jar
+7fc858067000-7fc85806d000 r--s 0003d000 08:01 289228                     /home/niteen/.m2/repository/org/yaml/snakeyaml/1.17/snakeyaml-1.17.jar
+7fc85806d000-7fc85806f000 r--s 00004000 08:01 291780                     /home/niteen/.m2/repository/org/slf4j/log4j-over-slf4j/1.7.21/log4j-over-slf4j-1.7.21.jar
+7fc85806f000-7fc858071000 r--s 00000000 08:01 291777                     /home/niteen/.m2/repository/org/slf4j/jul-to-slf4j/1.7.21/jul-to-slf4j-1.7.21.jar
+7fc858071000-7fc85807b000 r--s 00069000 08:01 291774                     /home/niteen/.m2/repository/ch/qos/logback/logback-core/1.1.7/logback-core-1.1.7.jar
+7fc85807b000-7fc858082000 r--s 00044000 08:01 291769                     /home/niteen/.m2/repository/ch/qos/logback/logback-classic/1.1.7/logback-classic-1.1.7.jar
+7fc858082000-7fc858083000 r--s 00000000 08:01 290076                     /home/niteen/.m2/repository/org/springframework/boot/spring-boot-starter-logging/1.4.0.RELEASE/spring-boot-starter-logging-1.4.0.RELEASE.jar
+7fc858083000-7fc858084000 r--s 00000000 08:01 292380                     /home/niteen/.m2/repository/org/springframework/boot/spring-boot-starter/1.4.0.RELEASE/spring-boot-starter-1.4.0.RELEASE.jar
+7fc858084000-7fc858085000 r--s 00000000 08:01 293469                     /home/niteen/.m2/repository/org/springframework/boot/spring-boot-starter-thymeleaf/1.4.0.RELEASE/spring-boot-starter-thymeleaf-1.4.0.RELEASE.jar
+7fc858085000-7fc85808a000 r--s 0003d000 08:01 326479                     /home/niteen/.m2/repository/org/codehaus/plexus/plexus-utils/1.5.8/plexus-utils-1.5.8.jar
+7fc85808a000-7fc85808b000 r--s 00001000 08:01 326477                     /home/niteen/.m2/repository/org/sonatype/plexus/plexus-build-api/0.0.6/plexus-build-api-0.0.6.jar
+7fc85808b000-7fc85808c000 r--s 00006000 08:01 326475                     /home/niteen/.m2/repository/org/codehaus/jackson/jackson-xc/1.9.2/jackson-xc-1.9.2.jar
+7fc85808c000-7fc85808d000 r--s 00004000 08:01 326473                     /home/niteen/.m2/repository/org/codehaus/jackson/jackson-jaxrs/1.9.2/jackson-jaxrs-1.9.2.jar
+7fc85808d000-7fc85809b000 r--s 000ad000 08:01 326471                     /home/niteen/.m2/repository/org/codehaus/jackson/jackson-mapper-asl/1.9.2/jackson-mapper-asl-1.9.2.jar
+7fc85809b000-7fc85809f000 r--s 00034000 08:01 326469                     /home/niteen/.m2/repository/org/codehaus/jackson/jackson-core-asl/1.9.2/jackson-core-asl-1.9.2.jar
+7fc85809f000-7fc8580a1000 r--s 00004000 08:01 281518                     /home/niteen/.m2/repository/javax/xml/stream/stax-api/1.0-2/stax-api-1.0-2.jar
+7fc8580a1000-7fc859ce5000 rw-p 00000000 00:00 0 
+7fc859ce5000-7fc859ebe000 r--s 03d3e000 08:01 928677                     /home/niteen/App/jdk1.8.0_121/jre/lib/rt.jar
+7fc859ebe000-7fc860eff000 rw-p 00000000 00:00 0 
+7fc860eff000-7fc860f00000 ---p 00000000 00:00 0 
+7fc860f00000-7fc861000000 rw-p 00000000 00:00 0 
+7fc861000000-7fc861980000 rwxp 00000000 00:00 0 
+7fc861980000-7fc870000000 ---p 00000000 00:00 0 
+7fc870000000-7fc870de4000 rw-p 00000000 00:00 0 
+7fc870de4000-7fc874000000 ---p 00000000 00:00 0 
+7fc874000000-7fc874013000 r--s 000c7000 08:01 281514                     /home/niteen/.m2/repository/com/sun/xml/bind/jaxb-impl/2.2.3-1/jaxb-impl-2.2.3-1.jar
+7fc874013000-7fc874017000 r--s 00024000 08:01 326467                     /home/niteen/.m2/repository/com/sun/jersey/jersey-json/1.17.1/jersey-json-1.17.1.jar
+7fc874017000-7fc874066000 rw-p 00000000 00:00 0 
+7fc874066000-7fc874067000 ---p 00000000 00:00 0 
+7fc874067000-7fc874167000 rw-p 00000000 00:00 0 
+7fc874167000-7fc874168000 ---p 00000000 00:00 0 
+7fc874168000-7fc874268000 rw-p 00000000 00:00 0 
+7fc874268000-7fc874269000 ---p 00000000 00:00 0 
+7fc874269000-7fc874369000 rw-p 00000000 00:00 0 
+7fc874369000-7fc87436a000 ---p 00000000 00:00 0 
+7fc87436a000-7fc87446a000 rw-p 00000000 00:00 0 
+7fc87446a000-7fc87446b000 ---p 00000000 00:00 0 
+7fc87446b000-7fc87456b000 rw-p 00000000 00:00 0 
+7fc87456b000-7fc87456c000 ---p 00000000 00:00 0 
+7fc87456c000-7fc87466c000 rw-p 00000000 00:00 0 
+7fc87466c000-7fc87466d000 ---p 00000000 00:00 0 
+7fc87466d000-7fc87478f000 rw-p 00000000 00:00 0 
+7fc87478f000-7fc874b7f000 ---p 00000000 00:00 0 
+7fc874b7f000-7fc874ba1000 rw-p 00000000 00:00 0 
+7fc874ba1000-7fc874f91000 ---p 00000000 00:00 0 
+7fc874f91000-7fc874fca000 rw-p 00000000 00:00 0 
+7fc874fca000-7fc87519a000 ---p 00000000 00:00 0 
+7fc87519a000-7fc8751c1000 rw-p 00000000 00:00 0 
+7fc8751c1000-7fc87555b000 ---p 00000000 00:00 0 
+7fc87555b000-7fc875575000 r-xp 00000000 08:01 928708                     /home/niteen/App/jdk1.8.0_121/jre/lib/amd64/libzip.so
+7fc875575000-7fc875775000 ---p 0001a000 08:01 928708                     /home/niteen/App/jdk1.8.0_121/jre/lib/amd64/libzip.so
+7fc875775000-7fc875776000 rw-p 0001a000 08:01 928708                     /home/niteen/App/jdk1.8.0_121/jre/lib/amd64/libzip.so
+7fc875776000-7fc875781000 r-xp 00000000 08:01 434186                     /lib/x86_64-linux-gnu/libnss_files-2.23.so
+7fc875781000-7fc875980000 ---p 0000b000 08:01 434186                     /lib/x86_64-linux-gnu/libnss_files-2.23.so
+7fc875980000-7fc875981000 r--p 0000a000 08:01 434186                     /lib/x86_64-linux-gnu/libnss_files-2.23.so
+7fc875981000-7fc875982000 rw-p 0000b000 08:01 434186                     /lib/x86_64-linux-gnu/libnss_files-2.23.so
+7fc875982000-7fc875988000 rw-p 00000000 00:00 0 
+7fc875988000-7fc875993000 r-xp 00000000 08:01 434191                     /lib/x86_64-linux-gnu/libnss_nis-2.23.so
+7fc875993000-7fc875b92000 ---p 0000b000 08:01 434191                     /lib/x86_64-linux-gnu/libnss_nis-2.23.so
+7fc875b92000-7fc875b93000 r--p 0000a000 08:01 434191                     /lib/x86_64-linux-gnu/libnss_nis-2.23.so
+7fc875b93000-7fc875b94000 rw-p 0000b000 08:01 434191                     /lib/x86_64-linux-gnu/libnss_nis-2.23.so
+7fc875b94000-7fc875baa000 r-xp 00000000 08:01 395866                     /lib/x86_64-linux-gnu/libnsl-2.23.so
+7fc875baa000-7fc875da9000 ---p 00016000 08:01 395866                     /lib/x86_64-linux-gnu/libnsl-2.23.so
+7fc875da9000-7fc875daa000 r--p 00015000 08:01 395866                     /lib/x86_64-linux-gnu/libnsl-2.23.so
+7fc875daa000-7fc875dab000 rw-p 00016000 08:01 395866                     /lib/x86_64-linux-gnu/libnsl-2.23.so
+7fc875dab000-7fc875dad000 rw-p 00000000 00:00 0 
+7fc875dad000-7fc875db5000 r-xp 00000000 08:01 434197                     /lib/x86_64-linux-gnu/libnss_compat-2.23.so
+7fc875db5000-7fc875fb4000 ---p 00008000 08:01 434197                     /lib/x86_64-linux-gnu/libnss_compat-2.23.so
+7fc875fb4000-7fc875fb5000 r--p 00007000 08:01 434197                     /lib/x86_64-linux-gnu/libnss_compat-2.23.so
+7fc875fb5000-7fc875fb6000 rw-p 00008000 08:01 434197                     /lib/x86_64-linux-gnu/libnss_compat-2.23.so
+7fc875fb6000-7fc875fe1000 r-xp 00000000 08:01 928735                     /home/niteen/App/jdk1.8.0_121/jre/lib/amd64/libjava.so
+7fc875fe1000-7fc8761e0000 ---p 0002b000 08:01 928735                     /home/niteen/App/jdk1.8.0_121/jre/lib/amd64/libjava.so
+7fc8761e0000-7fc8761e2000 rw-p 0002a000 08:01 928735                     /home/niteen/App/jdk1.8.0_121/jre/lib/amd64/libjava.so
+7fc8761e2000-7fc8761ef000 r-xp 00000000 08:01 928686                     /home/niteen/App/jdk1.8.0_121/jre/lib/amd64/libverify.so
+7fc8761ef000-7fc8763ee000 ---p 0000d000 08:01 928686                     /home/niteen/App/jdk1.8.0_121/jre/lib/amd64/libverify.so
+7fc8763ee000-7fc8763f0000 rw-p 0000c000 08:01 928686                     /home/niteen/App/jdk1.8.0_121/jre/lib/amd64/libverify.so
+7fc8763f0000-7fc8763f7000 r-xp 00000000 08:01 434193                     /lib/x86_64-linux-gnu/librt-2.23.so
+7fc8763f7000-7fc8765f6000 ---p 00007000 08:01 434193                     /lib/x86_64-linux-gnu/librt-2.23.so
+7fc8765f6000-7fc8765f7000 r--p 00006000 08:01 434193                     /lib/x86_64-linux-gnu/librt-2.23.so
+7fc8765f7000-7fc8765f8000 rw-p 00007000 08:01 434193                     /lib/x86_64-linux-gnu/librt-2.23.so
+7fc8765f8000-7fc876700000 r-xp 00000000 08:01 434203                     /lib/x86_64-linux-gnu/libm-2.23.so
+7fc876700000-7fc8768ff000 ---p 00108000 08:01 434203                     /lib/x86_64-linux-gnu/libm-2.23.so
+7fc8768ff000-7fc876900000 r--p 00107000 08:01 434203                     /lib/x86_64-linux-gnu/libm-2.23.so
+7fc876900000-7fc876901000 rw-p 00108000 08:01 434203                     /lib/x86_64-linux-gnu/libm-2.23.so
+7fc876901000-7fc8775cf000 r-xp 00000000 08:01 928739                     /home/niteen/App/jdk1.8.0_121/jre/lib/amd64/server/libjvm.so
+7fc8775cf000-7fc8777cf000 ---p 00cce000 08:01 928739                     /home/niteen/App/jdk1.8.0_121/jre/lib/amd64/server/libjvm.so
+7fc8777cf000-7fc8778a8000 rw-p 00cce000 08:01 928739                     /home/niteen/App/jdk1.8.0_121/jre/lib/amd64/server/libjvm.so
+7fc8778a8000-7fc8778f3000 rw-p 00000000 00:00 0 
+7fc8778f3000-7fc877ab3000 r-xp 00000000 08:01 443754                     /lib/x86_64-linux-gnu/libc-2.23.so
+7fc877ab3000-7fc877cb3000 ---p 001c0000 08:01 443754                     /lib/x86_64-linux-gnu/libc-2.23.so
+7fc877cb3000-7fc877cb7000 r--p 001c0000 08:01 443754                     /lib/x86_64-linux-gnu/libc-2.23.so
+7fc877cb7000-7fc877cb9000 rw-p 001c4000 08:01 443754                     /lib/x86_64-linux-gnu/libc-2.23.so
+7fc877cb9000-7fc877cbd000 rw-p 00000000 00:00 0 
+7fc877cbd000-7fc877cc0000 r-xp 00000000 08:01 434196                     /lib/x86_64-linux-gnu/libdl-2.23.so
+7fc877cc0000-7fc877ebf000 ---p 00003000 08:01 434196                     /lib/x86_64-linux-gnu/libdl-2.23.so
+7fc877ebf000-7fc877ec0000 r--p 00002000 08:01 434196                     /lib/x86_64-linux-gnu/libdl-2.23.so
+7fc877ec0000-7fc877ec1000 rw-p 00003000 08:01 434196                     /lib/x86_64-linux-gnu/libdl-2.23.so
+7fc877ec1000-7fc877ed6000 r-xp 00000000 08:01 14773                      /home/niteen/App/jdk1.8.0_121/lib/amd64/jli/libjli.so
+7fc877ed6000-7fc8780d6000 ---p 00015000 08:01 14773                      /home/niteen/App/jdk1.8.0_121/lib/amd64/jli/libjli.so
+7fc8780d6000-7fc8780d7000 rw-p 00015000 08:01 14773                      /home/niteen/App/jdk1.8.0_121/lib/amd64/jli/libjli.so
+7fc8780d7000-7fc8780ef000 r-xp 00000000 08:01 434188                     /lib/x86_64-linux-gnu/libpthread-2.23.so
+7fc8780ef000-7fc8782ee000 ---p 00018000 08:01 434188                     /lib/x86_64-linux-gnu/libpthread-2.23.so
+7fc8782ee000-7fc8782ef000 r--p 00017000 08:01 434188                     /lib/x86_64-linux-gnu/libpthread-2.23.so
+7fc8782ef000-7fc8782f0000 rw-p 00018000 08:01 434188                     /lib/x86_64-linux-gnu/libpthread-2.23.so
+7fc8782f0000-7fc8782f4000 rw-p 00000000 00:00 0 
+7fc8782f4000-7fc87831a000 r-xp 00000000 08:01 419718                     /lib/x86_64-linux-gnu/ld-2.23.so
+7fc87831a000-7fc87831d000 r--s 00017000 08:01 278589                     /home/niteen/.m2/repository/javax/xml/bind/jaxb-api/2.2.2/jaxb-api-2.2.2.jar
+7fc87831d000-7fc878320000 r--s 0001c000 08:01 326465                     /home/niteen/.m2/repository/com/sun/jersey/jersey-servlet/1.17.1/jersey-servlet-1.17.1.jar
+7fc878320000-7fc87832b000 r--s 00068000 08:01 326447                     /home/niteen/.m2/repository/com/sun/jersey/jersey-core/1.17.1/jersey-core-1.17.1.jar
+7fc87832b000-7fc87833a000 r--s 00085000 08:01 326445                     /home/niteen/.m2/repository/com/sun/jersey/jersey-server/1.17.1/jersey-server-1.17.1.jar
+7fc87833a000-7fc8783fb000 rw-p 00000000 00:00 0 
+7fc8783fb000-7fc8783fe000 ---p 00000000 00:00 0 
+7fc8783fe000-7fc878500000 rw-p 00000000 00:00 0 
+7fc878500000-7fc878502000 r--s 0000f000 08:01 281512                     /home/niteen/.m2/repository/org/codehaus/jettison/jettison/1.1/jettison-1.1.jar
+7fc878502000-7fc878503000 r--s 0000a000 08:01 281488                     /home/niteen/.m2/repository/asm/asm/3.1/asm-3.1.jar
+7fc878503000-7fc878505000 r--s 0000c000 08:01 799472                     /home/niteen/App/eclipse/plugins/org.hamcrest.core_1.3.0.v201303031735.jar
+7fc878505000-7fc87850d000 r--s 00045000 08:01 1056256                    /home/niteen/App/eclipse/plugins/org.junit_4.12.0.v201504281640/junit.jar
+7fc87850d000-7fc878515000 rw-s 00000000 08:01 917769                     /tmp/hsperfdata_niteen/66295
+7fc878515000-7fc878516000 rw-p 00000000 00:00 0 
+7fc878516000-7fc878517000 ---p 00000000 00:00 0 
+7fc878517000-7fc878519000 rw-p 00000000 00:00 0 
+7fc878519000-7fc87851a000 r--p 00025000 08:01 419718                     /lib/x86_64-linux-gnu/ld-2.23.so
+7fc87851a000-7fc87851b000 rw-p 00026000 08:01 419718                     /lib/x86_64-linux-gnu/ld-2.23.so
+7fc87851b000-7fc87851c000 rw-p 00000000 00:00 0 
+7ffeeb599000-7ffeeb5bd000 rw-p 00000000 00:00 0                          [stack]
+7ffeeb5da000-7ffeeb5dc000 r--p 00000000 00:00 0                          [vvar]
+7ffeeb5dc000-7ffeeb5de000 r-xp 00000000 00:00 0                          [vdso]
+ffffffffff600000-ffffffffff601000 r-xp 00000000 00:00 0                  [vsyscall]
+
+VM Arguments:
+jvm_args: -ea -Dfile.encoding=UTF-8 
+java_command: org.eclipse.jdt.internal.junit.runner.RemoteTestRunner -version 3 -port 36682 -testLoaderClass org.eclipse.jdt.internal.junit4.runner.JUnit4TestLoader -loaderpluginname org.eclipse.jdt.junit4.runtime -classNames com.fico.demo.controller.PersonControllerTest
+java_class_path (initial): /home/niteen/workspace/fico/scotch/target/test-classes:/home/niteen/workspace/fico/scotch/target/classes:/home/niteen/App/eclipse/plugins/org.junit_4.12.0.v201504281640/junit.jar:/home/niteen/App/eclipse/plugins/org.hamcrest.core_1.3.0.v201303031735.jar:/home/niteen/.m2/repository/com/sun/jersey/jersey-server/1.17.1/jersey-server-1.17.1.jar:/home/niteen/.m2/repository/asm/asm/3.1/asm-3.1.jar:/home/niteen/.m2/repository/com/sun/jersey/jersey-core/1.17.1/jersey-core-1.17.1.jar:/home/niteen/.m2/repository/com/sun/jersey/jersey-servlet/1.17.1/jersey-servlet-1.17.1.jar:/home/niteen/.m2/repository/com/sun/jersey/jersey-json/1.17.1/jersey-json-1.17.1.jar:/home/niteen/.m2/repository/org/codehaus/jettison/jettison/1.1/jettison-1.1.jar:/home/niteen/.m2/repository/com/sun/xml/bind/jaxb-impl/2.2.3-1/jaxb-impl-2.2.3-1.jar:/home/niteen/.m2/repository/javax/xml/bind/jaxb-api/2.2.2/jaxb-api-2.2.2.jar:/home/niteen/.m2/repository/javax/xml/stream/stax-api/1.0-2/stax-api-1.0-2.jar:/home/niteen/.m2/repository/org/codehaus/jackson/jackson-core-asl/1.9.2/jackson-core-asl-1.9.2.jar:/home/niteen/.m2/repository/org/codehaus/jackson/jackson-mapper-asl/1.9.2/jackson-mapper-asl-1.9.2.jar:/home/niteen/.m2/repository/org/codehaus/jackson/jackson-jaxrs/1.9.2/jackson-jaxrs-1.9.2.jar:/home/niteen/.m2/repository/org/codehaus/jackson/jackson-xc/1.9.2/jackson-xc-1.9.2.jar:/home/niteen/.m2/repository/org/sonatype/plexus/plexus-build-api/0.0.6/plexus-build-api-0.0.6.jar:/home/niteen/.m2/repository/org/codehaus/plexus/plexus-utils/1.5.8/plexus-utils-1.5.8.jar:/home/niteen/.m2/repository/org/springframework/boot/spring-boot-starter-thymeleaf/1.4.0.RELEASE/spring-boot-starter-thymeleaf-1.4.0.RELEASE.jar:/home/niteen/.m2/repository/org/springframework/boot/spring-boot-starter/1.4.0.RELEASE/spring-boot-starter-1.4.0.RELEASE.jar:/home/niteen/.m2/repository/org/springframework/boot/spring-boot-starter-logging/1.4.0.RELEASE/spring-boot-starter-logging-1.4.0.RELEASE.jar:/home/niteen/
+Launcher Type: SUN_STANDARD
+
+Environment Variables:
+JAVA_HOME=/home/niteen/App/jdk1.8.0_121
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/niteen/App/jdk1.8.0_121/bin
+SHELL=/bin/bash
+DISPLAY=:0
+
+Signal Handlers:
+SIGSEGV: [libjvm.so+0xac78c0], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGBUS: [libjvm.so+0xac78c0], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGFPE: [libjvm.so+0x920ac0], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGPIPE: [libjvm.so+0x920ac0], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGXFSZ: [libjvm.so+0x920ac0], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGILL: [libjvm.so+0x920ac0], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGUSR1: SIG_DFL, sa_mask[0]=00000000000000000000000000000000, sa_flags=none
+SIGUSR2: [libjvm.so+0x922300], sa_mask[0]=00100000000000000000000000000000, sa_flags=SA_RESTART|SA_SIGINFO
+SIGHUP: [libjvm.so+0x923700], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGINT: [libjvm.so+0x923700], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGTERM: [libjvm.so+0x923700], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGQUIT: [libjvm.so+0x923700], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+
+
+---------------  S Y S T E M  ---------------
+
+OS:DISTRIB_ID=Ubuntu
+DISTRIB_RELEASE=16.04
+DISTRIB_CODENAME=xenial
+DISTRIB_DESCRIPTION="Ubuntu 16.04 LTS"
+
+uname:Linux 4.4.0-87-generic #110-Ubuntu SMP Tue Jul 18 12:55:35 UTC 2017 x86_64
+libc:glibc 2.23 NPTL 2.23 
+rlimit: STACK 8192k, CORE 0k, NPROC 49855, NOFILE 65536, AS infinity
+load average:26.35 10.02 4.33
+
+/proc/meminfo:
+MemTotal:       12802356 kB
+MemFree:          128356 kB
+MemAvailable:      10396 kB
+Buffers:            1324 kB
+Cached:           920832 kB
+SwapCached:         2100 kB
+Active:          6702308 kB
+Inactive:        1237156 kB
+Active(anon):    6694460 kB
+Inactive(anon):  1228412 kB
+Active(file):       7848 kB
+Inactive(file):     8744 kB
+Unevictable:          72 kB
+Mlocked:              72 kB
+SwapTotal:       1046524 kB
+SwapFree:              0 kB
+Dirty:                92 kB
+Writeback:             0 kB
+AnonPages:       7019428 kB
+Mapped:           346460 kB
+Shmem:            901892 kB
+Slab:             173176 kB
+SReclaimable:      57848 kB
+SUnreclaim:       115328 kB
+KernelStack:       18336 kB
+PageTables:        69372 kB
+NFS_Unstable:          0 kB
+Bounce:                0 kB
+WritebackTmp:          0 kB
+CommitLimit:     7447700 kB
+Committed_AS:   14482708 kB
+VmallocTotal:   34359738367 kB
+VmallocUsed:           0 kB
+VmallocChunk:          0 kB
+HardwareCorrupted:     0 kB
+AnonHugePages:   3747840 kB
+CmaTotal:              0 kB
+CmaFree:               0 kB
+HugePages_Total:       0
+HugePages_Free:        0
+HugePages_Rsvd:        0
+HugePages_Surp:        0
+Hugepagesize:       2048 kB
+DirectMap4k:      954176 kB
+DirectMap2M:    12152832 kB
+DirectMap1G:           0 kB
+
+
+CPU:total 8 (1 cores per cpu, 1 threads per core) family 6 model 94 stepping 3, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt, avx, avx2, aes, clmul, erms, rtm, 3dnowpref, lzcnt, tsc, tscinvbit, bmi1, bmi2, adx
+
+/proc/cpuinfo:
+processor	: 0
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 94
+model name	: Intel(R) Core(TM) i7-6820HQ CPU @ 2.70GHz
+stepping	: 3
+microcode	: 0x9e
+cpu MHz		: 2712.249
+cache size	: 8192 KB
+physical id	: 0
+siblings	: 1
+core id		: 0
+cpu cores	: 1
+apicid		: 0
+initial apicid	: 0
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts mmx fxsr sse sse2 ss syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts nopl xtopology tsc_reliable nonstop_tsc aperfmperf eagerfpu pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch epb fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 invpcid rtm rdseed adx smap xsaveopt dtherm ida arat pln pts hwp hwp_notify hwp_act_window hwp_epp
+bugs		:
+bogomips	: 5424.49
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 42 bits physical, 48 bits virtual
+power management:
+
+processor	: 1
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 94
+model name	: Intel(R) Core(TM) i7-6820HQ CPU @ 2.70GHz
+stepping	: 3
+microcode	: 0x9e
+cpu MHz		: 2712.249
+cache size	: 8192 KB
+physical id	: 2
+siblings	: 1
+core id		: 0
+cpu cores	: 1
+apicid		: 2
+initial apicid	: 2
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts mmx fxsr sse sse2 ss syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts nopl xtopology tsc_reliable nonstop_tsc aperfmperf eagerfpu pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch epb fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 invpcid rtm rdseed adx smap xsaveopt dtherm ida arat pln pts hwp hwp_notify hwp_act_window hwp_epp
+bugs		:
+bogomips	: 5424.49
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 42 bits physical, 48 bits virtual
+power management:
+
+processor	: 2
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 94
+model name	: Intel(R) Core(TM) i7-6820HQ CPU @ 2.70GHz
+stepping	: 3
+microcode	: 0x9e
+cpu MHz		: 2712.249
+cache size	: 8192 KB
+physical id	: 4
+siblings	: 1
+core id		: 0
+cpu cores	: 1
+apicid		: 4
+initial apicid	: 4
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts mmx fxsr sse sse2 ss syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts nopl xtopology tsc_reliable nonstop_tsc aperfmperf eagerfpu pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch epb fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 invpcid rtm rdseed adx smap xsaveopt dtherm ida arat pln pts hwp hwp_notify hwp_act_window hwp_epp
+bugs		:
+bogomips	: 5424.49
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 42 bits physical, 48 bits virtual
+power management:
+
+processor	: 3
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 94
+model name	: Intel(R) Core(TM) i7-6820HQ CPU @ 2.70GHz
+stepping	: 3
+microcode	: 0x9e
+cpu MHz		: 2712.249
+cache size	: 8192 KB
+physical id	: 6
+siblings	: 1
+core id		: 0
+cpu cores	: 1
+apicid		: 6
+initial apicid	: 6
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts mmx fxsr sse sse2 ss syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts nopl xtopology tsc_reliable nonstop_tsc aperfmperf eagerfpu pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch epb fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 invpcid rtm rdseed adx smap xsaveopt dtherm ida arat pln pts hwp hwp_notify hwp_act_window hwp_epp
+bugs		:
+bogomips	: 5424.49
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 42 bits physical, 48 bits virtual
+power management:
+
+processor	: 4
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 94
+model name	: Intel(R) Core(TM) i7-6820HQ CPU @ 2.70GHz
+stepping	: 3
+microcode	: 0x9e
+cpu MHz		: 2712.249
+cache size	: 8192 KB
+physical id	: 8
+siblings	: 1
+core id		: 0
+cpu cores	: 1
+apicid		: 8
+initial apicid	: 8
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts mmx fxsr sse sse2 ss syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts nopl xtopology tsc_reliable nonstop_tsc aperfmperf eagerfpu pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch epb fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 invpcid rtm rdseed adx smap xsaveopt dtherm ida arat pln pts hwp hwp_notify hwp_act_window hwp_epp
+bugs		:
+bogomips	: 5424.49
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 42 bits physical, 48 bits virtual
+power management:
+
+processor	: 5
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 94
+model name	: Intel(R) Core(TM) i7-6820HQ CPU @ 2.70GHz
+stepping	: 3
+microcode	: 0x9e
+cpu MHz		: 2712.249
+cache size	: 8192 KB
+physical id	: 10
+siblings	: 1
+core id		: 0
+cpu cores	: 1
+apicid		: 10
+initial apicid	: 10
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts mmx fxsr sse sse2 ss syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts nopl xtopology tsc_reliable nonstop_tsc aperfmperf eagerfpu pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch epb fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 invpcid rtm rdseed adx smap xsaveopt dtherm ida arat pln pts hwp hwp_notify hwp_act_window hwp_epp
+bugs		:
+bogomips	: 5424.49
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 42 bits physical, 48 bits virtual
+power management:
+
+processor	: 6
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 94
+model name	: Intel(R) Core(TM) i7-6820HQ CPU @ 2.70GHz
+stepping	: 3
+microcode	: 0x9e
+cpu MHz		: 2712.249
+cache size	: 8192 KB
+physical id	: 12
+siblings	: 1
+core id		: 0
+cpu cores	: 1
+apicid		: 12
+initial apicid	: 12
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts mmx fxsr sse sse2 ss syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts nopl xtopology tsc_reliable nonstop_tsc aperfmperf eagerfpu pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch epb fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 invpcid rtm rdseed adx smap xsaveopt dtherm ida arat pln pts hwp hwp_notify hwp_act_window hwp_epp
+bugs		:
+bogomips	: 5424.49
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 42 bits physical, 48 bits virtual
+power management:
+
+processor	: 7
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 94
+model name	: Intel(R) Core(TM) i7-6820HQ CPU @ 2.70GHz
+stepping	: 3
+microcode	: 0x9e
+cpu MHz		: 2712.249
+cache size	: 8192 KB
+physical id	: 14
+siblings	: 1
+core id		: 0
+cpu cores	: 1
+apicid		: 14
+initial apicid	: 14
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts mmx fxsr sse sse2 ss syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts nopl xtopology tsc_reliable nonstop_tsc aperfmperf eagerfpu pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch epb fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 invpcid rtm rdseed adx smap xsaveopt dtherm ida arat pln pts hwp hwp_notify hwp_act_window hwp_epp
+bugs		:
+bogomips	: 5424.49
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 42 bits physical, 48 bits virtual
+power management:
+
+
+
+Memory: 4k page, physical 12802356k(130208k free), swap 1046524k(0k free)
+
+vm_info: Java HotSpot(TM) 64-Bit Server VM (25.121-b13) for linux-amd64 JRE (1.8.0_121-b13), built on Dec 12 2016 16:36:53 by "java_re" with gcc 4.3.0 20080428 (Red Hat 4.3.0-8)
+
+time: Mon Aug  7 08:01:23 2017
+elapsed time: 119 seconds (0d 0h 1m 59s)
+

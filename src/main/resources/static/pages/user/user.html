@@ -1,0 +1,109 @@
+<div class="alert alert-error" data-ng-show="error">
+	<font color="red">{{errorMessage}}</font>
+</div>
+<div id="login" data-ng-show="!isRegistrationRequired">
+	<form name="myForm" novalidate>
+		<div class="input-item">
+			<input type="email" name="email" id="txtEmail" class="text-box"
+				data-ng-model="user.userEmail" placeholder="Enter Email Id" />
+		</div>
+		<br>
+		<div class="input-item">
+			<input type="password" name="interests" class="text-box"
+				data-ng-model="user.userPassword" data-ng-maxlength="255"
+				 placeholder="Enter Password" required>
+		</div>
+		<br>
+		<ul>
+			<a href="" data-ng-click="showForgetPassword()">Forgotten password?</a>
+		</ul>
+		<div class="form_settings">
+			<button data-ng-click="userLogin(user)">login</button>
+			<button data-ng-click="showRegistration()">Register</button>
+		</div>
+	</form>
+</div>
+
+<div id="reegister" data-ng-show="isRegistrationRequired">
+
+	<div class="form_settings">
+		<label class="control-label" for="inputCategory">First Name</label>
+		<div>
+			<input type="text" data-ng-model="user.userFirstName" required
+				placeholder="Enter First Name" />
+		</div>
+	</div>
+	<div class="form_settings">
+		<label class="control-label" for="inputCategory">Last Name</label>
+		<div>
+			<input type="text" data-ng-model="user.userLastName" required
+				placeholder="Enter Last Name" />
+		</div>
+	</div>
+	<div class="form_settings">
+		<label class="control-label" for="inputCategory">UserName:</label>
+		<div>
+			<input type="text" required data-ng-model="user.userName"
+				placeholder="Enter username" name="userName" required>
+		</div>
+	</div>
+	<div class="form_settings">
+		<label class="control-label" for="inputCategory">Email</label>
+		<div>
+			<input type="email" name="email" data-ng-model="user.userEmail"
+				required placeholder="Enter a valid email address" />
+		</div>
+	</div>
+
+	<div class="form_settings">
+		<label class="control-label" for="inputCategory">Choose
+			Password: </label>
+		<div>
+			<input type="password" required data-ng-model="user.userPassword"
+				placeholder="Enter password">
+		</div>
+	</div>
+	<div class="form_settings">
+		<label class="control-label" for="inputCategory">Confirm
+			Password: </label>
+		<div>
+			<input type="password" required data-ng-model="confirmPassword"
+				placeholder="Enter Confirm password"
+				data-ng-blur="checkPassword(confirmPassword)">
+			<p data-ng-show="!isPasswordMatched">Entered Password doesn't
+				match</p>
+		</div>
+	</div>
+	<div class="form_settings">
+		<label class="control-label" for="inputCategory">Address</label>
+		<div>
+			<input type="text" data-ng-model="user.userAddress" required
+				placeholder="Enter Address" />
+		</div>
+	</div>
+
+	<div class="form_settings">
+		<label class="control-label" for="inputCategory">City</label>
+		<div>
+			<input type="text" data-ng-model="user.userCity" required
+				placeholder="Enter City" />
+		</div>
+	</div>
+	<div class="form_settings">
+		<label class="control-label" for="inputCategory">State</label>
+		<div>
+			<input type="text" data-ng-model="user.userState" required
+				placeholder="Enter State" />
+		</div>
+	</div>
+	<div class="form_settings">
+		<label class="control-label" for="inputCategory">Pin</label>
+		<div>
+			<input type="text" data-ng-model="user.userPincode" required
+				placeholder="Enter Pin" />
+		</div>
+	</div>
+	<div class="form_settings">
+		<button data-ng-click="registerNewUser(user)">Register</button>
+	</div>
+</div>

@@ -1,0 +1,47 @@
+<div align="center">
+
+	<form name="myForm" novalidate>
+		<input type="text" data-ng-model="orderNo"
+			placeholder="Search by Order No" class="description" required>
+
+		<button data-ng-click="trackOrderNo()"
+			data-ng-disabled="myForm.$invalid">Submit</button>
+	</form>
+
+	<br> <br>
+	<div align="center" data-ng-show="isOrderTracked && orderTrack!=''">
+		<form>
+			<table width="600">
+				<tr>
+					<td>TransactionID:</td>
+					<td>{{orderTrack.orderNo}}</td>
+				</tr>
+				<tr>
+					<td>ShippingAddress:</td>
+					<td>{{orderTrack.address}}</td>
+				</tr>
+				<tr>
+					<td>Your Booking Order Date:</td>
+					<td>{{orderTrack.orderBookingDate| date}}</td>
+				</tr>
+				<tr>
+					<td>Order Status:</td>
+					<td>{{orderTrack.orderStatus}}</td>
+				</tr>
+			</table>
+		</form>
+		<br>
+		<div>
+			<p>
+				O: Ordered <br>D: Delivered <br>C: Cancelled
+			</p>
+		</div>
+	</div>
+	<br> <br>
+	<div data-ng-show="orderTrack==''">
+		<h4>You have not done any order</h4>
+		<h4>
+			Please verify your order: <b>{{orderNo}}</b>
+		</h4>
+	</div>
+</div>

@@ -1,0 +1,80 @@
+<div class="col-xs-12 col-md-12">
+	<div class="prod-info-main prod-wrap clearfix">
+		<div class="row">
+			<div class="col-md-5 col-sm-12 col-xs-12">
+				<div class="product-image">
+					<a href="#cart"><img
+						data-ng-src="data:image/png;base64,{{productItem.image}}"
+						class="img-responsive"></a>
+				</div>
+			</div>
+			<div class="col-md-7 col-sm-12 col-xs-12">
+				<div class="product-deatil">
+					<h5 class="name">
+						<a href="#cart"> {{productItem.productName}} </a>
+					</h5>
+					<div class="price-container">
+						<span>{{productItem.price | currency}}</span>
+					</div>
+					<div data-ng-show="productItem.productDesc!='null'"
+						class="description">{{productItem.productDesc}}</div>
+					<div data-ng-show="productItem.productDesc=='null'"
+						class="description">Product description not available</div>
+				</div>
+				<div class="product-info smart-form">
+					<div class="row">
+						<div class="col-md-12">
+							<a href="javascript:void(0);" class="btn-danger"
+								data-ng-click="addToCart(productItem)">Add to cart</a>
+						</div>
+						<br>
+						<div class="col-md-12" ng-show="productItem.ratings.length>0">
+							Users Rating: {{calculateRating(productItem.ratings)}}
+							<div read-only star-rating
+								rating-value="calculateRating(productItem.ratings)" max="5"
+								on-rating-selected="getSelectedRating(productItem)"></div>
+						</div>
+						<div class="col-md-12" ng-show="productItem.ratings.length==0">No
+							Rating</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end product -->
+	<!--SHIPPING METHOD-->
+
+	<br> <br> <br>
+	<form novalidate>
+		<h3>
+			<span>Your rating:</span>
+		</h3>
+		<span>Be the first to review "{{productItem.productName}}" Your
+			email address will not be published. Required fields are marked as *</span>
+		<div ng-repeat=" rate in ratings">
+			<h3>{{rate.star}} / {{rate.max}}</h3>
+			<div star-rating rating-value="rate.star" max="5"
+				ng-click="selectRating(rate.star)"></div>
+		</div>
+		<div class="panel-body">
+			<div class="form-group">
+				<strong>your Name</strong> <input type="text"
+					data-ng-model="rating.firstName" class="form-control" />
+			</div>
+			<br>
+			<div class="form-group">
+				<strong>email address*</strong> <input type="text"
+					data-ng-model="rating.emailId" class="form-control" required />
+			</div>
+			<div class="form-group">
+				<strong>Your review*</strong>
+				<textarea type="text" data-ng-model="rating.review"
+					class="form-control"></textarea>
+			</div>
+			<div>
+				<button class="btn" data-ng-click="addRating()">Review
+					Submit</button>
+			</div>
+		</div>
+	</form>
+</div>

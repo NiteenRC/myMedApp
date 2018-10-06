@@ -1,0 +1,12 @@
+<h2 style="opacity: 1; padding-top: 0px;">Welcome To SMART SHOP</h2>
+
+<div carousel interval="2000">
+	<div slide data-ng-repeat="slide in slides" active="slide.active">
+		<a href="#category"><img data-ng-src="{{slide.image}}"
+			style="width: 500px; height: 500px; margin: auto;">
+			<div class="carousel-caption ">
+				<h2>Start Shopping</h2></a>
+		<h4>Slide {{$index+1}}</h4>
+		<!-- 			<a href="{{slide.url}}">View More</a> -->
+	</div>
+</div>

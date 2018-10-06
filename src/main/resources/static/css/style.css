@@ -1,0 +1,83 @@
+.rating {
+    color: #a9a9a9;
+    margin: 0;
+    padding: 0;
+}
+ul.rating {
+    display: inline-block;
+}
+.rating li {
+    list-style-type: none;
+    display: inline-block;
+    padding: 1px;
+    text-align: center;
+    font-weight: bold;
+    cursor: pointer;
+    font-size:20px;
+}
+.rating .filled {
+    color: orangered;
+}
+.clear{
+  margin-top:20px;
+}
+
+html, body {
+	height: 100%;
+}
+
+.table td.tdRight {
+	text-align: right;
+}
+
+.table td.tdCenter {
+	text-align: center;
+}
+
+.table-nonfluid {
+	width: auto;
+}
+
+.table, th{
+	color: 1px solid red;
+}
+
+table, th, td {
+	border: 1px solid grey;
+	border-collapse: collapse;
+	/* 	width: 30%; */
+	padding: 10px;
+}
+
+table tr:nth-child(odd) {
+	background-color: #f1f1f1;
+}
+
+table tr:nth-child(even) {
+	background-color: #ffffff;
+}
+
+#wrap {
+	min-height: 100%;
+}
+
+#main {
+	overflow: auto;
+	padding-bottom: 180px; /* must be same height as the footer */
+}
+
+#footer {
+	position: relative;
+	margin-top: -180px; /* negative value of footer height */
+	height: 220px;
+	clear: both;
+}
+
+/* Opera Fix thanks to Maleika (Kohoutec) */
+body:before {
+	content: "";
+	height: 100%;
+	float: left;
+	width: 0;
+	margin-top: -32767px; /* thank you Erik J - negate effect of float*/
+}

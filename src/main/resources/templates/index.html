@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html data-ng-app="myCart">
+<head>
+
+<!-- Bootstrap CDN -->
+<link rel="stylesheet"
+	href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" />
+<link rel="stylesheet"
+	href="//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" />
+
+<!-- AngualarJS CDN -->
+<script
+	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular.min.js"></script>
+<script
+	src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.js"></script>
+<script
+	src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.14.0.js"></script>
+
+<!-- CSS -->
+<link rel="stylesheet" type="text/css" href="style/style.css"
+	media="screen" />
+<link href='http://fonts.googleapis.com/css?family=Roboto+Condensed'
+	rel='stylesheet' type='text/css' />
+
+<script
+	src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular-cookies.js"></script>
+<link rel="stylesheet" type="text/css" href="css/app.css"></link>
+
+<!-- Module and Routing  -->
+<script src="app.js"></script>
+<script src="route.js"></script>
+
+<!-- User controllers -->
+<script src="js/controller/user/homeCtrl.js"></script>
+<script src="js/controller/user/userCtrl.js"></script>
+<script src="js/controller/user/forgetPasswordCtrl.js"></script>
+<script src="js/controller/user/productCtrl.js"></script>
+<script src="js/controller/user/categoryCtrl.js"></script>
+<script src="js/controller/user/cartCtrl.js"></script>
+<script src="js/controller/user/productSelectCtrl.js"></script>
+<script src="js/controller/user/checkoutCtrl.js"></script>
+<script src="js/controller/user/orderSummaryCtrl.js"></script>
+
+<!-- Admin controllers -->
+<script src="js/controller/admin/productModal.js"></script>
+<script src="js/controller/admin/productManageCtrl.js"></script>
+<script src="js/controller/admin/categoryManageCtrl.js"></script>
+<script src="js/controller/admin/orderManageCtrl.js"></script>
+
+<!-- Shared services -->
+<script src="js/shared/sharedService.js"></script>
+<script src="js/shared/directive.js"></script>
+<script src="js/shared/ratingDirective.js"></script>
+</head>
+
+<body>
+	<div id="wrap">
+		<div id="header">
+			<div id="headerlinks">
+				<div data-ng-controller="userController">
+					<div align="right">
+						<div data-ng-show="userName==''">
+							<b><a href="#user">LOGIN/REGISTER</a></b>
+						</div>
+						<div align="right" data-ng-show="userName!=''">
+							<b><font color="white">Welcome, {{userName}} </font><span>|</span><a
+								href="" data-ng-click="invalidateUser()">LOGOUT</a></b>
+						</div>
+					</div>
+					<br></br> <b><a href="#home">HOME</a> <a href="#category">SHOP
+							ONLINE</a>><a href="#checkout">PLACE ORDER</a> </b> <b> <a
+						href="#orderSummary">ORDER SUMMARY</a> <a href="#trackOrder">TRACK
+							ORDER</a><a href="#cart"><img src="../style/shop_cart.jpg"
+							style="width: 30px; height: 15px;"></img><b>({{totalCartsByUser}})</b></a>
+						<span data-ng-if="userType =='A'"> <a
+							href="#categoryManage">CATEGORY MANAGE</a><a
+							href="#productManage">PRODUCT MANAGE</a><a href="#orderManage">ORDER
+								MANAGE</a></span>
+					</b>
+					<!-- <a>{{currentDateTime | date:'dd MMM yyyy - hh:mm:ss a'}}</a> -->
+				</div>
+			</div>
+			<h1>
+				<a href="#home">myCart
+					<h6>easy shop</h6>
+				</a>
+			</h1>
+		</div>
+
+		<br /> <br />
+		<div id="content">
+			<div data-ng-view=""></div>
+		</div>
+
+		<div id="footer">
+			<div align="center">myCart &copy; 2017 | Copy Rights Reserved</div>
+		</div>
+	</div>
+</body>
+</html>

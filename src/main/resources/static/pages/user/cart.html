@@ -1,0 +1,44 @@
+<div>
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<th>Remove</th>
+				<th>Product Name</th>
+				<th>Image</th>
+				<th>Price</th>
+				<th>Qty</th>
+				<th>Total</th>
+			</tr>
+		</thead>
+
+		<tr data-ng-repeat="cart in carts">
+			<td><button data-ng-click="removeCart(cart.cartID)">X</button></td>
+			<td>{{cart.productName}}</td>
+			<td><img data-ng-src="data:image/png;base64,{{cart.image}}"
+				style="width: 50px; height: 50px;"></td>
+			<td>{{cart.price}}</td>
+			<td><div data-ng-init="counter = 1">
+					<button data-ng-click="counter = counter - 1"
+						data-ng-disabled="counter==1">-</button>
+					<input type="number" data-ng-model="cart.qty=counter">
+					<button data-ng-click="counter = counter + 1">+</button>
+				</div></td>
+			<td>{{cart.price*cart.qty}}</td>
+		</tr>
+		<tr data-ng-show="carts.length!=0">
+			<td>Total:</td>
+			<td></td>
+			<td></td>
+			<td>{{getTotal('price')}}</td>
+			<td>{{getTotal('qty')}}</td>
+			<td>{{getTotal('price')*getTotal('qty')}}</td>
+		</tr>
+	</table>
+	<p align="center" data-ng-show="carts.length==0">Your cart is
+		currently empty</p>
+</div>
+
+<div align="center">
+	<button class="btn" data-ng-disabled="carts==''"
+		data-ng-click="addCartList()">Proceed to Checkout</button>
+</div>

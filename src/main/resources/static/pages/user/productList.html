@@ -1,0 +1,68 @@
+
+<div class="col-xs-10 col-md-10" align="center"
+	data-ng-show="products.length>0">
+	<div class="col-xs-12 col-md-6">
+		<input type="text" data-ng-model="productName"
+			data-ng-change="searchByProductName()"
+			placeholder="Search by product name" class="description">
+	</div>
+	<div class="col-xs-12 col-md-6">
+		<select data-ng-model="sort"
+			data-ng-options="sort.sortDirection for sort in productSort"
+			data-ng-change="getProductsBySorting(sort.sortType)"><option
+				value="">--Select Category--</option></select>
+	</div>
+</div>
+<br>
+<br>
+<div align="center" data-ng-show="products.length==0">
+	<h4>There is no Products available</h4>
+</div>
+<div class="col-xs-12 col-md-12" data-ng-repeat="item in products">
+	<!-- First product box start here-->
+	<br> <br>
+	<div class="prod-info-main prod-wrap clearfix">
+		<div class="row">
+			<div class="col-md-5 col-md-5">
+				<div class="product-image">
+					<a href="#"><img
+						data-ng-src="data:image/png;base64,{{item.image}}"
+						data-ng-click="selectProduct(item.productID)"
+						class="img-responsive"></a>
+				</div>
+			</div>
+			<div class="col-md-5 col-md-5">
+				<div class="product-deatil">
+					<h5 class="name">
+						<a href="#productSelected"> {{item.productName}} </a>
+					</h5>
+					<div class="price-container">
+						<span>{{item.price | currency}}</span>
+					</div>
+					<div data-ng-show="item.productDesc!='null'" class="description">
+						{{item.productDesc}}</div>
+					<div data-ng-show="item.productDesc=='null'" class="description">Product
+						description not available</div>
+				</div>
+				<div class="product-info smart-form">
+					<div class="row">
+						<div class="col-md-12">
+							<a href="javascript:void(0);" class="btn-danger"
+								data-ng-click="selectProduct(item.productID)">more info</a>
+						</div>
+						<br>
+						<div class="col-md-12" data-ng-show="item.ratings.length>0">
+							Users Rating:{{calculateRating(item.ratings)}}
+							<div star-rating rating-value="calculateRating(item.ratings)"
+								max="5" on-rating-selected="getSelectedRating(item.rating)"></div>
+						</div>
+						<div class="col-md-12" data-ng-show="item.ratings.length==0">No
+							Rating</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<br></br>
+</div>
+

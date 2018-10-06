@@ -1,0 +1,38 @@
+<div align="center">
+	<div data-ng-show="isProductOrdered">
+		<div align="center">
+			<br>
+			<h4>
+				Thank You for shopping with us!! <br> <br>Order No: <b>{{orderInfo.orderNo}}</b>
+			</h4>
+			<h4>
+				Your Booking Order Date: <b>{{orderInfo.orderBookingDate| date}}</b>
+			</h4>
+			<br> <br>
+			<h5>
+				<i>Note: By Order No You can track further.</i>
+			</h5>
+		</div>
+	</div>
+	<br>
+
+	<div data-ng-show="isOrderHistory">
+		<div align="center" data-ng-repeat="order in orderTrack">
+			<br>
+			<h4>
+				Order No: <b>{{order.orderNo}}</b>
+			</h4>
+			<h4>
+				Your Booking Order Date: <b>{{order.orderBookingDate| date}}</b>
+			</h4>
+			<br> <br>
+		</div>
+	</div>
+
+	<div data-ng-show="orderTrack.length==0">
+		<h4>You don't have order history</h4>
+	</div>
+
+	<button class="btn" data-ng-click="orderHistory()"
+		data-ng-show="!isOrderHistory">Do you want your order history</button>
+</div>
