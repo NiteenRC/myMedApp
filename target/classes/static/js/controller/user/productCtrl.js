@@ -5,32 +5,14 @@ angular.module('myCart.product_module',
 function productController($scope, $uibModal, sharedService,$location) {
 	'use strict';
 
-	var productUrl = "/product/";
-	var productsUrl = "/products/";
+	var productsUrl = "/products";
 	var productByNameUrl = "/product/byName/";
 	var PRODUCT_BY_CATEGORY_ID = "/product/category/"
 
 	$scope.products = fetchAllProducts();
 	$scope.getCategoryID=sharedService.get('categoryID');
 
-	$scope.searchByProductName = searchByProductName;
-	$scope.getProductsBySorting = getProductsBySorting;
-
-	$scope.sortDirection="MR";
-
-	$scope.productSort = [ {
-		sortType : "MP",
-		sortDirection : "Feature:Most Popular"
-	}, {
-		sortType : "MR",
-		sortDirection : "Feature:Most Recent"
-	}, {
-		sortType : "HL",
-		sortDirection : "Price:High to Low"
-	}, {
-		sortType : "LH",
-		sortDirection : "Price:Low to High"
-	} ];
+	$scope.searchByProductName = searchByProductName();
 
 	function searchByProductName() {
 		 if (!sharedService.isDefinedOrNotNull($scope.productName)) { 
@@ -40,7 +22,7 @@ function productController($scope, $uibModal, sharedService,$location) {
 	}
 	
 	function fetchProductsByCategoryID(){
-		sharedService.getAllMethod(PRODUCT_BY_CATEGORY_ID +$scope.getCategoryID+"/"+$scope.sortDirection).then(
+		sharedService.getAllMethod(PRODUCT_BY_CATEGORY_ID +$scope.getCategoryID).then(
 				function(response) {
 					$scope.products = response.data;
 				}, function(error) {
@@ -50,7 +32,8 @@ function productController($scope, $uibModal, sharedService,$location) {
 	}
 	
 	function fetchProductsByCategoryIDAndProductName(){
-		sharedService.getAllMethod(productByNameUrl +$scope.getCategoryID+"/"+ $scope.productName+"/"+$scope.sortDirection).then(
+    $scope.getCategoryID = !$scope.getCategoryID  ? 0 : $scope.getCategoryID;
+		sharedService.getAllMethod(productByNameUrl +$scope.getCategoryID+"/"+ $scope.productName).then(
 				function(response) {
 					$scope.products = response.data;
 				}, function(error) {
@@ -68,13 +51,4 @@ function productController($scope, $uibModal, sharedService,$location) {
     					$scope.successMessage = '';
     				});
     	}
-
-	function getProductsBySorting(sortDirection) {
-		$scope.sortDirection=sortDirection;
-		
-		if (!sharedService.isDefinedOrNotNull($scope.productName)) { 
-			 return fetchProductsByCategoryID(); 
-		 }
-		 fetchProductsByCategoryIDAndProductName();
-	}
 }

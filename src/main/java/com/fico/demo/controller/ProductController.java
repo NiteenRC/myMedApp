@@ -23,6 +23,7 @@ import com.fico.demo.model.Product;
 import com.fico.demo.repo.CategoryRepo;
 import com.fico.demo.repo.ProductRepo;
 import com.fico.demo.util.Utility;
+
 import static com.fico.demo.util.WebUrl.PRODUCT_BY_CATEGORYID_SORTTYPE;
 import static com.fico.demo.util.WebUrl.PRODUCTS;
 import static com.fico.demo.util.WebUrl.PRODUCT;
@@ -35,120 +36,80 @@ public class ProductController {
 
     private final Logger LOGGER = LoggerFactory.getLogger(ProductController.class);
 
-	@Autowired
-	public ProductRepo productRepo;
+    @Autowired
+    public ProductRepo productRepo;
 
-	@Autowired
-	private CategoryRepo categoryRepo;
+    @Autowired
+    private CategoryRepo categoryRepo;
 
-	@RequestMapping(value = PRODUCTS, method = RequestMethod.POST)
-	public ResponseEntity<List<Product>> addproduct(@RequestBody List<Product> productList) {
+    @RequestMapping(value = PRODUCTS, method = RequestMethod.POST)
+    public ResponseEntity<List<Product>> addproduct(@RequestBody List<Product> productList) {
         LOGGER.info("addproduct ");
         LOGGER.debug("aaa ");
-		if (productList == null) {
-			return new ResponseEntity(new CustomErrorType("input is empty"), HttpStatus.NO_CONTENT);
-		}
-		return new ResponseEntity<>(productRepo.save(productList), HttpStatus.CREATED);
-	}
+        if (productList == null) {
+            return new ResponseEntity(new CustomErrorType("input is empty"), HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(productRepo.save(productList), HttpStatus.CREATED);
+    }
 
-	@RequestMapping(value = PRODUCT_AND_CATEGORYID, method = RequestMethod.POST)
-	public ResponseEntity<Product> addproductList(@PathVariable int categoryID,
-			@RequestParam("productData") String productData, @RequestParam("file") MultipartFile file) {
+    @RequestMapping(value = PRODUCT_AND_CATEGORYID, method = RequestMethod.POST)
+    public ResponseEntity<Product> addproductList(@PathVariable int categoryID, @RequestBody Product product) {
+        Category category = categoryRepo.findOne(categoryID);
+        product.setCategory(category);
+        if (product == null) {
+            return new ResponseEntity(new CustomErrorType("Product is not saved"), HttpStatus.NOT_FOUND);
+        }
+        productRepo.save(product);
+        return new ResponseEntity<>(product, HttpStatus.CREATED);
+    }
 
-		Product prod = new Product();
-		JsonNode jn = Utility.jsonToObject(productData);
+    @RequestMapping(value = PRODUCT_BY_PRODUCTID, method = RequestMethod.DELETE)
+    public ResponseEntity<Product> deleteProduct(@PathVariable int productID) {
+        Product product = productRepo.findOne(productID);
+        if (product != null) {
+            productRepo.delete(productID);
+            return new ResponseEntity<>(product, HttpStatus.OK);
+        }
+        return new ResponseEntity(new CustomErrorType("ProductID: " + productID + " not found."), HttpStatus.NOT_FOUND);
+    }
 
-		if (jn == null) {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}
-		String productName = jn.get("name").asText();
-		Product p = productRepo.findByProductName(productName);
+    @RequestMapping(value = PRODUCT, method = RequestMethod.GET)
+    public ResponseEntity<List<Product>> productList() {
+        return new ResponseEntity<>(productRepo.findAll(), HttpStatus.OK);
+    }
 
-		if (p != null) {
-			return new ResponseEntity(new CustomErrorType("Product is already exist"), HttpStatus.CONFLICT);
-		}
+    @RequestMapping(value = PRODUCT_BY_PRODUCTID, method = RequestMethod.GET)
+    public ResponseEntity<Product> getProductsById(@PathVariable int productID) {
+        Product product = productRepo.findOne(productID);
+        if (product == null) {
+            return new ResponseEntity(new CustomErrorType("ProductID: " + productID + " not found."),
+                    HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(product, HttpStatus.OK);
+    }
 
-		try {
-			byte[] bytes = file.getBytes();
-			prod.setImage(bytes);
-		} catch (IOException e) {
-            LOGGER.error("File is failed to save ", e);
-			return new ResponseEntity(new CustomErrorType("File is failed to save" + e), HttpStatus.BAD_REQUEST);
-		}
+    @RequestMapping(value = PRODUCT_BY_NAME_CATEGORYID_PRODUCTNAME_SORTTYPE, method = RequestMethod.GET)
+    public ResponseEntity<List<Product>> getProductsByCategoryIDAndProductName(@PathVariable Integer categoryID, @PathVariable String productName) {
+        List<Product> product;
+        if (categoryID == 0) {
+            product = productRepo.findByProductNameContainingIgnoreCase(productName);
+        } else if (productName == null) {
+            product = productRepo.findAll();
+        } else {
+            product = productRepo.findByCategoryCategoryIDAndProductNameContainingIgnoreCaseOrderByPriceDesc(categoryID,
+                    productName);
+        }
+        return new ResponseEntity<>(product, HttpStatus.OK);
+    }
 
-		Category category = new Category();
-		category.setCategoryID(categoryID);
+    @RequestMapping(value = PRODUCT_BY_CATEGORYID_SORTTYPE, method = RequestMethod.GET)
+    public ResponseEntity<List<Product>> getProductsByCategoryId(@PathVariable Integer categoryID) {
+        List<Product> productList = productRepo.findByCategoryCategoryIDOrderByPriceDesc(categoryID);
+        return new ResponseEntity<>(productList, HttpStatus.OK);
+    }
 
-		prod.setProductName(productName);
-		prod.setPrice(jn.get("price").asInt());
-		prod.setProductDesc(jn.get("productDesc").asText());
-		prod.setCategory(category);
-		Product product = productRepo.save(prod);
-
-		if (product == null) {
-			return new ResponseEntity(new CustomErrorType("Product is not saved"), HttpStatus.NOT_FOUND);
-		}
-		return new ResponseEntity<>(product, HttpStatus.CREATED);
-	}
-
-	@RequestMapping(value = PRODUCT_BY_PRODUCTID, method = RequestMethod.DELETE)
-	public ResponseEntity<Product> deleteProduct(@PathVariable int productID) {
-		Product product = productRepo.findOne(productID);
-		if (product != null) {
-			productRepo.delete(productID);
-			return new ResponseEntity<>(product, HttpStatus.OK);
-		}
-		return new ResponseEntity(new CustomErrorType("ProductID: " + productID + " not found."), HttpStatus.NOT_FOUND);
-	}
-
-	@RequestMapping(value = PRODUCT, method = RequestMethod.GET)
-	public ResponseEntity<List<Product>> productList() {
-		return new ResponseEntity<>(productRepo.findAll(), HttpStatus.OK);
-	}
-
-	@RequestMapping(value = PRODUCT_BY_PRODUCTID, method = RequestMethod.GET)
-	public ResponseEntity<Product> getProductsById(@PathVariable int productID) {
-		Product product = productRepo.findOne(productID);
-		if (product == null) {
-			return new ResponseEntity(new CustomErrorType("ProductID: " + productID + " not found."),
-					HttpStatus.NOT_FOUND);
-		}
-		return new ResponseEntity<>(product, HttpStatus.OK);
-	}
-
-	@RequestMapping(value = PRODUCT_BY_NAME_CATEGORYID_PRODUCTNAME_SORTTYPE, method = RequestMethod.GET)
-	public ResponseEntity<List<Product>> getProductsByCategoryIDAndProductName(@PathVariable Integer categoryID,
-			@PathVariable String productName, @PathVariable String sortType) {
-		List<Product> product;
-		if ("HL".equals(sortType)) {
-			product = productRepo.findByCategoryCategoryIDAndProductNameContainingIgnoreCaseOrderByPriceDesc(categoryID,
-					productName);
-		} else if ("MR".equals(sortType)) {
-			product = productRepo.findByCategoryCategoryIDAndProductNameContainingIgnoreCaseOrderByProductIDDesc(
-					categoryID, productName);
-		} else {
-			product = productRepo.findByCategoryCategoryIDAndProductNameContainingIgnoreCaseOrderByPrice(categoryID,
-					productName);
-		}
-		return new ResponseEntity<>(product, HttpStatus.OK);
-	}
-
-	@RequestMapping(value = PRODUCT_BY_CATEGORYID_SORTTYPE, method = RequestMethod.GET)
-	public ResponseEntity<List<Product>> getProductsByCategoryId(@PathVariable Integer categoryID,
-			@PathVariable String sortType) {
-		List<Product> productList;
-		if ("HL".equals(sortType)) {
-			productList = productRepo.findByCategoryCategoryIDOrderByPriceDesc(categoryID);
-		} else if ("MR".equals(sortType)) {
-			productList = productRepo.findByCategoryCategoryIDOrderByProductIDDesc(categoryID);
-		} else {
-			productList = productRepo.findByCategoryCategoryIDOrderByPrice(categoryID);
-		}
-		return new ResponseEntity<>(productList, HttpStatus.OK);
-	}
-
-	@RequestMapping(value = PRODUCTS, method = RequestMethod.GET)
-	public ResponseEntity<List<Product>> getProductsForAllCategories() {
-		return new ResponseEntity<>(productRepo.findAll(), HttpStatus.OK);
-	}
+    @RequestMapping(value = PRODUCTS, method = RequestMethod.GET)
+    public ResponseEntity<List<Product>> getProductsForAllCategories() {
+        return new ResponseEntity<>(productRepo.findAll(), HttpStatus.OK);
+    }
 }

@@ -34,16 +34,11 @@ public class Product implements Serializable {
 	private String productName;
 	@Column(name = "Price", nullable = false)
 	private double price;
-	@Lob
-	@Column(name = "Image", length = Integer.MAX_VALUE)
-	private byte[] image;
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "CATEGORY_ID", foreignKey = @ForeignKey(name = "PRODUCT_FK"))
 	@JsonIgnore
 	private Category category;
 	private String productDesc;
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "product", cascade = CascadeType.ALL)
-	private Set<Rating> ratings = new HashSet<>();
 	/*
 	 * @ManyToOne(fetch = FetchType.LAZY)
 	 * 
@@ -57,14 +52,6 @@ public class Product implements Serializable {
 	 * @OneToMany(mappedBy = "product") private List<ProductImage>
 	 * productImages;
 	 */
-
-	public Set<Rating> getRatings() {
-		return ratings;
-	}
-
-	public void setRatings(Set<Rating> ratings) {
-		this.ratings = ratings;
-	}
 
 	public String getProductDesc() {
 		return productDesc;
@@ -81,7 +68,6 @@ public class Product implements Serializable {
 		super();
 		this.productName = productName;
 		this.price = price;
-		this.image = image;
 		this.category = category;
 	}
 
@@ -115,13 +101,5 @@ public class Product implements Serializable {
 
 	public void setPrice(double price) {
 		this.price = price;
-	}
-
-	public byte[] getImage() {
-		return image;
-	}
-
-	public void setImage(byte[] image) {
-		this.image = image;
 	}
 }

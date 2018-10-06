@@ -13,8 +13,8 @@ public interface WebUrl {
 
 	String PRODUCT = "/product";
 	String PRODUCTS = "/products";
-	String PRODUCT_BY_NAME_CATEGORYID_PRODUCTNAME_SORTTYPE = "/product/byName/{categoryID}/{productName}/{sortType}";
-	String PRODUCT_BY_CATEGORYID_SORTTYPE = "/product/category/{categoryID}/{sortType}";
+	String PRODUCT_BY_NAME_CATEGORYID_PRODUCTNAME_SORTTYPE = "/product/byName/{categoryID}/{productName}";
+	String PRODUCT_BY_CATEGORYID_SORTTYPE = "/product/category/{categoryID}";
 	String PRODUCT_AND_CATEGORYID = "/product/{categoryID}";
 	String PRODUCT_BY_PRODUCTID = "/product/{productID}";
 

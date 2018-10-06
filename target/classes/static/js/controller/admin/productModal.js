@@ -13,15 +13,14 @@ function modalCtrl($scope, $http, $modalInstance, sharedService) {
 
 	$scope.productData = {
 		productID : null,
-		name : null,
+		productName : null,
 		productDesc : null,
-		price : null,
-		image : null,
+		price : null
 	};
 
 	function saveProduct() {
 
-		if (!sharedService.isDefinedOrNotNull($scope.productData.name)) {
+		if (!sharedService.isDefinedOrNotNull($scope.productData.productName)) {
 			return alert('Please add Product name')
 		}
 
@@ -35,15 +34,10 @@ function modalCtrl($scope, $http, $modalInstance, sharedService) {
 			return alert('Please select category')
 		}
 
-		if (!sharedService.isDefinedOrNotNull($scope.productData.image)) {
-			return alert('Please add image')
-		}
+		//var fd = new FormData();
+		//fd.append('productData', JSON.stringify($scope.productData));
 
-		var fd = new FormData();
-		fd.append('file', $scope.productData.image);
-		fd.append('productData', JSON.stringify($scope.productData));
-
-		sharedService.uploadFile(productUrl + "/" + $scope.item.categoryID, fd)
+		sharedService.postMethod(productUrl + "/" + $scope.item.categoryID, $scope.productData)
 				.then(function(response) {
 					$modalInstance.close(response);
 				}, function(error) {
