@@ -11,11 +11,11 @@
 		</thead>
 
 		<tr data-ng-repeat="cart in rows">
-			<td><button data-ng-click="removeCart(cart.cartID)">X</button></td>
+			<td><button data-ng-click="removeCart($index)">X</button></td>
 			<td><div class="col-xs-12 col-md-6">
-				<select data-ng-model="cart"
-						data-ng-options="cart.productName for cart in products"
-						data-ng-change="selectedProduct(cart.productID)"><option
+				<select data-ng-model="item"
+						data-ng-options="item.productName for item in products"
+						data-ng-change="selectedProduct(item.productID)"><option
 						value="">--Select Category--</option></select>
 			</div></td>
 			<td>{{cart.price}}</td>
@@ -32,7 +32,7 @@
 			<td></td>
 			<td>{{getTotal('price')}}</td>
 			<td>{{getTotal('qty')}}</td>
-			<td>{{getTotal('price')*getTotal('qty')}}</td>
+			<td>{{totalAmountToPaid()}}</td>
 		</tr>
 	</table>
 </div>
@@ -40,6 +40,6 @@
 <button class="button" ng-click="addRow()">Add Row</button>
 
 <div align="center">
-	<button class="btn" data-ng-disabled="carts==''"
+	<button class="btn" data-ng-disabled="rows==''"
 			data-ng-click="addCartList()">Generate Bill</button>
 </div>
