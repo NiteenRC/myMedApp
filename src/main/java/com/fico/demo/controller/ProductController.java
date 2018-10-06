@@ -30,6 +30,7 @@ import static com.fico.demo.util.WebUrl.PRODUCT;
 import static com.fico.demo.util.WebUrl.PRODUCT_BY_PRODUCTID;
 import static com.fico.demo.util.WebUrl.PRODUCT_AND_CATEGORYID;
 import static com.fico.demo.util.WebUrl.PRODUCT_BY_NAME_CATEGORYID_PRODUCTNAME_SORTTYPE;
+import static com.fico.demo.util.WebUrl.ADVANCED_SEARCH;
 
 @RestController
 public class ProductController {
@@ -102,10 +103,37 @@ public class ProductController {
         return new ResponseEntity<>(product, HttpStatus.OK);
     }
 
-    @RequestMapping(value = PRODUCT_BY_CATEGORYID_SORTTYPE, method = RequestMethod.GET)
-    public ResponseEntity<List<Product>> getProductsByCategoryId(@PathVariable Integer categoryID) {
-        List<Product> productList = productRepo.findByCategoryCategoryIDOrderByPriceDesc(categoryID);
-        return new ResponseEntity<>(productList, HttpStatus.OK);
+    @RequestMapping(value = ADVANCED_SEARCH, method = RequestMethod.GET)
+    public ResponseEntity<List<Product>> getProductsByCategoryId(@PathVariable Integer categoryID, @PathVariable String productName) {
+        List<Product> product = null;
+        if (categoryID > 0 && !productName.equals("null")) {
+            product = productRepo.findByCategoryCategoryIDAndProductNameContainingIgnoreCase(categoryID,
+                    productName);
+        } else if (categoryID > 0 && productName.equals("null")) {
+            product = productRepo.findByCategoryCategoryID(categoryID);
+        } else if (categoryID == 0 && !productName.equals("null")) {
+            product = productRepo.findByProductNameContainingIgnoreCase(productName);
+        } else {
+            product = productRepo.findAll();
+        }
+        return new ResponseEntity<>(product, HttpStatus.OK);
+    }
+
+    //@RequestMapping(value = ADVANCED_SEARCH, method = RequestMethod.GET)
+    public ResponseEntity<List<Product>> getProductsByCategoryId1(@PathVariable Integer categoryID, @PathVariable String productName) {
+        List<Product> product = null;
+        if (categoryID > 0 && productName != null) {
+            // product = productRepo.findByCategoryCategoryIDAndProductNameContainingIgnoreCase(categoryID,
+            //    productName);
+        }
+        if (categoryID > 0 && productName == null) {
+            product = productRepo.findByCategoryCategoryID(categoryID);
+        } else if (categoryID == 0 && productName != null) {
+            product = productRepo.findByProductNameContainingIgnoreCase(productName);
+        } else {
+            product = productRepo.findAll();
+        }
+        return new ResponseEntity<>(product, HttpStatus.OK);
     }
 
     @RequestMapping(value = PRODUCTS, method = RequestMethod.GET)

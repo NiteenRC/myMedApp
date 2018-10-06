@@ -110,21 +110,21 @@ public class ProductControllerTest {
 		product.setProductName("Item1");
 		product.setPrice(600);
 		product.setCategory(category);
-		product.setImage(image.getBytes());
+		//product.setImage(image.getBytes());
 		productRepo.save(product);
 
 		Product product1 = new Product();
 		product1.setProductName("Item2");
 		product1.setPrice(600);
 		product1.setCategory(category);
-		product1.setImage(image.getBytes());
+		////product1.setImage(image.getBytes());
 		productRepo.save(product1);
 
 		Product product2 = new Product();
 		product2.setProductName("Item3");
 		product2.setPrice(600);
 		product2.setCategory(category1);
-		product2.setImage(image.getBytes());
+		//product2.setImage(image.getBytes());
 		productRepo.save(product2);
 	}
 

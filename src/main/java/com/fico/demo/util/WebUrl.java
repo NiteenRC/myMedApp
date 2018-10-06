@@ -32,4 +32,6 @@ public interface WebUrl {
 	String RATING = "/rating/";
 	String RATING_BY_PRODUCTID_USERID = "/rating/{productID}/{userID}";
 
+	String ADVANCED_SEARCH = "/advancedSearch/{categoryID}/{productName}";
+
 }
