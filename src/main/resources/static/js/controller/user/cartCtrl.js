@@ -13,6 +13,7 @@ function cartController(
 
     var cartUrl = '/cart/';
     var CART_LIST_SAVE = '/carts';
+    var CART_LIST_DELETE = '/cartsDelete';
     var productsUrl = '/products';
 
     getCarts();
@@ -22,6 +23,7 @@ function cartController(
     $scope.removeCart = removeCart;
     $scope.addToCart = addToCart;
     $scope.addCartList = addCartList;
+    $scope.removeCartList = removeCartList;
     $scope.order = {};
     $scope.addToCart = addToCart;
 
@@ -125,6 +127,19 @@ function cartController(
             }
         );
     }
+
+    function removeCartList(id) {
+    		sharedService.postMethod(CART_LIST_DELETE, $scope.rows).then(
+                        function(response) {
+                            $location.path('/checkout');
+                            $scope.carts = response.data;
+                        },
+                        function(error) {
+                            $scope.errorMessage = 'Error while creating' + error;
+                            $scope.successMessage = '';
+                        }
+                    );
+    	}
 
     function removeCart(index) {
         angular.forEach($scope.rows, function (row) {

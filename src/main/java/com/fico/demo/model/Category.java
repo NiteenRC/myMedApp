@@ -26,21 +26,11 @@ public class Category {
 	private String categoryName;
 	//@Column(name = "CATEGORY_DESC")
 	private String categoryDesc;
-	@Lob
-	@Column(name = "IMAGE", length = Integer.MAX_VALUE)
-	private byte[] image;
-	//@Column(name = "ACTIVE", nullable = false)
-	private boolean active;
+
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "category", cascade = CascadeType.ALL)
 	private Set<Product> products = new HashSet<>();
 
 	public Category() {
-	}
-
-	public Category(String categoryName, byte[] image) {
-		super();
-		this.categoryName = categoryName;
-		this.image = image;
 	}
 
 	public Set<Product> getProducts() {
@@ -75,19 +65,4 @@ public class Category {
 		this.categoryDesc = categoryDesc;
 	}
 
-	public byte[] getImage() {
-		return image;
-	}
-
-	public void setImage(byte[] image) {
-		this.image = image;
-	}
-
-	public boolean isActive() {
-		return active;
-	}
-
-	public void setActive(boolean active) {
-		this.active = active;
-	}
 }

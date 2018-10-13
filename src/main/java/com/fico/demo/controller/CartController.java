@@ -18,6 +18,7 @@ import com.fico.demo.model.Cart;
 import com.fico.demo.repo.CartRepo;
 import static com.fico.demo.util.WebUrl.CART_BY_CARTID;
 import static com.fico.demo.util.WebUrl.CARTS;
+import static com.fico.demo.util.WebUrl.CARTS_REMOVE;
 import static com.fico.demo.util.WebUrl.CART;
 import static com.fico.demo.util.WebUrl.CART_BY_USERID;
 
@@ -30,8 +31,38 @@ public class CartController {
 	public CartRepo cartRepo;
 
 	@RequestMapping(value = CARTS, method = RequestMethod.POST)
-	public ResponseEntity<List<Cart>> addCartList(@RequestBody List<Cart> cart) {
-		return new ResponseEntity<>(cartRepo.save(cart), HttpStatus.CREATED);
+	public ResponseEntity addCartList(@RequestBody List<Cart> carts) {
+		List<Cart> cartList = cartRepo.findAll();
+		for(Cart cart:cartList){
+			for (Cart carts2: carts){
+				if (cart.getProductID() == carts2.getProductID()){
+					cart.setCartID(cart.getCartID());
+					cart.setQty(cart.getQty()+carts2.getQty());
+					cartRepo.save(cart);
+				}
+			}
+		}
+
+		if (cartList.isEmpty()){
+			return new ResponseEntity<>(cartRepo.save(carts), HttpStatus.CREATED);
+		}
+		return null;
+	}
+
+	@RequestMapping(value = CARTS_REMOVE, method = RequestMethod.POST)
+	public ResponseEntity removeCartList(@RequestBody List<Cart> carts) {
+		List<Cart> cartList = cartRepo.findAll();
+		for(Cart cart:cartList){
+			for (Cart carts2: carts){
+				if (cart.getProductID() == carts2.getProductID()){
+					cart.setCartID(cart.getCartID());
+					cart.setQty(cart.getQty()-carts2.getQty());
+					cartRepo.save(cart);
+				}
+			}
+		}
+
+		return null;
 	}
 
 	@RequestMapping(value = CART, method = RequestMethod.POST)

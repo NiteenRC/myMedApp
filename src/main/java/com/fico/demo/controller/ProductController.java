@@ -1,8 +1,11 @@
 package com.fico.demo.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
+import com.fico.demo.model.Cart;
+import com.fico.demo.repo.CartRepo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +45,9 @@ public class ProductController {
 
     @Autowired
     private CategoryRepo categoryRepo;
+
+    @Autowired
+    public CartRepo cartRepo;
 
     @RequestMapping(value = PRODUCTS, method = RequestMethod.POST)
     public ResponseEntity<List<Product>> addproduct(@RequestBody List<Product> productList) {
@@ -116,7 +122,18 @@ public class ProductController {
         } else {
             product = productRepo.findAll();
         }
-        return new ResponseEntity<>(product, HttpStatus.OK);
+
+        List<Product> products = new ArrayList<>();
+
+        for(Product p : product){
+            Cart cart = cartRepo.findByProductID(p.getProductID());
+            p.setQty(cart.getQty());
+            products.add(p);
+        }
+
+
+
+        return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
     //@RequestMapping(value = ADVANCED_SEARCH, method = RequestMethod.GET)
@@ -138,6 +155,14 @@ public class ProductController {
 
     @RequestMapping(value = PRODUCTS, method = RequestMethod.GET)
     public ResponseEntity<List<Product>> getProductsForAllCategories() {
-        return new ResponseEntity<>(productRepo.findAll(), HttpStatus.OK);
+        List<Product> products = new ArrayList<>();
+        List<Product> productList = productRepo.findAll();
+        for(Product p : productList){
+            Cart cart = cartRepo.findByProductID(p.getProductID());
+            p.setQty(cart.getQty());
+            products.add(p);
+        }
+
+        return new ResponseEntity<>(products, HttpStatus.OK);
     }
 }

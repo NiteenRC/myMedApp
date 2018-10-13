@@ -15,9 +15,8 @@ function categoryManageController($scope, $uibModal, sharedService) {
 
     $scope.categoryData = {
         productID: null,
-        name: null,
-        price: null,
-        image: null,
+        categoryName: null,
+        categoryDesc: null
     };
 
     function saveCategory() {
@@ -27,15 +26,7 @@ function categoryManageController($scope, $uibModal, sharedService) {
             return alert('Please enter category name');
         }
 
-        if (!sharedService.isDefinedOrNotNull($scope.categoryData.image)) {
-            return alert('Please add image');
-        }
-
-        var fd = new FormData();
-        fd.append('file', $scope.categoryData.image);
-        fd.append('categoryData', JSON.stringify($scope.categoryData));
-
-        sharedService.uploadFile(categoryUrl, fd).then(
+        sharedService.postMethod(categoryUrl, $scope.categoryData).then(
             function(response) {
                 getCategory();
                 reset();

@@ -25,9 +25,6 @@ public class Cart implements Serializable {
 	@Column(name = "Price", nullable = false)
 	private double price;
 	private int qty;
-	@Lob
-	@Column(name = "Image", length = Integer.MAX_VALUE)
-	private byte[] image;
 	// @OneToOne // (cascade = CascadeType.ALL)
 	private int productID;
 	// @OneToOne // One cart can have multiple users
@@ -43,13 +40,6 @@ public class Cart implements Serializable {
 	}
 
 	public Cart() {
-	}
-
-	public Cart(String productName, double price, byte[] image) {
-		super();
-		this.productName = productName;
-		this.price = price;
-		this.image = image;
 	}
 
 	public int getProductID() {
@@ -90,13 +80,5 @@ public class Cart implements Serializable {
 
 	public void setPrice(double price) {
 		this.price = price;
-	}
-
-	public byte[] getImage() {
-		return image;
-	}
-
-	public void setImage(byte[] image) {
-		this.image = image;
 	}
 }

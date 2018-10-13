@@ -5,6 +5,9 @@
 		<div class="input-item">
 			<input type="text" data-ng-model="categoryData.categoryName"
 				placeholder="Category Name">
+			<br><br>
+			<input type="text" data-ng-model="categoryData.categoryDesc"
+				   placeholder="Category Desc">
 			<div class="error-wrapper"
 				data-ng-show="myForm.categoryName.$invalid">
 				<span data-ng-show="myForm.categoryName.$error.required">Category
@@ -12,10 +15,6 @@
 			</div>
 		</div>
 		<br>
-		<div>
-			<input type="file" file-model="categoryData.image"
-				data-ng-accept="'*.jpg,*.png'" /><br>
-		</div>
 		<button class="btn-info" data-ng-click="saveCategory()"
 			data-ng-disabled="myForm.$invalid">Submit</button>
 	</form>
@@ -26,15 +25,14 @@
 	<table class="table table-bordered table-striped">
 		<thead>
 			<tr>
-				<th>Category Image</th>
 				<th>Category Name</th>
+				<th>Category Desc</th>
 				<th>Remove</th>
 			</tr>
 		</thead>
 		<tr data-ng-repeat="cat in categories">
-			<td><img data-ng-src="data:image/png;base64,{{cat.image}}"
-				style="width: 50px; height: 50px;"></td>
 			<td>{{cat.categoryName}}</td>
+			<td>{{cat.categoryDesc}}</td>
 			<td><button data-ng-click="removeCategory(cat.categoryID)">X</button>
 		</tr>
 	</table>

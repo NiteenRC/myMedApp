@@ -9,22 +9,27 @@
 			<th>Total</th>
 		</tr>
 		</thead>
-
 		<tr data-ng-repeat="cart in rows">
 			<td><button data-ng-click="removeCart($index)">X</button></td>
-			<td><div class="col-xs-12 col-md-6">
-				<select data-ng-model="item"
-						data-ng-options="item.productName for item in products"
-						data-ng-change="selectedProduct(item.productID)"><option
-						value="">--Select Category--</option></select>
-			</div></td>
+			<td>
+				<div class="col-xs-12 col-md-6">
+					<select data-ng-model="item"
+							data-ng-options="item.productName for item in products"
+							data-ng-change="selectedProduct(item.productID)">
+						<option
+								value="">--Select Category--</option>
+					</select>
+				</div>
+			</td>
 			<td>{{cart.price}}</td>
-			<td><div data-ng-init="counter = 1">
-				<button data-ng-click="counter = counter - 1"
-						data-ng-disabled="counter==1">-</button>
-				<input type="number" data-ng-model="cart.qty=counter">
-				<button data-ng-click="counter = counter + 1">+</button>
-			</div></td>
+			<td>
+				<div data-ng-init="counter = 1">
+					<button data-ng-click="counter = counter - 1"
+							data-ng-disabled="counter==1">-</button>
+					<input type="number" data-ng-model="cart.qty=counter">
+					<button data-ng-click="counter = counter + 1">+</button>
+				</div>
+			</td>
 			<td>{{cart.price*cart.qty}}</td>
 		</tr>
 		<tr>
@@ -36,10 +41,8 @@
 		</tr>
 	</table>
 </div>
-
 <button class="button" ng-click="addRow()">Add Row</button>
-
 <div align="center">
 	<button class="btn" data-ng-disabled="rows==''"
-			data-ng-click="removeCartList()">Generate Bill</button>
+			data-ng-click="addCartList()">Add to Stock</button>
 </div>

@@ -22,6 +22,7 @@ public interface WebUrl {
 	String CART_BY_USERID = "/cart/{userID}";
 	String CART_BY_CARTID = "/cart/{cartID}";
 	String CARTS = "/carts";
+	String CARTS_REMOVE = "/cartsDelete";
 
 	String ORDER = "/order/";
 	String ORDER_BY_ORDERNO = "/order/{orderNo}";

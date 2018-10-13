@@ -14,7 +14,10 @@ angular.module('myCart').config(function($routeProvider) {
 	}).when('/cart', {
 		templateUrl : 'pages/user/cart.html',
 		controller : 'cartController'
-	}).when('/productManage', {
+	}).when('/addStock', {
+      		templateUrl : 'pages/admin/add_stock.html',
+      		controller : 'cartController'
+    }).when('/productManage', {
 		templateUrl : 'pages/admin/manage_product.html',
 		controller : 'productManageController'
 	}).when('/categoryManage', {

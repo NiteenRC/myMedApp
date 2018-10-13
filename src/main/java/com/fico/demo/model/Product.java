@@ -39,6 +39,16 @@ public class Product implements Serializable {
 	@JsonIgnore
 	private Category category;
 	private String productDesc;
+	private int qty;
+
+	public int getQty() {
+		return qty;
+	}
+
+	public void setQty(int qty) {
+		this.qty = qty;
+	}
+
 	/*
 	 * @ManyToOne(fetch = FetchType.LAZY)
 	 * 
@@ -62,13 +72,6 @@ public class Product implements Serializable {
 	}
 
 	public Product() {
-	}
-
-	public Product(String productName, double price, byte[] image, Category category) {
-		super();
-		this.productName = productName;
-		this.price = price;
-		this.category = category;
 	}
 
 	public Category getCategory() {
