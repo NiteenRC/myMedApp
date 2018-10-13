@@ -22,7 +22,7 @@ spring.logging:
  
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/med4?createDatabaseIfNotExist=true
+    url: jdbc:mysql://localhost:3306/med6?createDatabaseIfNotExist=true
     username: root
     password: root
     platform: mysql

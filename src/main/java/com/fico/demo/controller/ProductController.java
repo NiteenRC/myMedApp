@@ -130,9 +130,6 @@ public class ProductController {
             p.setQty(cart.getQty());
             products.add(p);
         }
-
-
-
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
@@ -159,10 +156,13 @@ public class ProductController {
         List<Product> productList = productRepo.findAll();
         for(Product p : productList){
             Cart cart = cartRepo.findByProductID(p.getProductID());
-            p.setQty(cart.getQty());
+            if(cart != null){
+                p.setQty(cart.getQty());
+            } else {
+                p.setQty(0);
+            }
             products.add(p);
         }
-
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
 }

@@ -135,8 +135,7 @@ function cartController(
                             $scope.carts = response.data;
                         },
                         function(error) {
-                            $scope.errorMessage = 'Error while creating' + error;
-                            $scope.successMessage = '';
+                            alert(error.data.errorMessage);
                         }
                     );
     	}
