@@ -1,24 +1,21 @@
 package com.fico.demo.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.fico.demo.exception.CustomErrorType;
 import com.fico.demo.model.User;
 import com.fico.demo.repo.UserRepo;
-import static com.fico.demo.util.WebUrl.USER_FORGET_PASSWORD_EMAILID;
-import static com.fico.demo.util.WebUrl.USER_FORGET_PASSWORD;
-import static com.fico.demo.util.WebUrl.USER;
-import static com.fico.demo.util.WebUrl.USER_BY_EMAILID_PASSWORD;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import static com.fico.demo.util.WebUrl.*;
 
 @RestController
 public class UserController {
+
+	private final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
 	@Autowired
 	private UserRepo userRepo;

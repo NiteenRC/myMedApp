@@ -34,7 +34,7 @@ public class Product implements Serializable {
 	private String productName;
 	@Column(name = "Price", nullable = false)
 	private double price;
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "CATEGORY_ID", foreignKey = @ForeignKey(name = "PRODUCT_FK"))
 	@JsonIgnore
 	private Category category;

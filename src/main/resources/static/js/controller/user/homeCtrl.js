@@ -5,11 +5,6 @@ angular.module('myCart.home_module',
 function homeController($scope, $rootScope, $route, sharedService) {
 	'use strict';
 
-var cartUrl = "/cart/";
-	var RATING_URL = "/rating/";
-
-	getAlCartCount();
-
 	$scope.slides = [];
 
 	$scope.slides.push({
@@ -45,16 +40,4 @@ var cartUrl = "/cart/";
 	$scope.setActive = function(idx) {
 		$scope.slides[idx].active = true;
 	};
-
-		function getAlCartCount(){
-		    if(!!$rootScope.userID){
-    	      sharedService.getAllMethod(cartUrl + parseInt($rootScope.userID)).then(
-        				function(response) {
-        					$rootScope.totalCartsByUser = response.data.length;
-        				}, function(error) {
-        					$scope.errorMessage = 'Error while Counting' + error;
-        					$scope.successMessage = '';
-        				});
-        		}
-        }
 }

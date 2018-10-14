@@ -1,30 +1,25 @@
 package com.fico.demo.controller;
 
-import java.io.IOException;
-import java.util.List;
-
+import com.fico.demo.exception.CustomErrorType;
+import com.fico.demo.model.Category;
+import com.fico.demo.repo.CategoryRepo;
+import com.fico.demo.repo.ProductRepo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fico.demo.exception.CustomErrorType;
-import com.fico.demo.model.Category;
-import com.fico.demo.repo.CategoryRepo;
-import com.fico.demo.repo.ProductRepo;
-import com.fico.demo.util.Utility;
-import static com.fico.demo.util.WebUrl.CART_BY_CARTID;
+import java.util.List;
+
 import static com.fico.demo.util.WebUrl.CATEGORY;
 import static com.fico.demo.util.WebUrl.CATEGORY_BY_NAME;
 
 @RestController
 public class CategoryController {
 
-	public static final Logger logger = LoggerFactory.getLogger(CategoryController.class);
+	public static final Logger LOGGER = LoggerFactory.getLogger(CategoryController.class);
 
 	@Autowired
 	public CategoryRepo categoryRepo;
