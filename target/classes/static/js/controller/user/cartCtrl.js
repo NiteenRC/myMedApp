@@ -20,7 +20,6 @@ function cartController(
     $scope.removeCart = removeCart;
     $scope.addCartList = addCartList;
     $scope.removeCartList = removeCartList;
-    $scope.order = {};
 
     $scope.cartData = {
         productName: null,
@@ -29,7 +28,7 @@ function cartController(
         qty: null,
     };
 
-    $scope.selectedProduct = function(productID) {
+    $scope.selectedProduct = function(productID, index) {
         var originalProductName = null;
         var originalPrice = 0;
         var originalProductID = 0;
@@ -43,6 +42,7 @@ function cartController(
         for (var i = 0; i < $scope.rows.length; i++) {
             if (!$scope.products[i]) {
                 alert('Medicine is already Selected!!');
+                removeCart(index);
                 return;
             }
 
@@ -76,12 +76,6 @@ function cartController(
             }
         );
     }
-
-    $scope.orderVo = {
-        userID: parseInt($rootScope.userID),
-        purchaseOrder: $scope.order,
-        purchaseOrderDetail: $scope.carts,
-    };
 
     function addCartList() {
         sharedService.postMethod(CART_LIST_SAVE, $scope.rows).then(

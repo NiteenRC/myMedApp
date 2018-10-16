@@ -9,8 +9,6 @@ angular.module('myCart', [ 'ngRoute',
 		'myCart.categoryManage_module',
 		'myCart.productManage_module',
 		'myCart.product_module.productModal',
-		'myCart.shared_module.sharedService',
-		'myCart.directive_module.directiveService',
-		'myCart.directive_module.ratingDirectiveService'
+		'myCart.shared_module.sharedService'
 ]);
 

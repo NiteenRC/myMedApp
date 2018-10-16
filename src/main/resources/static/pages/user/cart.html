@@ -15,16 +15,13 @@
 			<td><div class="col-xs-12 col-md-6">
 				<select data-ng-model="item"
 						data-ng-options="item.productName for item in products"
-						data-ng-change="selectedProduct(item.productID)"><option
+						data-ng-change="selectedProduct(item.productID, $index)"><option
 						value="">--Select Category--</option></select>
 			</div></td>
 			<td>{{cart.price}}</td>
-			<td><div data-ng-init="counter = 1">
-				<button data-ng-click="counter = counter - 1"
-						data-ng-disabled="counter==1">-</button>
-				<input type="number" data-ng-model="cart.qty=counter">
-				<button data-ng-click="counter = counter + 1">+</button>
-			</div></td>
+			<td>
+                <input type="number" data-ng-model="cart.qty">
+			</td>
 			<td>{{cart.price*cart.qty}}</td>
 		</tr>
 		<tr>
