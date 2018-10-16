@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fico.demo.exception.CustomErrorType;
 import com.fico.demo.model.Cart;
 import com.fico.demo.repo.CartRepo;
+
 import static com.fico.demo.util.WebUrl.CART_BY_CARTID;
 import static com.fico.demo.util.WebUrl.CARTS;
 import static com.fico.demo.util.WebUrl.CARTS_REMOVE;
@@ -25,77 +26,63 @@ import static com.fico.demo.util.WebUrl.CART_BY_USERID;
 @RestController
 public class CartController {
 
-	public static final Logger LOGGER = LoggerFactory.getLogger(CartController.class);
+    public static final Logger LOGGER = LoggerFactory.getLogger(CartController.class);
 
-	@Autowired
-	public CartRepo cartRepo;
+    @Autowired
+    public CartRepo cartRepo;
 
-	@RequestMapping(value = CARTS, method = RequestMethod.POST)
-	public ResponseEntity addCartList(@RequestBody List<Cart> carts) {
-		List<Cart> cartList = cartRepo.findAll();
-		for(Cart cart:cartList){
-			for (Cart carts2: carts){
-				if (cart.getProductID() == carts2.getProductID()){
-					cart.setCartID(cart.getCartID());
-					cart.setQty(cart.getQty()+carts2.getQty());
-					cartRepo.save(cart);
-				}
-			}
-		}
+    @RequestMapping(value = CARTS, method = RequestMethod.POST)
+    public ResponseEntity addCartList(@RequestBody List<Cart> carts) {
+        for (Cart cart : carts) {
+            Cart cart2 = cartRepo.findByProductName(cart.getProductName());
+            if (cart2 == null) {
+                cartRepo.save(cart);
+            } else {
+                cart2.setQty(cart2.getQty() + cart.getQty());
+                cartRepo.save(cart2);
+            }
+        }
+        return null;
+    }
 
-		if (cartList.isEmpty()){
-			return new ResponseEntity<>(cartRepo.save(carts), HttpStatus.CREATED);
-		}
-		return null;
-	}
+    @RequestMapping(value = CARTS_REMOVE, method = RequestMethod.POST)
+    public ResponseEntity removeCartList(@RequestBody List<Cart> carts) {
+        boolean validation = true;
+        for (Cart cart : carts) {
+            Cart cart2 = cartRepo.findByProductName(cart.getProductName());
+            if (cart2 == null) {
+                validation = true;
+                return new ResponseEntity(new CustomErrorType("Stock is not avaible for " + cart.getProductName()), HttpStatus.NOT_FOUND);
+            } else {
+                if (cart2.getQty() < cart.getQty()) {
+                    validation = true;
+                    return new ResponseEntity(new CustomErrorType("Stock avaible for " + cart2.getProductName() + " is " + cart2.getQty()), HttpStatus.NOT_FOUND);
+                }
+            }
+        }
 
-	@RequestMapping(value = CARTS_REMOVE, method = RequestMethod.POST)
-	public ResponseEntity removeCartList(@RequestBody List<Cart> carts) {
-		List<Cart> cartList = cartRepo.findAll();
-		for(Cart cart:cartList){
-			for (Cart carts2: carts){
-				if (cart.getProductID() == carts2.getProductID()){
-					cart.setCartID(cart.getCartID());
-					if(cart.getQty() < carts2.getQty()){
-						return new ResponseEntity(new CustomErrorType("Stock avaible for "+carts2.getProductName()+" is "+cart.getQty()), HttpStatus.NOT_FOUND);
-					}
-					cart.setQty(cart.getQty()-carts2.getQty());
-					cartRepo.save(cart);
-				}
-			}
-		}
+        if (validation) {
+            for (Cart car : carts) {
+                Cart cart2 = cartRepo.findByProductName(car.getProductName());
+                cart2.setQty(cart2.getQty() - car.getQty());
+                cartRepo.save(cart2);
+            }
+        }
+        return null;
+    }
 
-		return null;
-	}
+    @RequestMapping(value = CART_BY_CARTID, method = RequestMethod.DELETE)
+    public ResponseEntity<Cart> deleteCart(@PathVariable int cartID) {
+        Cart cart = cartRepo.findOne(cartID);
+        if (cart == null) {
+            return new ResponseEntity(new CustomErrorType("cartID: " + cartID + " not found."), HttpStatus.NOT_FOUND);
+        }
+        cartRepo.delete(cartID);
+        return new ResponseEntity<>(cart, HttpStatus.OK);
+    }
 
-	@RequestMapping(value = CART, method = RequestMethod.POST)
-	public ResponseEntity<Cart> addCart(@RequestBody Cart cart) {
-		Cart cart2 = cartRepo.findByProductNameAndUserID(cart.getProductName(), cart.getUserID());
-		Cart cartResponse;
-
-		if (cart2 != null) {
-			cart.setCartID(cart2.getCartID());
-		}
-		cartResponse = cartRepo.save(cart);
-
-		if (cartResponse == null) {
-			return new ResponseEntity(new CustomErrorType("Cart is not saved"), HttpStatus.NOT_FOUND);
-		}
-		return new ResponseEntity<>(cartResponse, HttpStatus.CREATED);
-	}
-
-	@RequestMapping(value = CART_BY_CARTID, method = RequestMethod.DELETE)
-	public ResponseEntity<Cart> deleteCart(@PathVariable int cartID) {
-		Cart cart = cartRepo.findOne(cartID);
-		if (cart == null) {
-			return new ResponseEntity(new CustomErrorType("cartID: " + cartID + " not found."), HttpStatus.NOT_FOUND);
-		}
-		cartRepo.delete(cartID);
-		return new ResponseEntity<>(cart, HttpStatus.OK);
-	}
-
-	@RequestMapping(value = CART_BY_USERID, method = RequestMethod.GET)
-	public ResponseEntity<List<Cart>> fetchCartList(@PathVariable int userID) {
-		return new ResponseEntity<>(cartRepo.findAllCartsByUserID(userID), HttpStatus.OK);
-	}
+    @RequestMapping(value = CART_BY_USERID, method = RequestMethod.GET)
+    public ResponseEntity<List<Cart>> fetchCartList(@PathVariable int userID) {
+        return new ResponseEntity<>(cartRepo.findAllCartsByUserID(userID), HttpStatus.OK);
+    }
 }

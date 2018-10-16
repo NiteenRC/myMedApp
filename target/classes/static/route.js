@@ -24,6 +24,6 @@ angular.module('myCart').config(function($routeProvider) {
 		templateUrl : 'pages/admin/manage_category.html',
 		controller : 'categoryManageController'
 	}).otherwise({
-		redirectTo : '/home'
+		redirectTo : '/productList'
 	});
 });

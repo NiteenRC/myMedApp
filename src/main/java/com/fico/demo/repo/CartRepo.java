@@ -8,7 +8,7 @@ import com.fico.demo.model.Cart;
 
 public interface CartRepo extends JpaRepository<Cart, Integer> {
 
-	Cart findByProductNameAndUserID(String productName, int userID);
+	Cart findByProductName(String productName);
 
 	List<Cart> findAllCartsByUserID(int userID);
 
