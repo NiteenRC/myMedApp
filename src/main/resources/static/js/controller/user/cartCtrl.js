@@ -84,6 +84,11 @@ function cartController(
   }
 
   function addCartList() {
+     if($scope.rows.length === 1 && $scope.rows[0].productName === null){
+          alert('Please select atleast one product');
+          return;
+     }
+
     sharedService.postMethod(CART_LIST_SAVE, $scope.rows).then(
       function(response) {
         $scope.carts = response.data;
@@ -97,6 +102,11 @@ function cartController(
   }
 
   function removeCartList(id) {
+    if($scope.rows.length === 1 && $scope.rows[0].productName === null){
+        alert('Please select atleast one product');
+        return;
+    }
+
     sharedService.postMethod(CART_LIST_DELETE, $scope.rows).then(
       function(response) {
         $scope.carts = response.data;

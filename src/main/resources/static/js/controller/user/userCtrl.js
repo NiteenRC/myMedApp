@@ -9,11 +9,9 @@ function userController($scope, $http, $location, $window, sharedService,
 	$rootScope.userName = '';
 	$rootScope.userType = '';
 	$rootScope.userDetails = null;
-	$scope.isRegistrationRequired = false;
 
 	var checkUserLoginUrl = "user/byEmailAndPassword/";
 
-	$scope.registerNewUser = registerNewUser;
 	$scope.userLogin = userLogin;
 
 	$interval(function() {
@@ -24,7 +22,7 @@ function userController($scope, $http, $location, $window, sharedService,
 		$scope.dataLoading = true;
 		sharedService.postMethod(checkUserLoginUrl, user).then(
 				function(userDetails) {
-					$location.path("/category");
+					$location.path("/productList");
 					if (userDetails.data.userName != null) {
 						$rootScope.userLoggedin = true;
 						$scope.isRegistrationRequired = false;
@@ -38,65 +36,16 @@ function userController($scope, $http, $location, $window, sharedService,
 								userDetails.data.userType)
 						$scope.getUserNamerfromCookie();
 						$scope.submitted = true;
-						getCarts();
 					}
 				}, function(error) {
 					$scope.setError(error.data.errorMessage);
-					$location.path("/user");
 				});
-	}
-
-	function registerNewUser(user) {
-		if (!$scope.isPasswordMatched) {
-			return alert("Entered Password doesn't match");
-		}
-
-		$scope.setError('');
-		sharedService.postMethod('user', user).then(function(response) {
-			$scope.isRegistrationRequired = false;
-			$scope.error = false;
-		}, function(error) {
-			$scope.setError(error.data.errorMessage);
-		});
-	}
-
-	$scope.isPasswordMatched = false;
-	$scope.checkPassword = checkPassword;
-
-	function checkPassword(confirmPassword) {
-		$scope.isPasswordMatched = $scope.user.userPassword == confirmPassword ? true
-				: false
-	}
-
-	$scope.forgetPassword = forgetPassword;
-	$scope.isForgetPassword = false;
-	$scope.newUserPassword = false;
-
-	function forgetPassword(userEmail) {
-		$scope.isForgetPassword = true;
-		sharedService.getAllMethod('user/forgetPassword/' + userEmail).then(
-				function(response) {
-					alert('Password sent to your email, please check');
-				}, function(error) {
-					$scope.setError(error.data.errorMessage);
-				});
-	}
-
-	$scope.showForgetPassword = showForgetPassword;
-
-	function showForgetPassword() {
-		$location.path('forgetPassword');
-		$scope.isForgetPassword = true;
 	}
 
 	$scope.setError = function(message) {
 		$scope.error = true;
 		$scope.errorMessage = message;
 	};
-
-	$scope.showRegistration = function() {
-		$scope.isRegistrationRequired = true;
-	}
 
 	$scope.invalidateUser = function() {
 		$window.sessionStorage.setItem("userID", '');

@@ -5,9 +5,6 @@ angular.module('myCart').config(function($routeProvider) {
 	}).when('/user', {
 		templateUrl : 'pages/user/user.html',
 		controller : 'userController'
-	}).when('/forgetPassword', {
-		templateUrl : 'pages/user/forgetPassword.html',
-		controller : 'forgetPasswordController'
 	}).when('/productList', {
 		templateUrl : 'pages/user/productList.html',
 		controller : 'productController'
