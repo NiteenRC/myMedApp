@@ -69,7 +69,13 @@ public class ProductController {
 
     @RequestMapping(value = PRODUCT, method = RequestMethod.GET)
     public ResponseEntity<List<Product>> productList() {
-        return new ResponseEntity<>(productRepo.findAll(), HttpStatus.OK);
+        List<Product> productList = productRepo.findAll();
+        List<Product> products = new ArrayList<>();
+        for (Product product: productList) {
+           product.setCategory(product.getCategory());
+            products.add(product);
+        }
+        return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
     @RequestMapping(value = PRODUCT_BY_PRODUCTID, method = RequestMethod.GET)

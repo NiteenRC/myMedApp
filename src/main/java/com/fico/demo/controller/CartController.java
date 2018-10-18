@@ -50,22 +50,26 @@ public class CartController {
         boolean validation = true;
         for (Cart cart : carts) {
             Cart cart2 = cartRepo.findByProductName(cart.getProductName());
-            if (cart2 == null) {
-                validation = true;
-                return new ResponseEntity(new CustomErrorType("Stock is not avaible for " + cart.getProductName()), HttpStatus.NOT_FOUND);
-            } else {
-                if (cart2.getQty() < cart.getQty()) {
+            if (cart.getProductName() != null) {
+                if (cart2 == null) {
                     validation = true;
-                    return new ResponseEntity(new CustomErrorType("Stock avaible for " + cart2.getProductName() + " is " + cart2.getQty()), HttpStatus.NOT_FOUND);
+                    return new ResponseEntity(new CustomErrorType("Stock is not avaible for " + cart.getProductName()), HttpStatus.NOT_FOUND);
+                } else {
+                    if (cart2.getQty() < cart.getQty()) {
+                        validation = true;
+                        return new ResponseEntity(new CustomErrorType("Stock avaible for " + cart2.getProductName() + " is " + cart2.getQty()), HttpStatus.NOT_FOUND);
+                    }
                 }
             }
         }
 
         if (validation) {
             for (Cart car : carts) {
-                Cart cart2 = cartRepo.findByProductName(car.getProductName());
-                cart2.setQty(cart2.getQty() - car.getQty());
-                cartRepo.save(cart2);
+                if (car.getProductName() != null) {
+                    Cart cart2 = cartRepo.findByProductName(car.getProductName());
+                    cart2.setQty(cart2.getQty() - car.getQty());
+                    cartRepo.save(cart2);
+                }
             }
         }
         return null;
