@@ -21,6 +21,7 @@
 	<tr>
 		<th>Product Name</th>
 		<th>Description</th>
+		<th>Category</th>
 		<th>Qty</th>
 		<th>Price</th>
 	</tr>
@@ -31,7 +32,9 @@
 		<td><div data-ng-show="item.productDesc!='null'" class="description">
 			{{item.productDesc}}</div><div data-ng-show="item.productDesc=='null'" class="description">Product
 			description not available</div></td>
+		<td>{{item.categoryName}}</td>
 		<td>{{item.qty}}</td>
 		<td>{{item.price}}</td>
 	</tr>
+	<p align="center" data-ng-show="products.length==0">--No Data--</p>
 </table>

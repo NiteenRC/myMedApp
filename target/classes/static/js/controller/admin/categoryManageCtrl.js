@@ -23,7 +23,8 @@ function categoryManageController($scope, $uibModal, sharedService) {
         if (
             !sharedService.isDefinedOrNotNull($scope.categoryData.categoryName)
         ) {
-            return alert('Please enter category name');
+            alert('Please enter category name')
+            return;
         }
 
         sharedService.postMethod(categoryUrl, $scope.categoryData).then(

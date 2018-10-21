@@ -7,7 +7,7 @@ angular
 function productManageController($scope, $uibModal, sharedService) {
     'use strict';
 
-    var productUrl = '/product';
+    var productUrl = '/products';
     var categoryUrl = '/category';
 
     getProducts();

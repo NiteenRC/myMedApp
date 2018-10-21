@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.fico</groupId>
-	<artifactId>spring-boot-rest-example</artifactId>
+	<artifactId>myMedStore</artifactId>
 	<version>0.3.0</version>
 	<packaging>war</packaging>
 	<description>myMart</description>

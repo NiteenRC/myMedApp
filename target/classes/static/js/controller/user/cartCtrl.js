@@ -11,7 +11,7 @@ function cartController(
 ) {
   'use strict';
 
-  var CART_LIST_SAVE = '/carts';
+  var CART_LIST_SAVE = '/cartsAdd';
   var CART_LIST_DELETE = '/cartsDelete';
   var productsUrl = '/products';
 
