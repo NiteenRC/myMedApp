@@ -16,11 +16,11 @@
 				<select data-ng-model="item"
 						data-ng-options="item.productName for item in products"
 						data-ng-change="selectedProduct(item.productID, $index)"><option
-						value="">--Select Category--</option></select>
+						value="">--Select Product--</option></select>
 			</div></td>
 			<td>{{cart.price}}</td>
 			<td>
-                <input type="number" data-ng-model="cart.qty">
+				<input type="text" data-ng-model="cart.qty" data-ng-change="qtyValidation(cart.qty, $index)">
 			</td>
 			<td>{{cart.price*cart.qty}}</td>
 		</tr>

@@ -3,11 +3,11 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.fico</groupId>
+	<groupId>com.nc</groupId>
 	<artifactId>myMedStore</artifactId>
 	<version>0.3.0</version>
-	<packaging>war</packaging>
-	<description>myMart</description>
+	<packaging>jar</packaging>
+	<description>myMedStore</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -16,7 +16,7 @@
 	</parent>
 
 	<properties>
-		<start-class>com.fico.example.Application</start-class>
+		<start-class>com.nc.med.SpringAppLauncher</start-class>
 	</properties>
 
 	<dependencies>

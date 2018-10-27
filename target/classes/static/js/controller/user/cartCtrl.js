@@ -1,14 +1,6 @@
-angular
-  .module('myCart.cart_module', ['myCart.shared_module.sharedService'])
-  .controller('cartController', cartController);
+angular.module('myCart.cart_module', ['myCart.shared_module.sharedService']).controller('cartController', cartController);
 
-function cartController(
-  $scope,
-  $rootScope,
-  $uibModal,
-  sharedService,
-  $location
-) {
+function cartController($scope, $rootScope, $uibModal, sharedService, $location) {
   'use strict';
 
   var CART_LIST_SAVE = '/cartsAdd';
@@ -16,7 +8,6 @@ function cartController(
   var productsUrl = '/products';
 
   $scope.rows = [];
-
   fetchAllProducts();
   addRow();
   $scope.addRow = addRow;
@@ -31,6 +22,13 @@ function cartController(
     image: null,
     qty: null,
   };
+
+  $scope.qtyValidation = function(qty, index) {
+    if (sharedService.numberValidation(qty)) {
+      $scope.rows[index].qty = 1
+      return;
+    }
+  }
 
   $scope.selectedProduct = function(productID, index) {
     var originalProductName = null;
@@ -50,7 +48,7 @@ function cartController(
         duplicateCount++;
       }
 
-      if ((duplicateCount >=1 && index==0) || duplicateCount >= 2) {
+      if ((duplicateCount >= 1 && index == 0) || duplicateCount >= 2) {
         alert('Medicine is already Selected!!');
         removeCart(index);
         return;
@@ -84,10 +82,10 @@ function cartController(
   }
 
   function addCartList() {
-     if($scope.rows.length === 1 && $scope.rows[0].productName === null){
-          alert('Please select atleast one product');
-          return;
-     }
+    if ($scope.rows.length === 1 && $scope.rows[0].productName === null) {
+      alert('Please select atleast one product');
+      return;
+    }
 
     sharedService.postMethod(CART_LIST_SAVE, $scope.rows).then(
       function(response) {
@@ -102,9 +100,9 @@ function cartController(
   }
 
   function removeCartList(id) {
-    if($scope.rows.length === 1 && $scope.rows[0].productName === null){
-        alert('Please select atleast one product');
-        return;
+    if ($scope.rows.length === 1 && $scope.rows[0].productName === null) {
+      alert('Please select atleast one product');
+      return;
     }
 
     sharedService.postMethod(CART_LIST_DELETE, $scope.rows).then(
@@ -121,7 +119,7 @@ function cartController(
   }
 
   function removeCart(index) {
-      $scope.rows.splice(index, 1);
+    $scope.rows.splice(index, 1);
   }
 
   $scope.getTotal = function(val) {

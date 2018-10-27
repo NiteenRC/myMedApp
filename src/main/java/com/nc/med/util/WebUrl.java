@@ -12,7 +12,7 @@ public interface WebUrl {
 
 	String PRODUCTS = "/products";
 	String PRODUCT_AND_CATEGORYID = "/product/{categoryID}";
-	String PRODUCT_BY_PRODUCTID = "/product/{productID}";
+	String PRODUCT_BY_PRODUCTID = "/products/{productID}";
 
 	String CART_BY_USERID = "/cart/{userID}";
 	String CART_BY_CARTID = "/cart/{cartID}";

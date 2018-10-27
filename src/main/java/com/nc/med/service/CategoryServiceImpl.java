@@ -29,8 +29,8 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public void deleteCategory(Integer CategoryID) {
-
+    public void deleteCategory(Integer categoryID) {
+        categoryRepo.delete(categoryID);
     }
 
     @Override

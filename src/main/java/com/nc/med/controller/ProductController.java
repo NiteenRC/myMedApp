@@ -58,7 +58,7 @@ public class ProductController {
             return new ResponseEntity(new CustomErrorType("ProductID: " + productID + " not found."), HttpStatus.NOT_FOUND);
         }
         productService.deleteProduct(productID);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(product,HttpStatus.OK);
     }
 
     @RequestMapping(value = PRODUCT_BY_PRODUCTID, method = RequestMethod.GET)
