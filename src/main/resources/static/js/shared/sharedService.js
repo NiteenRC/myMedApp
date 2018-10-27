@@ -66,12 +66,12 @@ function sharedService($http) {
     }
 
     if (isNaN(number)) {
-      alert('Price should be number!!')
+      alert('Filed should be number!!')
       return true;
     }
 
     if (!(number > 1 && number < 10000000)) {
-      alert("Price should be in between 1 to 10000000");
+      alert("Field should be in between 1 to 10000000");
       return true;
     }
 

@@ -22,6 +22,7 @@ function modalCtrl($scope, $http, $modalInstance, sharedService) {
     }
 
     if (sharedService.numberValidation($scope.productData.price)) {
+      $scope.productData.price = 1;
       return;
     }
 

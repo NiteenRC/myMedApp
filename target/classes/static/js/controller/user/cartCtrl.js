@@ -15,6 +15,7 @@ function cartController($scope, $rootScope, $uibModal, sharedService, $location)
   $scope.removeCart = removeCart;
   $scope.addCartList = addCartList;
   $scope.removeCartList = removeCartList;
+  $scope.isSingleCartAvail = true;
 
   $scope.cartData = {
     productName: null,
@@ -67,6 +68,13 @@ function cartController($scope, $rootScope, $uibModal, sharedService, $location)
       qty: 1,
       price: 0
     });
+
+    if ($scope.rows && $scope.rows.length == 1) {
+      $scope.isSingleCartAvail = true;
+    } else {
+      $scope.isSingleCartAvail = false;
+    }
+
   };
 
   function fetchAllProducts() {
@@ -119,7 +127,12 @@ function cartController($scope, $rootScope, $uibModal, sharedService, $location)
   }
 
   function removeCart(index) {
-    $scope.rows.splice(index, 1);
+    if ($scope.rows && $scope.rows.length == 1) {
+      $scope.isSingleCartAvail = true;
+    } else {
+      $scope.rows.splice(index, 1);
+      $scope.isSingleCartAvail = false;
+    }
   }
 
   $scope.getTotal = function(val) {

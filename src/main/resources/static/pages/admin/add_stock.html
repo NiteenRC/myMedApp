@@ -10,7 +10,7 @@
 		</tr>
 		</thead>
 		<tr data-ng-repeat="cart in rows">
-			<td><button data-ng-click="removeCart($index)">X</button></td>
+			<td><button data-ng-click="removeCart($index)" data-ng-disabled="isSingleCartAvail">X</button></td>
 			<td>
 				<div class="col-xs-12 col-md-6">
 					<select data-ng-model="item"
