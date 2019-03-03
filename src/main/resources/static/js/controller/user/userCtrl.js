@@ -5,6 +5,7 @@ function userController($scope, $http, $location, $window, sharedService,
 		$rootScope, $interval) {
 	'use strict'
 
+	var url_home = sharedService.urlHome();
 	$rootScope.userLoggedin = false;
 	$rootScope.userName = '';
 	$rootScope.userType = '';
@@ -22,7 +23,7 @@ function userController($scope, $http, $location, $window, sharedService,
 		$scope.dataLoading = true;
 		sharedService.postMethod(checkUserLoginUrl, user).then(
 				function(userDetails) {
-					$location.path("/productList");
+					$location.path(url_home+"/productList");
 					if (userDetails.data.userName != null) {
 						$rootScope.userLoggedin = true;
 						$scope.isRegistrationRequired = false;

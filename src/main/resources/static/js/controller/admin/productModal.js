@@ -3,7 +3,9 @@ angular.module('myCart.product_module.productModal', ['myCart.shared_module.shar
 function modalCtrl($scope, $http, $modalInstance, sharedService) {
   'use strict';
 
-  var productUrl = '/product';
+  var url_home = sharedService.urlHome();
+  
+  var productUrl = url_home+'/product';
   $scope.saveProduct = saveProduct;
   $scope.cancel = cancel;
   $scope.clear = clear;

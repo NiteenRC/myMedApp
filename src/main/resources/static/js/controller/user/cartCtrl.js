@@ -3,9 +3,10 @@ angular.module('myCart.cart_module', ['myCart.shared_module.sharedService']).con
 function cartController($scope, $rootScope, $uibModal, sharedService, $location) {
   'use strict';
 
-  var CART_LIST_SAVE = '/cartsAdd';
-  var CART_LIST_DELETE = '/cartsDelete';
-  var productsUrl = '/products';
+  var url_home = sharedService.urlHome();
+  var CART_LIST_SAVE = url_home+'/cartsAdd';
+  var CART_LIST_DELETE = url_home+'/cartsDelete';
+  var productsUrl = url_home+'/products';
 
   $scope.rows = [];
   fetchAllProducts();

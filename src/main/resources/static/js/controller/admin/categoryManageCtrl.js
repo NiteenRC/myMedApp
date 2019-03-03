@@ -3,7 +3,8 @@ angular.module('myCart.categoryManage_module', ['myCart.shared_module.sharedServ
 function categoryManageController($scope, $uibModal, sharedService) {
   'use strict';
 
-  var categoryUrl = '/category';
+  var url_home = sharedService.urlHome();
+  var categoryUrl = url_home+'/category';
 
   getCategory();
   $scope.saveCategory = saveCategory;

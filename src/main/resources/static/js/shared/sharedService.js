@@ -1,9 +1,14 @@
-angular.module('myCart.shared_module.sharedService', []).factory('sharedService', sharedService);
+angular
+  .module('myCart.shared_module.sharedService', [])
+  .factory('sharedService', sharedService);
 
 function sharedService($http) {
   'use strict';
 
   var mem = {};
+  var urlHome = function() {
+    return '';
+  };
 
   var postMethod = function(url, data) {
     return $http.post(url, data);
@@ -36,24 +41,24 @@ function sharedService($http) {
 
   var filedValidation = function(name) {
     if (!name) {
-      alert('Mandatory fields should not be blank')
+      alert('Mandatory fields should not be blank');
       return true;
     }
 
     if (!isNaN(name)) {
-      alert('You are enter only Numbers!!')
+      alert('You are enter only Numbers!!');
       return true;
     }
 
-    if ((name.length < 2) || (name.length > 25)) {
-      alert("Your Character must be 2 to 15 Character");
+    if (name.length < 2 || name.length > 25) {
+      alert('Your Character must be 2 to 15 Character');
       return true;
     }
 
-    var splChars = "*|,\":<>[]{}`\';()@&$#%";
+    var splChars = '*|,":<>[]{}`\';()@&$#%';
     for (var i = 0; i < name.length; i++) {
       if (splChars.indexOf(name.charAt(i)) != -1) {
-        alert("Special Characters are not allowed!");
+        alert('Special Characters are not allowed!');
         return true;
       }
     }
@@ -61,24 +66,24 @@ function sharedService($http) {
 
   var numberValidation = function(number) {
     if (!number) {
-      alert('Mandatory fields should not be blank')
+      alert('Mandatory fields should not be blank');
       return true;
     }
 
     if (isNaN(number)) {
-      alert('Filed should be number!!')
+      alert('Filed should be number!!');
       return true;
     }
 
     if (!(number > 1 && number < 10000000)) {
-      alert("Field should be in between 1 to 10000000");
+      alert('Field should be in between 1 to 10000000');
       return true;
     }
 
-    var splChars = "*|,\":<>[]{}`\';()@&$#%";
+    var splChars = '*|,":<>[]{}`\';()@&$#%';
     for (var i = 0; i < name.length; i++) {
       if (splChars.indexOf(name.charAt(i)) != -1) {
-        alert("Special Characters are not allowed!");
+        alert('Special Characters are not allowed!');
         return true;
       }
     }
@@ -98,6 +103,7 @@ function sharedService($http) {
       return mem[key];
     },
     filedValidation: filedValidation,
-    numberValidation: numberValidation
+    numberValidation: numberValidation,
+    urlHome: urlHome,
   };
 }

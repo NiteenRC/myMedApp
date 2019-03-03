@@ -3,10 +3,11 @@ angular.module('myCart.product_module', ['myCart.shared_module.sharedService']).
 function productController($scope, $rootScope, $uibModal, sharedService, $location) {
   'use strict';
 
-  var productsUrl = '/products';
-  var productByNameUrl = '/product/byName/';
-  var PRODUCT_BY_CATEGORY_ID = '/advancedSearch/';
-  var categoryUrl = '/category';
+  var url_home = sharedService.urlHome();
+  var productsUrl = url_home+'/products';
+  var productByNameUrl = url_home+'/product/byName/';
+  var PRODUCT_BY_CATEGORY_ID = url_home+'/advancedSearch/';
+  var categoryUrl = url_home+'/category';
 
   $scope.products = fetchAllProducts();
   $scope.getCategoryID = sharedService.get('categoryID');
@@ -22,11 +23,9 @@ function productController($scope, $rootScope, $uibModal, sharedService, $locati
     var productName =
       $rootScope.productName == '' ? null : $rootScope.productName;
     var categoryID = !$rootScope.categoryID ? 0 : $rootScope.categoryID;
-    sharedService
-      .getAllMethod(
+    sharedService.getAllMethod(
         PRODUCT_BY_CATEGORY_ID + categoryID + '/' + productName
-      )
-      .then(
+      ).then(
         function(response) {
           $scope.products = response.data;
         },

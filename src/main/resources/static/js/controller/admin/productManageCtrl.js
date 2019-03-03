@@ -3,8 +3,9 @@ angular.module('myCart.productManage_module', ['myCart.shared_module.sharedServi
 function productManageController($scope, $uibModal, sharedService) {
   'use strict';
 
-  var productUrl = '/products';
-  var categoryUrl = '/category';
+  var url_home = sharedService.urlHome();
+  var productUrl = url_home+'/products';
+  var categoryUrl = url_home+'/category';
 
   getProducts();
   getCategory();
@@ -20,7 +21,7 @@ function productManageController($scope, $uibModal, sharedService) {
   function openModal() {
     var modalInstance = $uibModal.open({
       controller: 'productModalCtrl',
-      templateUrl: '/pages/admin/productModal.html',
+      templateUrl: url_home+'/pages/admin/productModal.html',
       transclude: true,
       resolve: {
         categoryList: function() {
