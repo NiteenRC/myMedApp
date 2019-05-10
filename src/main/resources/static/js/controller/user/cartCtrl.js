@@ -26,10 +26,10 @@ function cartController($scope, $rootScope, $uibModal, sharedService, $location)
   };
 
   $scope.qtyValidation = function(qty, index) {
-    if (sharedService.numberValidation(qty)) {
-      $scope.rows[index].qty = 1
-      return;
-    }
+   // if (sharedService.numberValidation(qty)) {
+   //   $scope.rows[index].qty = 1
+   //   return;
+   // }
   }
 
   $scope.selectedProduct = function(productID, index) {
