@@ -20,6 +20,9 @@ angular.module('myCart').config(function($routeProvider) {
 	}).when('/categoryManage', {
 		templateUrl : 'pages/admin/manage_category.html',
 		controller : 'categoryManageController'
+	}).when('/generateReport', {
+		templateUrl : 'pages/user/report.html',
+		controller : 'cartController'
 	}).otherwise({
 		redirectTo : '/productList'
 	});

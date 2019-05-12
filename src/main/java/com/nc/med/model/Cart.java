@@ -1,6 +1,7 @@
 package com.nc.med.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +10,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -30,6 +35,17 @@ public class Cart implements Serializable {
 	// @OneToOne // One cart can have multiple users
 	// @JoinColumn
 	private int userID;
+	@CreationTimestamp
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date date;
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
 
 	public int getUserID() {
 		return userID;

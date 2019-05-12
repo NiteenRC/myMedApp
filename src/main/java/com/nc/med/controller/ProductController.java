@@ -2,8 +2,11 @@ package com.nc.med.controller;
 
 import com.nc.med.Beans.ProductBean;
 import com.nc.med.exception.CustomErrorType;
+import com.nc.med.model.Cart;
 import com.nc.med.model.Category;
 import com.nc.med.model.Product;
+import com.nc.med.repo.CartRepo;
+import com.nc.med.service.CartService;
 import com.nc.med.service.CategoryService;
 import com.nc.med.service.ProductService;
 import org.slf4j.Logger;
@@ -27,6 +30,9 @@ public class ProductController {
 
     @Autowired
     private CategoryService categoryService;
+    
+    @Autowired
+    public CartService cartService;
 
     @RequestMapping(value = PRODUCTS, method = RequestMethod.POST)
     public ResponseEntity<List<Product>> saveProducts(@RequestBody List<Product> productList) {
@@ -79,5 +85,22 @@ public class ProductController {
     @RequestMapping(value = PRODUCTS, method = RequestMethod.GET)
     public ResponseEntity<List<ProductBean>> getProductsForAllCategories() {
         return new ResponseEntity<>(productService.fetchAllProducts(Collections.emptyList()), HttpStatus.OK);
+    }
+    
+    @RequestMapping(value = PRODUCTS_ADD, method = RequestMethod.POST)
+    public ResponseEntity addCartList(@RequestBody List<Product> products) {
+        return new ResponseEntity<>(productService.addToStock(products), HttpStatus.OK);
+    }
+    
+    @RequestMapping(value = PRODUCTS_REMOVE, method = RequestMethod.POST)
+    public ResponseEntity removeCartList(@RequestBody List<Product> products) {
+    	for(Product product : products) {
+    		Cart cart = new Cart();
+    		cart.setProductName(product.getProductName());
+    		cart.setPrice(product.getPrice());
+    		cart.setQty(product.getQty());
+    		cartService.saveCart(cart);
+    	}
+        return productService.removeFromStock(products);
     }
 }

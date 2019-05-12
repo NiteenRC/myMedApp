@@ -10,9 +10,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.data.annotation.CreatedDate;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import java.util.Date;
 
 @Entity
 // @Table(name = "Products")
@@ -34,6 +40,17 @@ public class Product implements Serializable {
 	private Category category;
 	private String productDesc;
 	private int qty;
+	@CreationTimestamp
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date date;
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
 
 	public int getQty() {
 		return qty;

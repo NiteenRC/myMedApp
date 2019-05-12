@@ -1,11 +1,14 @@
 package com.nc.med.service;
 
 import com.nc.med.Beans.ProductBean;
+import com.nc.med.exception.CustomErrorType;
 import com.nc.med.model.Cart;
 import com.nc.med.model.Product;
 import com.nc.med.repo.CartRepo;
 import com.nc.med.repo.ProductRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -52,12 +55,12 @@ public class ProductServiceImpl implements ProductService {
             productBean.setProductName(product.getProductName());
             productBean.setPrice(product.getPrice());
             productBean.setProductDesc(product.getProductDesc());
-            Cart cart = cartRepo.findByProductID(product.getProductID());
-            if (cart != null) {
-                productBean.setQty(cart.getQty());
-            } else {
-                productBean.setQty(0);
-            }
+            //Cart cart = cartRepo.findByProductID(product.getProductID());
+           // if (cart != null) {
+            productBean.setQty(product.getQty());
+          //  } else {
+          //      productBean.setQty(0);
+          //  }
             productBean.setProductID(product.getProductID());
             productBean.setCategoryName(product.getCategory().getCategoryName());
             productBeans.add(productBean);
@@ -88,5 +91,49 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product saveProduct(Product product) {
         return productRepo.save(product);
+    }
+
+    @Override
+    public Product addToStock(List<Product> products) {
+        for (Product product : products) {
+            Product product2 = productRepo.findByProductName(product.getProductName());
+            if (product2 == null) {
+                productRepo.save(product);
+            } else {
+            	product2.setQty(product2.getQty() + product.getQty());
+                productRepo.save(product2);
+            }
+        }
+        return null;
+    }
+    
+	@Override
+	public ResponseEntity removeFromStock(List<Product> products) {
+        boolean validation = true;
+        for (Product product : products) {
+        	Product product2 = productRepo.findByProductName(product.getProductName());
+            if (product.getProductName() != null) {
+                if (product2 == null) {
+                    validation = true;
+                    return new ResponseEntity(new CustomErrorType("Stock is not avaible for " + product.getProductName()), HttpStatus.NOT_FOUND);
+                } else {
+                    if (product2.getQty() < product.getQty()) {
+                        validation = true;
+                        return new ResponseEntity(new CustomErrorType("Stock avaible for " + product.getProductName() + " is " + product2.getQty()), HttpStatus.NOT_FOUND);
+                    }
+                }
+            }
+        }
+
+        if (validation) {
+            for (Product product : products) {
+                if (product.getProductName() != null) {
+                	Product product2 = productRepo.findByProductName(product.getProductName());
+                    product2.setQty(product2.getQty() - product.getQty());
+                    productRepo.save(product2);
+                }
+            }
+        }
+        return null;
     }
 }

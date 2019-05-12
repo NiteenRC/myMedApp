@@ -17,4 +17,6 @@ public interface CartService {
     Cart addToCart(List<Cart> carts);
 
     ResponseEntity removeFromCart(List<Cart> carts);
+
+	List<Cart> findAllCarts();
 }

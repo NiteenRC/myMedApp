@@ -7,11 +7,15 @@ function cartController($scope, $rootScope, $uibModal, sharedService, $location)
   var CART_LIST_SAVE = url_home+'/cartsAdd';
   var CART_LIST_DELETE = url_home+'/cartsDelete';
   var productsUrl = url_home+'/products';
+  var CARTS_REPORT = url_home+'/cartsReport';
+  var PRODUCTS_ADD = url_home+'/productsAdd';
+  var PRODUCTS_REMOVE = url_home+'/productsDelete';
 
   $scope.rows = [];
   fetchAllProducts();
   addRow();
   $scope.addRow = addRow;
+  $scope.generateReport = generateReport;
 
   $scope.removeCart = removeCart;
   $scope.addCartList = addCartList;
@@ -96,7 +100,7 @@ function cartController($scope, $rootScope, $uibModal, sharedService, $location)
       return;
     }
 
-    sharedService.postMethod(CART_LIST_SAVE, $scope.rows).then(
+    sharedService.postMethod(PRODUCTS_ADD, $scope.rows).then(
       function(response) {
         $scope.carts = response.data;
         $scope.rows = [];
@@ -114,7 +118,7 @@ function cartController($scope, $rootScope, $uibModal, sharedService, $location)
       return;
     }
 
-    sharedService.postMethod(CART_LIST_DELETE, $scope.rows).then(
+    sharedService.postMethod(PRODUCTS_REMOVE, $scope.rows).then(
       function(response) {
         $scope.carts = response.data;
         $scope.rows = [];
@@ -151,4 +155,32 @@ function cartController($scope, $rootScope, $uibModal, sharedService, $location)
     });
     return totalAmount;
   }
+  
+  $scope.opts = {
+		    dateFormat: 'dd/mm/yy',
+		    changeMonth: true,
+		    changeYear: true
+		  };
+		  $scope.data = {
+		    valor: "10/09/2013"
+		  };
+		  
+  function generateReport(fromDate, toDate) {
+	    if (fromDate == undefined || toDate == undefined) {
+	      alert('From date and To dates must be selected');
+	      return;
+	    }
+
+	    sharedService.getAllMethod(CARTS_REPORT +"/"+fromDate+"/"+toDate).then(
+	      function(response) {
+	        $scope.carts = response.data;
+	        $scope.rows = [];
+	      },
+	      function(error) {
+	        alert(error.data.errorMessage);
+	        $scope.errorMessage = 'Error while creating' + error;
+	        $scope.successMessage = '';
+	      }
+	    );
+	  }
 }

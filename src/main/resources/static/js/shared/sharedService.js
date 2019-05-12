@@ -7,7 +7,7 @@ function sharedService($http) {
 
   var mem = {};
   var urlHome = function() {
-    return '';
+    return '/med-app/';
   };
 
   var postMethod = function(url, data) {

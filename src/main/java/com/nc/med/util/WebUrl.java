@@ -13,11 +13,14 @@ public interface WebUrl {
 	String PRODUCTS = "/products";
 	String PRODUCT_AND_CATEGORYID = "/product/{categoryID}";
 	String PRODUCT_BY_PRODUCTID = "/products/{productID}";
+	String PRODUCTS_ADD = "/productsAdd";
+	String PRODUCTS_REMOVE = "/productsDelete";
 
 	String CART_BY_USERID = "/cart/{userID}";
 	String CART_BY_CARTID = "/cart/{cartID}";
 	String CARTS_ADD = "/cartsAdd";
 	String CARTS_REMOVE = "/cartsDelete";
+	String CARTS_REPORT = "/cartsReport/{fromDate}/{toDate}";
 
 	String ADVANCED_SEARCH = "/advancedSearch/{categoryID}/{productName}";
 }

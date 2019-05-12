@@ -35,6 +35,11 @@ public class CartServiceImpl implements CartService {
     public void deleteCart(Integer cartID) {
         cartRepo.delete(cartID);
     }
+    
+    @Override
+    public List<Cart> findAllCarts() {
+        return cartRepo.findAll();
+    }
 
     @Override
     public ResponseEntity removeFromCart(List<Cart> carts) {
