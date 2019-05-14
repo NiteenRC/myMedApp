@@ -1,9 +1,10 @@
 package com.nc.med.service;
 
-import com.nc.med.model.Cart;
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 
-import java.util.List;
+import com.nc.med.model.Cart;
 
 public interface CartService {
     Cart saveCart(Cart cart);
@@ -16,7 +17,9 @@ public interface CartService {
 
     Cart addToCart(List<Cart> carts);
 
-    ResponseEntity removeFromCart(List<Cart> carts);
+    ResponseEntity<?> removeFromCart(List<Cart> carts);
 
 	List<Cart> findAllCarts();
+
+	String writeCartListToExcel(List<Cart> carts);
 }
