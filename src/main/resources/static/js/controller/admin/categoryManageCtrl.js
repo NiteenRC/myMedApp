@@ -17,10 +17,6 @@ function categoryManageController($scope, $uibModal, sharedService) {
   };
 
   function saveCategory() {
-    if (sharedService.filedValidation($scope.categoryData.categoryName) || sharedService.filedValidation($scope.categoryData.categoryDesc)) {
-      return;
-    }
-
     sharedService.postMethod(categoryUrl, $scope.categoryData).then(
       function(response) {
         getCategory();

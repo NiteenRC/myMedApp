@@ -14,7 +14,7 @@
 			<td>
 				<div class="col-xs-12 col-md-6">
 					<select data-ng-model="item"
-							data-ng-options="item.productName for item in products"
+							data-ng-options="item.productName for item in products | orderBy:'productName'"
 							data-ng-change="selectedProduct(item.productID, $index)">
 						<option
 								value="">--Select Product--</option>

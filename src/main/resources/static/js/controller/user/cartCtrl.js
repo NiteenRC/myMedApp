@@ -173,13 +173,12 @@ function cartController($scope, $rootScope, $uibModal, sharedService, $location)
 
 	    sharedService.getAllMethod(CARTS_REPORT +"/"+fromDate+"/"+toDate).then(
 	      function(response) {
-	        $scope.carts = response.data;
+	        $scope.carts = response;
 	        $scope.rows = [];
+		    alert(response.data.errorMessage);
 	      },
 	      function(error) {
-	        alert(error.data.errorMessage);
-	        $scope.errorMessage = 'Error while creating' + error;
-	        $scope.successMessage = '';
+		   	//alert(error.data); need to handle in next version
 	      }
 	    );
 	  }

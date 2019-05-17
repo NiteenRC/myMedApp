@@ -19,15 +19,15 @@ function modalCtrl($scope, $http, $modalInstance, sharedService) {
   };
 
   function saveProduct() {
-    if (sharedService.filedValidation($scope.productData.productName) || sharedService.filedValidation($scope.productData.productDesc) || sharedService.filedValidation($scope.item)) {
-      return;
-    }
-
     if (sharedService.numberValidation($scope.productData.price)) {
       $scope.productData.price = 1;
       return;
     }
 
+    if(!sharedService.isDefinedOrNotNull($scope.item)){
+    	alert('Please select category');
+    	return;
+    }
     sharedService.postMethod(productUrl + '/' + $scope.item.categoryID, $scope.productData).then(
       function(response) {
         $modalInstance.close(response);
