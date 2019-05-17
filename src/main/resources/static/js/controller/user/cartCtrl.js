@@ -95,8 +95,8 @@ function cartController($scope, $rootScope, $uibModal, sharedService, $location)
   }
 
   function addCartList() {
-    if ($scope.rows.length === 1 && $scope.rows[0].productName === null) {
-      alert('Please select atleast one product');
+    if ($scope.rows.length >= 1 && !sharedService.isDefinedOrNotNull($scope.rows[0].productName)) {
+      alert('Please select atleast one product to Buy');
       return;
     }
 
@@ -113,10 +113,10 @@ function cartController($scope, $rootScope, $uibModal, sharedService, $location)
   }
 
   function removeCartList(id) {
-    if ($scope.rows.length === 1 && $scope.rows[0].productName === null) {
-      alert('Please select atleast one product');
-      return;
-    }
+	  if ($scope.rows.length >= 1 && !sharedService.isDefinedOrNotNull($scope.rows[0].productName)) {
+	      alert('Please select atleast one product to Sell');
+	      return;
+	    }
 
     sharedService.postMethod(PRODUCTS_REMOVE, $scope.rows).then(
       function(response) {

@@ -32,7 +32,7 @@ public class ProductServiceImpl implements ProductService {
 			products = productRepo.findByCategoryCategoryID(categoryID);
 		} else if (categoryID == 0 && !productName.equals("null")) {
 			products = productRepo.findByProductNameContainingIgnoreCase(productName);
-		} 
+		}
 		return fetchAllProducts(products);
 	}
 
@@ -62,7 +62,7 @@ public class ProductServiceImpl implements ProductService {
 	public Product findByProductID(Integer productID) {
 		return productRepo.findOne(productID);
 	}
-	
+
 	@Override
 	public List<Product> findAllProduct() {
 		return productRepo.findAll();
@@ -86,12 +86,14 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public Product addToStock(List<Product> products) {
 		for (Product product : products) {
-			Product product2 = productRepo.findByProductName(product.getProductName());
-			if (product2 == null) {
-				productRepo.save(product);
-			} else {
-				product2.setQty(product2.getQty() + product.getQty());
-				productRepo.save(product2);
+			if (product.getProductName() != null) {
+				Product product2 = productRepo.findByProductName(product.getProductName());
+				if (product2 == null) {
+					productRepo.save(product);
+				} else {
+					product2.setQty(product2.getQty() + product.getQty());
+					productRepo.save(product2);
+				}
 			}
 		}
 		return null;

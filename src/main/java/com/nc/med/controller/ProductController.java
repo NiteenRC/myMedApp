@@ -104,11 +104,13 @@ public class ProductController {
 	@PostMapping(PRODUCTS_REMOVE)
 	public ResponseEntity<?> removeCartList(@RequestBody List<Product> products) {
 		for (Product product : products) {
-			Cart cart = new Cart();
-			cart.setProductName(product.getProductName());
-			cart.setPrice(product.getPrice());
-			cart.setQty(product.getQty());
-			cartService.saveCart(cart);
+			if (product.getProductName() != null) {
+				Cart cart = new Cart();
+				cart.setProductName(product.getProductName());
+				cart.setPrice(product.getPrice());
+				cart.setQty(product.getQty());
+				cartService.saveCart(cart);
+			}
 		}
 		return productService.removeFromStock(products);
 	}
