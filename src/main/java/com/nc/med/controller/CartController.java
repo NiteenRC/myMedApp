@@ -7,19 +7,18 @@ import static com.nc.med.util.WebUrl.CART_BY_CARTID;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.text.ParseException;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -44,25 +43,23 @@ public class CartController {
 	}
 
 	@GetMapping(CARTS_REPORT)
-	public ResponseEntity<?> download(@PathVariable String fromDate, @PathVariable String toDate) throws IOException {
-		List<Cart> carts = cartService.findAllCarts();
+	public ResponseEntity<?> download(@PathVariable String startDate, @PathVariable String endDate)
+			throws IOException, ParseException {
+		LOGGER.info("start time {} and end time {}", startDate, endDate);
+		List<Cart> carts = cartService.findByDates(startDate, endDate);
+
+		if (carts.isEmpty()) {
+			return new ResponseEntity<>(new CustomErrorType("No records between " + startDate + " and " + endDate),
+					HttpStatus.OK);
+		}
+
 		String filePath = cartService.writeCartListToExcel(carts);
 		File file = new File(filePath);
 		if (!file.exists()) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
 		}
-
-		try {
-			byte[] body = Files.readAllBytes(Paths.get(filePath));
-			HttpHeaders header = new HttpHeaders();
-			header.setContentType(new MediaType("application", "xlsx"));
-			header.set("Content-Disposition", "inline; filename=" + "h");
-			header.setCacheControl("must-revalidate, post-check=0, pre-check=0");
-			header.setContentLength(body.length);
-			return new ResponseEntity<byte[]>(body, header, HttpStatus.OK);
-		} catch (IOException e) {
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
-		}
+		return new ResponseEntity<>(new CustomErrorType("File is Successfully created in " + filePath),
+				HttpStatus.CREATED);
 	}
 
 	@PostMapping(CARTS_REMOVE)

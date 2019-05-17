@@ -36,7 +36,7 @@ public class Cart implements Serializable {
 	// @JoinColumn
 	private int userID;
 	@CreationTimestamp
-	@Temporal(TemporalType.TIMESTAMP)
+	@Temporal(TemporalType.DATE)
 	private Date date;
 
 	public Date getDate() {

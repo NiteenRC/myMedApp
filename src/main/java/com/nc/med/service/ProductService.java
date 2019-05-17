@@ -25,4 +25,6 @@ public interface ProductService {
 
 	Product addToStock(List<Product> products);
 
+	List<Product> findAllProduct();
+
 }

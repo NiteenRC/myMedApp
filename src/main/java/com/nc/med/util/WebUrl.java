@@ -20,7 +20,7 @@ public interface WebUrl {
 	String CART_BY_CARTID = "/cart/{cartID}";
 	String CARTS_ADD = "/cartsAdd";
 	String CARTS_REMOVE = "/cartsDelete";
-	String CARTS_REPORT = "/cartsReport/{fromDate}/{toDate}";
+	String CARTS_REPORT = "/cartsReport/{startDate}/{endDate}";
 
 	String ADVANCED_SEARCH = "/advancedSearch/{categoryID}/{productName}";
 }

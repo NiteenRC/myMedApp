@@ -1,5 +1,6 @@
 package com.nc.med.service;
 
+import java.text.ParseException;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
@@ -22,4 +23,6 @@ public interface CartService {
 	List<Cart> findAllCarts();
 
 	String writeCartListToExcel(List<Cart> carts);
+
+	List<Cart> findByDates(String startDate, String endDate) throws ParseException;
 }

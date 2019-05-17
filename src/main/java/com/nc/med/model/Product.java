@@ -41,7 +41,7 @@ public class Product implements Serializable {
 	private String productDesc;
 	private int qty;
 	@CreationTimestamp
-	@Temporal(TemporalType.TIMESTAMP)
+	@Temporal(TemporalType.DATE)
 	private Date date;
 
 	public Date getDate() {

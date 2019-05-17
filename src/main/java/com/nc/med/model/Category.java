@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.annotation.Generated;
+import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -33,7 +35,7 @@ public class Category {
 	private String categoryDesc;
 	
 	@CreationTimestamp
-	@Temporal(TemporalType.TIMESTAMP)
+	@Temporal(TemporalType.DATE)
 	private Date date;
 
 	public Date getDate() {

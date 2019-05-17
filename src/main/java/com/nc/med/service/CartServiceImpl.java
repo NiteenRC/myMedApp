@@ -1,9 +1,13 @@
 package com.nc.med.service;
 
-import com.nc.med.controller.CartController;
-import com.nc.med.exception.CustomErrorType;
-import com.nc.med.model.Cart;
-import com.nc.med.repo.CartRepo;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -16,20 +20,18 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.List;
+import com.nc.med.controller.CartController;
+import com.nc.med.exception.CustomErrorType;
+import com.nc.med.model.Cart;
+import com.nc.med.repo.CartRepo;
 
 @Service
 public class CartServiceImpl implements CartService {
 	public static final Logger LOGGER = LoggerFactory.getLogger(CartController.class);
+	private static final String FILE_PATH = System.getProperty("user.home") + "/Downloads/testWriteStudents.xlsx";
 
 	@Autowired
 	private CartRepo cartRepo;
-
-	private static String downloadDirectory = System.getProperty("user.home") + "/Downloads";
-	private static final String FILE_PATH = downloadDirectory + "/testWriteStudents.xlsx";
 
 	@Override
 	public Cart saveCart(Cart cart) {
@@ -107,6 +109,7 @@ public class CartServiceImpl implements CartService {
 		for (Cart cart : carts) {
 			int cellIndex = 0;
 			Row row = cartSheet.createRow(rowIndex++);
+			// LOGGER.info("SSSS {}",cart.getDate());
 			row.createCell(cellIndex++).setCellValue(("" + cart.getDate()).substring(0, 10));
 			row.createCell(cellIndex++).setCellValue(cart.getProductName());
 			row.createCell(cellIndex++).setCellValue(cart.getPrice());
@@ -134,9 +137,9 @@ public class CartServiceImpl implements CartService {
 			fos.close();
 			LOGGER.info(FILE_PATH + " is successfully written");
 		} catch (FileNotFoundException e) {
-			LOGGER.error("File not found ",e);
+			LOGGER.error("File not found ", e);
 		} catch (IOException e) {
-			LOGGER.error("Exception while creating excel ",e);
+			LOGGER.error("Exception while creating excel ", e);
 		} finally {
 			if (workbook != null) {
 				try {
@@ -161,5 +164,16 @@ public class CartServiceImpl implements CartService {
 			}
 		}
 		return null;
+	}
+
+	@Override
+	public List<Cart> findByDates(String startDate, String endDate) throws ParseException {
+		List<Cart> carts = cartRepo.findAll();
+		Date fromDate = new SimpleDateFormat("dd-MM-yyyy").parse(startDate);
+		Date toDate = new SimpleDateFormat("dd-MM-yyyy").parse(endDate);
+
+		return carts.stream().filter(
+				cart -> cart.getDate().getTime() >= fromDate.getTime() && cart.getDate().getTime() <= toDate.getTime())
+				.collect(Collectors.toList());
 	}
 }

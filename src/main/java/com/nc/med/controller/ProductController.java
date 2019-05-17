@@ -92,8 +92,8 @@ public class ProductController {
 	}
 
 	@GetMapping(PRODUCTS)
-	public ResponseEntity<List<ProductBean>> getProductsForAllCategories() {
-		return new ResponseEntity<>(productService.fetchAllProducts(Collections.emptyList()), HttpStatus.OK);
+	public ResponseEntity<?> getProductsForAllCategories() {
+		return new ResponseEntity<>(productService.findAllProduct(), HttpStatus.OK);
 	}
 
 	@PostMapping(PRODUCTS_ADD)
