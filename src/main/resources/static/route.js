@@ -26,6 +26,9 @@ angular.module('myCart').config(function($routeProvider) {
 	}).when('/bill', {
 		templateUrl : 'pages/user/bill.html',
 		controller : 'billController'
+	}).when('/billSuccess', {
+		templateUrl : 'pages/user/billSuccess.html',
+		controller : 'billController'
 	}).otherwise({
 		redirectTo : '/productList'
 	});
