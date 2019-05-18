@@ -1,0 +1,60 @@
+<div align="left">
+	<h1>Invoice</h1>
+	<address>
+		Jonathan Neal 101 E. Chapman <br> Ave Orange, CA 92866 (800)
+		555-1234
+	</address>
+</div>
+<div align="center">
+	<div>
+		<table class="table table-hover table table-bordered table-striped">
+			<thead>
+				<tr>
+					<th>Product Name</th>
+					<th>Price</th>
+					<th>Qty</th>
+					<th>Total</th>
+				</tr>
+			</thead>
+			<tr data-ng-repeat="cart in billData">
+				<td>{{cart.productName}}</td>
+				<td>{{cart.price}}</td>
+				<td>{{cart.qty}}</td>
+				<td>{{cart.price*cart.qty}}</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>₹{{getTotal('price')}}</td>
+				<td>{{getTotal('qty')}}</td>
+				<td>₹{{totalAmountToPaid()}}</td>
+			</tr>
+		</table>
+	</div>
+</div>
+<div align="right">
+	<table class="balance">
+		<tr>
+			<th><span>Total</span></th>
+			<td><div align="left">
+					<span data-prefix>₹</span><span>{{totalAmountToPaid()}}</span>
+				</div></td>
+		</tr>
+		<tr>
+			<th><span>Amount Paid</span></th>
+			<td><div align="center">
+					<span data-prefix>₹</span><input type="text" ng-model="paidAmount"
+						ng-change=balanceToPaid()>
+				</div></td>
+		</tr>
+		<tr>
+			<th><span>Balance Due</span></th>
+			<td><div align="left">
+					<span data-prefix>₹</span><span>{{balanceAmount}}</span>
+				</div></td>
+		</tr>
+	</table>
+</div>
+<div align="center">
+	<button class="btn" data-ng-disabled="rows==''"
+		data-ng-click="removeCartList()">Generate Bill</button>
+</div>
