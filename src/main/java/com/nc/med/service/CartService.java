@@ -8,17 +8,17 @@ import org.springframework.http.ResponseEntity;
 import com.nc.med.model.Cart;
 
 public interface CartService {
-    Cart saveCart(Cart cart);
+	Cart saveCart(Cart cart);
 
-    Cart findByCartID(Integer cartID);
+	Cart findByCartID(Integer cartID);
 
-    void deleteCart(Integer cartID);
+	void deleteCart(Integer cartID);
 
-    Cart findCartByProductName(String productName);
+	Cart findCartByProductName(String productName);
 
-    Cart addToCart(List<Cart> carts);
+	Cart addToCart(List<Cart> carts);
 
-    ResponseEntity<?> removeFromCart(List<Cart> carts);
+	ResponseEntity<?> removeFromCart(List<Cart> carts);
 
 	List<Cart> findAllCarts();
 

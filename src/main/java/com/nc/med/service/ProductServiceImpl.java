@@ -1,6 +1,7 @@
 package com.nc.med.service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,8 @@ public class ProductServiceImpl implements ProductService {
 
 	@Autowired
 	CartRepo cartRepo;
+	
+	List<Product> productsList = null;
 
 	@Override
 	public List<ProductBean> advancedSearch(Integer categoryID, String productName) {
@@ -132,5 +135,17 @@ public class ProductServiceImpl implements ProductService {
 			}
 		}
 		return null;
+	}
+
+	@Override
+	public List<Product> removeProductTemp(List<Product> products) {
+		productsList = new ArrayList<>();
+		productsList.addAll(products);
+		return productsList;
+	}
+
+	@Override
+	public List<Product> removeProductGetTemp() {
+		return productsList;
 	}
 }

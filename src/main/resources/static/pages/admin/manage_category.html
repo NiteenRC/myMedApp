@@ -1,23 +1,12 @@
 
 <div class="container">
-	<form name="myForm" novalidate>
-		<input type="hidden" data-ng-model="productData.productID" />
-		<div class="input-item">
-			<input type="text" data-ng-model="categoryData.categoryName"
-				placeholder="Category Name*">
-			<br><br>
-			<input type="text" data-ng-model="categoryData.categoryDesc"
-				   placeholder="Category Desc">
-			<div class="error-wrapper"
-				data-ng-show="myForm.categoryName.$invalid">
-				<span data-ng-show="myForm.categoryName.$error.required">Category
-					Name is required</span>
-			</div>
-		</div>
-		<br>
-		<button class="btn-info" data-ng-click="saveCategory()"
-			data-ng-disabled="myForm.$invalid">Submit</button>
-	</form>
+	<div>
+		<label for="First_Name">Category Name*:</label> <input
+			data-ng-model="categoryData.categoryName" type="text" /> &nbsp&nbsp&nbsp&nbsp<label
+			for="Name">Category Desc:</label> <input
+			data-ng-model="categoryData.categoryDesc" type="text" />&nbsp&nbsp&nbsp
+		<button class="btn-info" data-ng-click="saveCategory()">Save Category</button>
+	</div>
 </div>
 <br>
 

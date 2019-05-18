@@ -3,6 +3,7 @@ package com.nc.med.service;
 import java.util.List;
 import org.springframework.http.ResponseEntity;
 import com.nc.med.Beans.ProductBean;
+import com.nc.med.model.Cart;
 import com.nc.med.model.Product;
 
 public interface ProductService {
@@ -26,5 +27,9 @@ public interface ProductService {
 	Product addToStock(List<Product> products);
 
 	List<Product> findAllProduct();
+	
+	List<Product> removeProductTemp(List<Product> products);
+
+	List<Product> removeProductGetTemp();
 
 }

@@ -10,8 +10,10 @@ function cartController($scope, $rootScope, $uibModal, sharedService, $location)
   var CARTS_REPORT = url_home+'/cartsReport';
   var PRODUCTS_ADD = url_home+'/productsAdd';
   var PRODUCTS_REMOVE = url_home+'/productsDelete';
+  var PRODUCTS_REMOVE_TEMP = url_home+'/productsTempDelete';
 
   $scope.rows = [];
+  $scope.billData = [];
   fetchAllProducts();
   addRow();
   $scope.addRow = addRow;
@@ -21,6 +23,7 @@ function cartController($scope, $rootScope, $uibModal, sharedService, $location)
   $scope.addCartList = addCartList;
   $scope.removeCartList = removeCartList;
   $scope.isSingleCartAvail = true;
+  $scope.generateBill = generateBill;
 
   $scope.cartData = {
     productName: null,
@@ -111,6 +114,25 @@ function cartController($scope, $rootScope, $uibModal, sharedService, $location)
       }
     );
   }
+  
+  function generateBill(id) {
+	  if ($scope.rows.length >= 1 && !sharedService.isDefinedOrNotNull($scope.rows[0].productName)) {
+	      alert('Please select atleast one product to Sell');
+	      return;
+	    }
+
+    sharedService.postMethod(PRODUCTS_REMOVE_TEMP, $scope.rows).then(
+      function(response) {
+    	  $scope.billData = response.data;
+    	  $location.path("/bill");
+      },
+      function(error) {
+        alert(error.data.errorMessage);
+        $scope.errorMessage = 'Error while creating' + error;
+        $scope.successMessage = '';
+      }
+    );
+   }
 
   function removeCartList(id) {
 	  if ($scope.rows.length >= 1 && !sharedService.isDefinedOrNotNull($scope.rows[0].productName)) {
@@ -122,6 +144,7 @@ function cartController($scope, $rootScope, $uibModal, sharedService, $location)
       function(response) {
         $scope.carts = response.data;
         $scope.rows = [];
+        $location.path("/bill");
       },
       function(error) {
         alert(error.data.errorMessage);

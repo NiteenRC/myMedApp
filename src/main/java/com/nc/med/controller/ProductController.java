@@ -4,10 +4,11 @@ import static com.nc.med.util.WebUrl.ADVANCED_SEARCH;
 import static com.nc.med.util.WebUrl.PRODUCTS;
 import static com.nc.med.util.WebUrl.PRODUCTS_ADD;
 import static com.nc.med.util.WebUrl.PRODUCTS_REMOVE;
+import static com.nc.med.util.WebUrl.PRODUCTS_REMOVE_TEMP;
 import static com.nc.med.util.WebUrl.PRODUCT_AND_CATEGORYID;
 import static com.nc.med.util.WebUrl.PRODUCT_BY_PRODUCTID;
+import static com.nc.med.util.WebUrl.PRODUCTS_GET_TEMP;
 
-import java.util.Collections;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -99,6 +100,16 @@ public class ProductController {
 	@PostMapping(PRODUCTS_ADD)
 	public ResponseEntity<?> addCartList(@RequestBody List<Product> products) {
 		return new ResponseEntity<>(productService.addToStock(products), HttpStatus.OK);
+	}
+
+	@PostMapping(PRODUCTS_REMOVE_TEMP)
+	public ResponseEntity<?> removeCartListTemp(@RequestBody List<Product> products) {
+		return new ResponseEntity<>(productService.removeProductTemp(products), HttpStatus.OK);
+	}
+	
+	@GetMapping(PRODUCTS_GET_TEMP)
+	public ResponseEntity<?> removeCartGetListTemp() {
+		return new ResponseEntity<>(productService.removeProductGetTemp(), HttpStatus.OK);
 	}
 
 	@PostMapping(PRODUCTS_REMOVE)
