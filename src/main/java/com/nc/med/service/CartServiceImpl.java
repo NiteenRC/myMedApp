@@ -169,11 +169,15 @@ public class CartServiceImpl implements CartService {
 	@Override
 	public List<Cart> findByDates(String startDate, String endDate) throws ParseException {
 		List<Cart> carts = cartRepo.findAll();
-		Date fromDate = new SimpleDateFormat("dd-MM-yyyy").parse(startDate);
-		Date toDate = new SimpleDateFormat("dd-MM-yyyy").parse(endDate);
 
-		return carts.stream().filter(
-				cart -> cart.getDate().getTime() >= fromDate.getTime() && cart.getDate().getTime() <= toDate.getTime())
-				.collect(Collectors.toList());
+		try {
+			Date fromDate = new SimpleDateFormat("dd-MM-yyyy").parse(startDate);
+			Date toDate = new SimpleDateFormat("dd-MM-yyyy").parse(endDate);
+
+			return carts.stream().filter(cart -> cart.getDate().getTime() >= fromDate.getTime()
+					&& cart.getDate().getTime() <= toDate.getTime()).collect(Collectors.toList());
+		} catch (ParseException e) {
+			throw new ParseException("Please enter valid date formats", 0);
+		}
 	}
 }

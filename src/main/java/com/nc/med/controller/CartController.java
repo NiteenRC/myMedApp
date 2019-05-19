@@ -46,7 +46,12 @@ public class CartController {
 	public ResponseEntity<?> download(@PathVariable String startDate, @PathVariable String endDate)
 			throws IOException, ParseException {
 		LOGGER.info("start time {} and end time {}", startDate, endDate);
-		List<Cart> carts = cartService.findByDates(startDate, endDate);
+		List<Cart> carts = null;
+		try {
+			carts = cartService.findByDates(startDate, endDate);
+		} catch (ParseException e) {
+			return new ResponseEntity<>(new CustomErrorType("Please enter valid date formats"), HttpStatus.OK);
+		}
 
 		if (carts.isEmpty()) {
 			return new ResponseEntity<>(new CustomErrorType("No records between " + startDate + " and " + endDate),

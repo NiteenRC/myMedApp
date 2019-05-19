@@ -3,11 +3,11 @@ package com.nc.med.controller;
 import static com.nc.med.util.WebUrl.ADVANCED_SEARCH;
 import static com.nc.med.util.WebUrl.PRODUCTS;
 import static com.nc.med.util.WebUrl.PRODUCTS_ADD;
+import static com.nc.med.util.WebUrl.PRODUCTS_GET_TEMP;
 import static com.nc.med.util.WebUrl.PRODUCTS_REMOVE;
 import static com.nc.med.util.WebUrl.PRODUCTS_REMOVE_TEMP;
 import static com.nc.med.util.WebUrl.PRODUCT_AND_CATEGORYID;
 import static com.nc.med.util.WebUrl.PRODUCT_BY_PRODUCTID;
-import static com.nc.med.util.WebUrl.PRODUCTS_GET_TEMP;
 
 import java.util.List;
 
@@ -25,7 +25,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nc.med.Beans.ProductBean;
 import com.nc.med.exception.CustomErrorType;
-import com.nc.med.model.Cart;
 import com.nc.med.model.Category;
 import com.nc.med.model.Product;
 import com.nc.med.service.CartService;
@@ -114,15 +113,6 @@ public class ProductController {
 
 	@PostMapping(PRODUCTS_REMOVE)
 	public ResponseEntity<?> removeCartList(@RequestBody List<Product> products) {
-		for (Product product : products) {
-			if (product.getProductName() != null) {
-				Cart cart = new Cart();
-				cart.setProductName(product.getProductName());
-				cart.setPrice(product.getPrice());
-				cart.setQty(product.getQty());
-				cartService.saveCart(cart);
-			}
-		}
 		return productService.removeFromStock(products);
 	}
 }

@@ -51,43 +51,52 @@ public class SpringAppLauncher extends SpringBootServletInitializer {
 	}
 
 	private static void mapCategoryFileData(CategoryRepo categoryRepo, String fileName) {
-		try {
-			List<Category> products = Files.lines(Paths.get(fileName)).skip(1).map(line -> {
-				String[] result = line.split(",");
-				try {
-					return new Category(result[1].replaceAll("\"", ""), result[2].replaceAll("\"", ""),
-							new SimpleDateFormat("yyyy-MM-dd")
-									.parse(result[3].replaceAll("00:00.0", "").replaceAll("\"", "")));
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				return null;
-			}).collect(Collectors.toList());
-			categoryRepo.save(products);
-		} catch (IOException io) {
-			io.printStackTrace();
+		if (Files.exists(Paths.get(fileName))) {
+			try {
+				List<Category> products = Files.lines(Paths.get(fileName)).skip(1).map(line -> {
+					String[] result = line.split(",");
+					try {
+						if (categoryRepo.findByCategoryName(result[2].replaceAll("\"", "")) == null) {
+							return new Category(result[1].replaceAll("\"", ""), result[2].replaceAll("\"", ""),
+									new SimpleDateFormat("yyyy-MM-dd")
+											.parse(result[3].replaceAll("00:00.0", "").replaceAll("\"", "")));
+						}
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					return null;
+
+				}).collect(Collectors.toList());
+				categoryRepo.save(products);
+			} catch (IOException io) {
+				io.printStackTrace();
+			}
 		}
 	}
 
 	private static void mapProductFileData(ProductRepo productRepo, CategoryRepo categoryRepo, String fileName) {
-		try {
-			List<Product> products = Files.lines(Paths.get(fileName)).skip(1).map(line -> {
-				String[] result = line.split(",");
-				try {
-					return new Product(
-							new SimpleDateFormat("yyyy-MM-dd")
-									.parse(result[1].replaceAll("00:00.0", "").replaceAll("\"", "")),
-							Double.valueOf(result[2].replaceAll("\"", "")), result[3].replaceAll("\"", ""),
-							result[4].replaceAll("\"", ""), Integer.valueOf(result[5].replaceAll("\"", "")),
-							categoryRepo.findOne(Integer.valueOf(result[6].replaceAll("\"", ""))));
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				return null;
-			}).collect(Collectors.toList());
-			productRepo.save(products);
-		} catch (IOException io) {
-			io.printStackTrace();
+		if (Files.exists(Paths.get(fileName))) {
+			try {
+				List<Product> products = Files.lines(Paths.get(fileName)).skip(1).map(line -> {
+					String[] result = line.split(",");
+					try {
+						if (productRepo.findByProductName(result[4].replaceAll("\"", "")) == null) {
+							return new Product(
+									new SimpleDateFormat("yyyy-MM-dd")
+											.parse(result[1].replaceAll("00:00.0", "").replaceAll("\"", "")),
+									Double.valueOf(result[2].replaceAll("\"", "")), result[3].replaceAll("\"", ""),
+									result[4].replaceAll("\"", ""), Integer.valueOf(result[5].replaceAll("\"", "")),
+									categoryRepo.findOne(Integer.valueOf(result[6].replaceAll("\"", ""))));
+						}
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					return null;
+				}).collect(Collectors.toList());
+				productRepo.save(products);
+			} catch (IOException io) {
+				io.printStackTrace();
+			}
 		}
 	}
 

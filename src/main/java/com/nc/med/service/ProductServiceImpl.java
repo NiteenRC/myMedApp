@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.nc.med.Beans.ProductBean;
 import com.nc.med.exception.CustomErrorType;
+import com.nc.med.model.Cart;
 import com.nc.med.model.Product;
 import com.nc.med.repo.CartRepo;
 import com.nc.med.repo.ProductRepo;
@@ -22,6 +23,9 @@ public class ProductServiceImpl implements ProductService {
 
 	@Autowired
 	CartRepo cartRepo;
+
+	@Autowired
+	public CartService cartService;
 
 	List<Product> productsList = null;
 
@@ -103,17 +107,37 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public ResponseEntity<?> removeFromStock(List<Product> products) {
+		for (Product product : products) {
+			if (product.getProductName() != null) {
+				Product product2 = productRepo.findByProductName(product.getProductName());
+				// deduct from stock
+				product2.setQty(product2.getQty() - product.getQty());
+				productRepo.save(product2);
+
+				// Add to cart
+				Cart cart = new Cart();
+				cart.setProductName(product.getProductName());
+				cart.setPrice(product.getPrice());
+				cart.setQty(product.getQty());
+				cartService.saveCart(cart);
+			}
+		}
+		return null;
+	}
+
+	@Override
+	public ResponseEntity<?> removeProductTemp(List<Product> products) {
 		boolean validation = true;
 		for (Product product : products) {
 			Product product2 = productRepo.findByProductName(product.getProductName());
 			if (product.getProductName() != null) {
 				if (product2 == null) {
-					validation = true;
+					validation = false;
 					return new ResponseEntity<>(
 							new CustomErrorType("Stock is not avaible for " + product.getProductName()), HttpStatus.OK);
 				} else {
 					if (product2.getQty() < product.getQty()) {
-						validation = true;
+						validation = false;
 						return new ResponseEntity<>(
 								new CustomErrorType(
 										"Stock avaible for " + product.getProductName() + " is " + product2.getQty()),
@@ -122,24 +146,12 @@ public class ProductServiceImpl implements ProductService {
 				}
 			}
 		}
-
 		if (validation) {
-			for (Product product : products) {
-				if (product.getProductName() != null) {
-					Product product2 = productRepo.findByProductName(product.getProductName());
-					product2.setQty(product2.getQty() - product.getQty());
-					productRepo.save(product2);
-				}
-			}
+			productsList = new ArrayList<>();
+			productsList.addAll(products);
+			return new ResponseEntity<>(productsList, HttpStatus.OK);
 		}
 		return null;
-	}
-
-	@Override
-	public List<Product> removeProductTemp(List<Product> products) {
-		productsList = new ArrayList<>();
-		productsList.addAll(products);
-		return productsList;
 	}
 
 	@Override
