@@ -1,6 +1,7 @@
 package com.nc.med.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,11 +15,9 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.CreationTimestamp;
-import org.springframework.data.annotation.CreatedDate;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import java.util.Date;
 
 @Entity
 // @Table(name = "Products")
@@ -70,8 +69,7 @@ public class Product implements Serializable {
 	 * 
 	 * //bi-directional many-to-one association to ProductImage
 	 * 
-	 * @OneToMany(mappedBy = "product") private List<ProductImage>
-	 * productImages;
+	 * @OneToMany(mappedBy = "product") private List<ProductImage> productImages;
 	 */
 
 	public String getProductDesc() {
@@ -83,6 +81,16 @@ public class Product implements Serializable {
 	}
 
 	public Product() {
+	}
+
+	public Product(Date date, double price, String productDesc, String productName, int qty, Category category) {
+		super();
+		this.productName = productName;
+		this.price = price;
+		this.category = category;
+		this.productDesc = productDesc;
+		this.qty = qty;
+		this.date = date;
 	}
 
 	public Category getCategory() {

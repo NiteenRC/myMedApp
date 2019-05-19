@@ -1,7 +1,6 @@
 package com.nc.med.service;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +22,7 @@ public class ProductServiceImpl implements ProductService {
 
 	@Autowired
 	CartRepo cartRepo;
-	
+
 	List<Product> productsList = null;
 
 	@Override
@@ -111,15 +110,14 @@ public class ProductServiceImpl implements ProductService {
 				if (product2 == null) {
 					validation = true;
 					return new ResponseEntity<>(
-							new CustomErrorType("Stock is not avaible for " + product.getProductName()),
-							HttpStatus.NOT_FOUND);
+							new CustomErrorType("Stock is not avaible for " + product.getProductName()), HttpStatus.OK);
 				} else {
 					if (product2.getQty() < product.getQty()) {
 						validation = true;
 						return new ResponseEntity<>(
 								new CustomErrorType(
 										"Stock avaible for " + product.getProductName() + " is " + product2.getQty()),
-								HttpStatus.NOT_FOUND);
+								HttpStatus.OK);
 					}
 				}
 			}

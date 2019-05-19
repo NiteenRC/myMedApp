@@ -1,5 +1,12 @@
 package com.nc.med;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -7,7 +14,11 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 
+import com.nc.med.model.Category;
+import com.nc.med.model.Product;
 import com.nc.med.model.User;
+import com.nc.med.repo.CategoryRepo;
+import com.nc.med.repo.ProductRepo;
 import com.nc.med.repo.UserRepo;
 
 @SpringBootApplication
@@ -28,6 +39,56 @@ public class SpringAppLauncher extends SpringBootServletInitializer {
 			user.setUserType("A");
 			userRepo.save(user);
 		};
+	}
+
+	@Bean
+	public CommandLineRunner setupProduct(ProductRepo productRepo, CategoryRepo categoryRepo) {
+		return (args) -> {
+			mapCategoryFileData(categoryRepo, "C:\\Users\\administator\\Downloads\\h2database\\category.txt");
+			mapProductFileData(productRepo, categoryRepo,
+					"C:\\Users\\administator\\Downloads\\h2database\\product.txt");
+		};
+	}
+
+	private static void mapCategoryFileData(CategoryRepo categoryRepo, String fileName) {
+		try {
+			List<Category> products = Files.lines(Paths.get(fileName)).skip(1).map(line -> {
+				String[] result = line.split(",");
+				try {
+					return new Category(result[1].replaceAll("\"", ""), result[2].replaceAll("\"", ""),
+							new SimpleDateFormat("yyyy-MM-dd")
+									.parse(result[3].replaceAll("00:00.0", "").replaceAll("\"", "")));
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				return null;
+			}).collect(Collectors.toList());
+			categoryRepo.save(products);
+		} catch (IOException io) {
+			io.printStackTrace();
+		}
+	}
+
+	private static void mapProductFileData(ProductRepo productRepo, CategoryRepo categoryRepo, String fileName) {
+		try {
+			List<Product> products = Files.lines(Paths.get(fileName)).skip(1).map(line -> {
+				String[] result = line.split(",");
+				try {
+					return new Product(
+							new SimpleDateFormat("yyyy-MM-dd")
+									.parse(result[1].replaceAll("00:00.0", "").replaceAll("\"", "")),
+							Double.valueOf(result[2].replaceAll("\"", "")), result[3].replaceAll("\"", ""),
+							result[4].replaceAll("\"", ""), Integer.valueOf(result[5].replaceAll("\"", "")),
+							categoryRepo.findOne(Integer.valueOf(result[6].replaceAll("\"", ""))));
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				return null;
+			}).collect(Collectors.toList());
+			productRepo.save(products);
+		} catch (IOException io) {
+			io.printStackTrace();
+		}
 	}
 
 	@Override

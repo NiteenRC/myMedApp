@@ -38,6 +38,13 @@ public class Category {
 	@Temporal(TemporalType.DATE)
 	private Date date;
 
+	public Category(String categoryDesc, String categoryName, Date date) {
+		super();
+		this.categoryName = categoryName;
+		this.categoryDesc = categoryDesc;
+		this.date = date;
+	}
+
 	public Date getDate() {
 		return date;
 	}
@@ -50,6 +57,10 @@ public class Category {
 	private Set<Product> products = new HashSet<>();
 
 	public Category() {
+	}
+
+	public Category(int categoryID) {
+		this.categoryID = categoryID;
 	}
 
 	public Set<Product> getProducts() {
