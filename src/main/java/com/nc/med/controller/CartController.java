@@ -78,7 +78,7 @@ public class CartController {
 		if (cart == null) {
 			return new ResponseEntity<>(new CustomErrorType("cartID: " + cartID + " not found."), HttpStatus.NOT_FOUND);
 		}
-		cartService.deleteCart(cartID);
+		cartService.deleteCart(cart);
 		return new ResponseEntity<>(cart, HttpStatus.OK);
 	}
 }

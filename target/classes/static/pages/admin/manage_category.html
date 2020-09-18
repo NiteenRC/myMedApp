@@ -1,0 +1,29 @@
+
+<div class="container">
+	<div>
+		<label for="First_Name">Category Name*:</label> <input
+			data-ng-model="categoryData.categoryName" type="text" /> &nbsp&nbsp&nbsp&nbsp<label
+			for="Name">Category Desc:</label> <input
+			data-ng-model="categoryData.categoryDesc" type="text" />&nbsp&nbsp&nbsp
+		<button class="btn-info" data-ng-click="saveCategory()">Save Category</button>
+	</div>
+</div>
+<br>
+
+<div>
+	<table class="table table-hover table table-bordered table-striped">
+		<thead>
+			<tr>
+				<th>Category Name</th>
+				<th>Category Desc</th>
+				<th>Remove</th>
+			</tr>
+		</thead>
+		<tr data-ng-repeat="cat in categories">
+			<td>{{cat.categoryName}}</td>
+			<td>{{cat.categoryDesc}}</td>
+			<td><button data-ng-click="removeCategory(cat.categoryID)">X</button>
+		</tr>
+	</table>
+	<p align="center" data-ng-show="categories.length==0">--No Data--</p>
+</div>

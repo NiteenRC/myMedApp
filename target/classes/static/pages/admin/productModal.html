@@ -1,0 +1,39 @@
+<div class="row text-center">
+	<div class="modal-header">
+		<h3>Add Product</h3>
+	</div>
+	<!-- 	<form enctype="multipart/form-data"> -->
+	<div class="modal-body">
+		<input type="hidden" data-ng-model="productData.productID" />
+		<div class="input-item">
+			<select data-ng-model="item"
+				data-ng-options="item.categoryName for item in categories | orderBy:'categoryName'"><option
+					value="">--Select Category--</option></select>
+		</div>
+		<br>
+		<div class="input-item">
+			<input type="text" placeholder="Enter Product Name*"
+				data-ng-model="productData.productName" />
+		</div>
+		<br>
+		<div class="input-item">
+			<textarea data-ng-model="productData.productDesc"
+				placeholder="Product description"></textarea>
+		</div>
+		<br>
+		<div class="input-item">
+			<input type="text" placeholder="Enter Price*"
+				data-ng-model="productData.price" />
+		</div>
+		<div class="modal-footer">
+			<div class="row text-center">
+				<button class="
+				btn-info" data-ng-click="saveProduct()">
+					Submit</button>
+				<button class="primary-btn" data-ng-click="clear()">Clear</button>
+				<button class="btn-warning" data-ng-click="cancel()">Cancel</button>
+			</div>
+		</div>
+	</div>
+	<!-- 	</form> -->
+</div>

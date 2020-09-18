@@ -50,7 +50,7 @@ public class CategoryController {
 			return new ResponseEntity<>(new CustomErrorType("Category with categoryID " + categoryID + " not found."),
 					HttpStatus.NOT_FOUND);
 		}
-		categoryService.deleteCategory(categoryID);
+		categoryService.deleteCategory(category);
 		return new ResponseEntity<>(category, HttpStatus.OK);
 	}
 

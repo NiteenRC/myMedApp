@@ -1,0 +1,45 @@
+<div>
+	<table class="table table-hover table table-bordered table-striped">
+		<thead>
+		<tr>
+			<th>Remove</th>
+			<th>Product Name</th>
+			<th>Price</th>
+			<th>Qty</th>
+			<th>Total</th>
+		</tr>
+		</thead>
+		<tr data-ng-repeat="cart in rows">
+			<td><button data-ng-click="removeCart($index)" data-ng-disabled="isSingleCartAvail">X</button></td>
+			<td>
+				<div class="col-xs-12 col-md-6">
+					<select data-ng-model="item"
+							data-ng-options="item.productName for item in products | orderBy:'productName'"
+							data-ng-change="selectedProduct(item.productID, $index)">
+						<option
+								value="">--Select Product--</option>
+					</select>
+				</div>
+			</td>
+			<td>{{cart.price}}</td>
+			<td>
+				<div >
+					<input type="text" data-ng-model="cart.qty" data-ng-change="qtyValidation(cart.qty, $index)">
+				</div>
+			</td>
+			<td>{{cart.price*cart.qty}}</td>
+		</tr>
+		<tr>
+			<td>Total:</td>
+			<td></td>
+			<td>{{getTotal('price')}}</td>
+			<td>{{getTotal('qty')}}</td>
+			<td>{{totalAmountToPaid()}}</td>
+		</tr>
+	</table>
+</div>
+<button class="button" ng-click="addRow()">Add Item</button>
+<div align="center">
+	<button class="btn" data-ng-disabled="rows==''"
+			data-ng-click="addCartList()">Add to Stock</button>
+</div>

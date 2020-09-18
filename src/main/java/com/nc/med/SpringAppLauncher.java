@@ -7,13 +7,16 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.web.support.SpringBootServletInitializer;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
+import com.nc.med.mail.MailService;
 import com.nc.med.model.Category;
 import com.nc.med.model.Product;
 import com.nc.med.model.User;
@@ -22,15 +25,20 @@ import com.nc.med.repo.ProductRepo;
 import com.nc.med.repo.UserRepo;
 
 @SpringBootApplication
+@EnableScheduling
 public class SpringAppLauncher extends SpringBootServletInitializer {
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringAppLauncher.class);
 	}
+	
+	@Autowired
+	MailService emailService;
 
 	@Bean
 	public CommandLineRunner setup(UserRepo userRepo) {
 		return (args) -> {
+			//emailService.sendMail("niteen2010@gmail.com", "Test Subject", "TestMessage");
 			User user = new User();
 			user.setUserId(1);
 			user.setUserName("Admin");
@@ -67,7 +75,7 @@ public class SpringAppLauncher extends SpringBootServletInitializer {
 					return null;
 
 				}).collect(Collectors.toList());
-				categoryRepo.save(products);
+				categoryRepo.saveAll(products);
 			} catch (IOException io) {
 				io.printStackTrace();
 			}
@@ -86,14 +94,14 @@ public class SpringAppLauncher extends SpringBootServletInitializer {
 											.parse(result[1].replaceAll("00:00.0", "").replaceAll("\"", "")),
 									Double.valueOf(result[2].replaceAll("\"", "")), result[3].replaceAll("\"", ""),
 									result[4].replaceAll("\"", ""), Integer.valueOf(result[5].replaceAll("\"", "")),
-									categoryRepo.findOne(Integer.valueOf(result[6].replaceAll("\"", ""))));
+									categoryRepo.findById(Integer.valueOf(result[6].replaceAll("\"", ""))).get());
 						}
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
 					return null;
 				}).collect(Collectors.toList());
-				productRepo.save(products);
+				productRepo.saveAll(products);
 			} catch (IOException io) {
 				io.printStackTrace();
 			}

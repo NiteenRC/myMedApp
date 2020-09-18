@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Build-Jdk-Spec: 14
+Implementation-Title: myMedStore
+Implementation-Version: 0.3.0
+Main-Class: com.nc.med.SpringAppLauncher
+Created-By: Maven Integration for Eclipse
+

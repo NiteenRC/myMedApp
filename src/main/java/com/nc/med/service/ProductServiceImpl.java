@@ -60,13 +60,13 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public void deleteProduct(Integer productID) {
+	public void deleteProduct(Product productID) {
 		productRepo.delete(productID);
 	}
 
 	@Override
 	public Product findByProductID(Integer productID) {
-		return productRepo.findOne(productID);
+		return productRepo.findById(productID).get();
 	}
 
 	@Override
@@ -81,7 +81,7 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public List<Product> saveProducts(List<Product> products) {
-		return productRepo.save(products);
+		return productRepo.saveAll(products);
 	}
 
 	@Override

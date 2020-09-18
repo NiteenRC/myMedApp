@@ -10,7 +10,7 @@ public interface CategoryService {
 
     Category findByCategoryID(Integer categoryID);
 
-    void deleteCategory(Integer categoryID);
+    void deleteCategory(Category categoryID);
 
     Category findByCategoryName(String categoryName);
 

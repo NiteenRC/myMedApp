@@ -1,0 +1,21 @@
+
+<div class="alert alert-error" data-ng-show="error">
+	<font color="red">{{errorMessage}}</font>
+</div>
+<div id="login">
+	<form name="myForm" novalidate>
+		<div class="input-item">
+			<input type="email" name="email" id="txtEmail" class="text-box"
+				data-ng-model="user.userEmail" placeholder="Enter Email Id" />
+		</div>
+		<br>
+		<div class="input-item">
+			<input type="password" name="interests" class="text-box"
+				data-ng-model="user.userPassword" data-ng-maxlength="255"
+				 placeholder="Enter Password" required>
+		</div>
+		<div class="form_settings">
+			<button data-ng-click="userLogin(user)">login</button>
+		</div>
+	</form>
+</div>

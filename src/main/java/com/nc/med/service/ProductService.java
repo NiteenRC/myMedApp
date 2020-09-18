@@ -17,7 +17,7 @@ public interface ProductService {
 
 	Product findByProductID(Integer productID);
 
-	void deleteProduct(Integer productID);
+	void deleteProduct(Product productID);
 
 	List<ProductBean> fetchAllProducts(List<Product> products);
 

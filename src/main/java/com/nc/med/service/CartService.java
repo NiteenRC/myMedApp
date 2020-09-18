@@ -12,7 +12,7 @@ public interface CartService {
 
 	Cart findByCartID(Integer cartID);
 
-	void deleteCart(Integer cartID);
+	void deleteCart(Cart cartID);
 
 	Cart findCartByProductName(String productName);
 

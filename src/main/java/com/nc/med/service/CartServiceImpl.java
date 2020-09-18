@@ -45,11 +45,11 @@ public class CartServiceImpl implements CartService {
 
 	@Override
 	public Cart findByCartID(Integer cartID) {
-		return cartRepo.findOne(cartID);
+		return cartRepo.findById(cartID).get();
 	}
 
 	@Override
-	public void deleteCart(Integer cartID) {
+	public void deleteCart(Cart cartID) {
 		cartRepo.delete(cartID);
 	}
 
