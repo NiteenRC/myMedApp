@@ -17,7 +17,7 @@ spring.logging:
 
 spring.datasource:
     driverClassName: org.h2.Driver
-    url: jdbc:h2:file:\Users/niteenchougula/Documents/workspace/spring-boot-batch/src/main/resources/b;AUTO_SERVER=TRUE
+    url: jdbc:h2:file:\Users/niteenchougula/Documents/workspace/spring-boot-batch/src/main/resources/c;AUTO_SERVER=TRUE
     
 spring.jpa.hibernate.ddl-auto: update    
 spring.jpa.properties.hibernate.dialect: org.hibernate.dialect.H2Dialect

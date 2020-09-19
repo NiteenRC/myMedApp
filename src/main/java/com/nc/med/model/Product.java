@@ -34,8 +34,8 @@ public class Product implements Serializable {
 	@Column(name = "Price", nullable = false)
 	private double price;
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "CATEGORY_ID", foreignKey = @ForeignKey(name = "PRODUCT_FK"))
-	@JsonIgnore
+	@JoinColumn(name = "CATEGORY_ID")
+	//@JsonIgnore
 	private Category category;
 	private String productDesc;
 	private int qty;

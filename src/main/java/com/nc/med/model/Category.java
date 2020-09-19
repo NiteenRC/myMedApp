@@ -53,7 +53,7 @@ public class Category {
 		this.date = date;
 	}
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "category", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Set<Product> products = new HashSet<>();
 
 	public Category() {
